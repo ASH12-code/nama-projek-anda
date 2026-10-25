@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Dompet & Tarik Saldo Toko - ON Shop Seller Centre</title>
+  <link rel="icon" href="data:,">
+  
+  <!-- CSS Khusus Tarik Saldo Tanpa Sidebar -->
+  <link rel="stylesheet" href="../../assets/css/seller-css/tarik-saldo.css" />
+</head>
+<body>
+
+
+<!-- 1. HEADER NAVIGASI BERSIH DENGAN JUDUL TENGAH HIJAU -->
+  <header class="utility-top-header">
+    <div class="header-inner-container">
+      <!-- Tombol Panah Kembali Saja (Tanpa Teks) -->
+      <button type="button" class="btn-back-header" onclick="handleGoBack()" aria-label="Kembali" title="Kembali">
+        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+
+      <!-- Judul Menu di Tengah Berwarna Khas Toko -->
+      <h1 class="header-brand-title">Dompet & Penarikan Dana</h1>
+
+      <!-- Slot Penyeimbang Kanan (Agar Judul Tetap Presisi di Tengah) -->
+      <div class="header-right-spacer"></div>
+    </div>
+  </header>
+
+  <!-- 2. KONTEN FORM UTAMA TERPUSAT (MAX-WIDTH 960PX) -->
+  <main class="utility-content-wrapper">
+    
+    <div class="page-title-row">
+      <h2>Dompet & Tarik Saldo Toko</h2>
+      <p class="page-desc">Kelola pencairan pendapatan hasil penjualan Anda ke rekening bank resmi yang terdaftar.</p>
+    </div>
+
+    <!-- Ringkasan Saldo Toko (2 Kartu Bersebelahan) -->
+    <div class="wallet-summary-grid">
+      <div class="wallet-card card-active-balance">
+        <div class="card-text-col">
+          <p>Saldo Aktif (Siap Tarik)</p>
+          <h3 id="availableBalanceDisplay">Rp 0</h3>
+        </div>
+        <div class="card-icon-tag">💳</div>
+      </div>
+
+      <div class="wallet-card card-escrow-balance">
+        <div class="card-text-col">
+          <p>Saldo Tertahan (Pesanan Sedang Berjalan)</p>
+          <h3 id="escrowBalanceDisplay">Rp 0</h3>
+          <small class="escrow-hint">Akan masuk saldo aktif setelah pesanan diterima pembeli</small>
+        </div>
+        <div class="card-icon-tag">⏳</div>
+      </div>
+    </div>
+
+    <!-- Formulir Pengajuan Penarikan Dana -->
+    <div class="form-withdraw-card">
+      <div class="form-header-bar">
+        <h4>Ajukan Penarikan Dana</h4>
+        <span class="rule-badge">Min. Tarik: Rp 50.000 | Biaya Admin: Rp 2.000</span>
+      </div>
+
+      <form id="withdrawForm" onsubmit="handleWithdrawSubmit(event)">
+        <div class="withdraw-form-grid">
+          
+          <!-- Sisi Kiri: Rekening Bank Tujuan -->
+          <div class="bank-info-box">
+            <span class="label-info">Rekening Bank Tujuan:</span>
+            <strong class="bank-name-large" id="primaryBankName">Bank BCA</strong>
+            <div class="bank-acc-number" id="primaryBankNumber">•••• ----</div>
+            <div class="bank-acc-holder" id="primaryBankHolder">a.n Pemilik Toko</div>
+            
+            <button type="button" class="btn-change-bank" onclick="openAddBankModal()">Ubah Rekening</button>
+          </div>
+
+          <!-- Sisi Kanan: Input Nominal Penarikan -->
+          <div class="amount-input-box">
+            <div class="form-group">
+              <label for="withdrawAmount">Nominal Penarikan (Rp):</label>
+              <div class="input-amount-wrapper">
+                <span class="input-prefix">Rp</span>
+                <input type="number" id="withdrawAmount" class="input-amount" placeholder="Minimal 50.000" min="50000" oninput="calculateWithdrawSummary()" required />
+                <button type="button" class="btn-inline-max" onclick="setWithdrawAll()">Tarik Semua</button>
+              </div>
+
+              <!-- Quick Chips Nominal -->
+              <div class="quick-amount-chips">
+                <button type="button" class="chip-btn" onclick="setWithdrawAmount(100000)">100 Rb</button>
+                <button type="button" class="chip-btn" onclick="setWithdrawAmount(500000)">500 Rb</button>
+                <button type="button" class="chip-btn" onclick="setWithdrawAmount(1000000)">1 Jt</button>
+              </div>
+            </div>
+
+            <!-- Rincian Biaya & Total Terima -->
+            <div class="withdraw-summary-table">
+              <div class="summary-line">
+                <span>Biaya Layanan Admin:</span>
+                <span style="color: #ef4444; font-weight: bold;">Rp 2.000</span>
+              </div>
+              <div class="summary-line line-total">
+                <span>Total Dana Diterima di Rekening:</span>
+                <strong style="color: #2e8b57; font-size: 15px;" id="netAmountDisplay">Rp 0</strong>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit-withdraw" id="btnSubmitWithdraw">Tarik Saldo Sekarang</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- Riwayat Transaksi & Mutasi Dompet -->
+    <div class="history-card">
+      <div class="history-header">
+        <h4>Riwayat Mutasi & Transaksi Dompet</h4>
+        <p>Seluruh perputaran dana masuk dari pesanan dan pencairan rekening dicatat di sini.</p>
+      </div>
+
+      <div class="table-responsive-box">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Waktu</th>
+              <th>Tipe Transaksi</th>
+              <th>Keterangan / ID</th>
+              <th>Nominal</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="withdrawHistoryBody">
+            <!-- Dirender secara dinamis oleh tarik-saldo.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 3. MODAL TAMBAH / UBAH REKENING BANK -->
+  <div class="modal-overlay" id="addBankModal">
+    <div class="modal-card">
+      <h3>Ubah Rekening Bank</h3>
+      <p>Pastikan nama pemilik rekening sesuai dengan identitas pemilik toko Anda.</p>
+      
+      <form onsubmit="handleSaveNewBank(event)">
+        <div class="modal-form-group">
+          <label for="newBankSelect">Pilih Bank</label>
+          <select id="newBankSelect" class="select-field" required>
+            <option value="Bank BCA">Bank BCA</option>
+            <option value="Bank Mandiri">Bank Mandiri</option>
+            <option value="Bank BNI">Bank BNI</option>
+            <option value="Bank BRI">Bank BRI</option>
+            <option value="Bank BSI">Bank BSI</option>
+            <option value="Bank CIMB Niaga">Bank CIMB Niaga</option>
+          </select>
+        </div>
+        <div class="modal-form-group">
+          <label for="newAccountNumber">Nomor Rekening</label>
+          <input type="number" id="newAccountNumber" class="input-field" placeholder="Contoh: 1234567890" required />
+        </div>
+        <div class="modal-form-group">
+          <label for="newAccountHolder">Nama Pemilik Rekening</label>
+          <input type="text" id="newAccountHolder" class="input-field" placeholder="Sesuai buku tabungan" required />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-modal-cancel" onclick="closeAddBankModal()">Batal</button>
+          <button type="submit" class="btn-modal-save">Simpan Rekening</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. MODAL KONFIRMASI CUSTOM (PENGGANTI WINDOW.CONFIRM) -->
+  <div class="modal-overlay" id="confirmWithdrawModal" style="display:none; z-index:10001;">
+    <div class="modal-card modal-confirm-card">
+      <div style="font-size:32px; margin-bottom:6px;">💰</div>
+      <h3 style="margin-bottom:6px;">Konfirmasi Penarikan Saldo</h3>
+      <div id="confirmWithdrawDetails" class="confirm-withdraw-box"></div>
+      <div class="modal-actions" style="justify-content:center; gap:10px;">
+        <button type="button" class="btn-modal-cancel" onclick="closeConfirmWithdrawModal()">Batal</button>
+        <button type="button" class="btn-modal-save" id="btnExecuteWithdraw">Ya, Tarik Sekarang</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION STANDAR PENGGANTI ALERT -->
+  <div id="toastNotification" class="toast-box">
+    <span class="toast-icon" id="toastIcon">✓</span>
+    <span id="toastMessage">Operasi berhasil!</span>
+  </div>
+
+  <!-- Skrip Logika Tarik Saldo Tanpa Navigasi Ekstra -->
+  <script src="../../assets/js/seller-js/tarik-saldo.js"></script>
+</body>
+</html>

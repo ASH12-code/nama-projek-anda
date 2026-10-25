@@ -1,0 +1,698 @@
+/* =========================================================
+   ON SHOP - PESANAN SAYA STYLESHEET (Clean & Responsive)
+   File: assets/css/buyer-css/pesanan-saya.css
+   ========================================================= */
+
+/* --- 1. RESET DAN TATA LETAK UTAMA --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #334155;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.order-page-container {
+  max-width: 900px;
+  margin: 24px auto 60px auto;
+  padding: 0 16px;
+  width: 100%;
+}
+
+/* --- 2. HEADER JUDUL HALAMAN --- */
+.page-title-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 18px 20px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.title-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-title-box h2 {
+  font-size: 18px;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.page-title-box p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.btn-toggle-history {
+  background: #ffffff;
+  border: 1.5px solid #2e8b57;
+  color: #2e8b57;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 12.5px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-toggle-history:hover {
+  background: #2e8b57;
+  color: #ffffff;
+}
+
+/* --- 3. BILAH TAB STATUS HORIZONTAL (DESKTOP & MOBILE SCROLL) --- */
+.status-tab-scroll-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.status-tab-scroll-bar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.status-tab-scroll-bar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.status-tab-pill {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.status-tab-pill:hover {
+  border-color: #2e8b57;
+  color: #2e8b57;
+}
+
+.status-tab-pill.active {
+  background: #f0fdf4;
+  border-color: #2e8b57;
+  color: #2e8b57;
+  box-shadow: 0 1px 3px rgba(46, 139, 87, 0.15);
+}
+
+.pill-counter {
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.status-tab-pill.active .pill-counter {
+  background: #2e8b57;
+  color: #ffffff;
+}
+
+.badge-red-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #e74c3c;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* --- 4. SUB-TAB RIWAYAT TRANSAKSI --- */
+.history-tabs-bar {
+  display: flex;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.history-tab-btn {
+  flex: 1;
+  padding: 12px 10px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: bold;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.history-tab-btn:hover {
+  background: #f8fafc;
+}
+
+.history-tab-btn.active {
+  color: #2e8b57;
+  background: #f0fdf4;
+  border-bottom-color: #2e8b57;
+}
+
+/* --- 5. KARTU ITEM PESANAN (ORDER FEED) --- */
+.order-feed-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.order-item-card {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.order-card-header {
+  background: #f8fafc;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13px;
+}
+
+.order-shop-name {
+  font-weight: bold;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.order-status-tag {
+  color: #ff9900;
+  font-weight: bold;
+  font-size: 12.5px;
+}
+
+.order-product-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 14px;
+}
+
+.order-thumb-box {
+  width: 65px;
+  height: 65px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  flex-shrink: 0;
+  background: #f8fafc;
+}
+
+.order-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.order-info-box {
+  flex: 1;
+  min-width: 0;
+}
+
+.order-prod-title {
+  font-size: 13.5px;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-prod-variant {
+  font-size: 11.5px;
+  color: #64748b;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.order-qty {
+  font-size: 11.5px;
+  color: #94a3b8;
+}
+
+.order-price-box {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.order-price {
+  font-size: 14px;
+  font-weight: bold;
+  color: #2e8b57;
+}
+
+/* Footer Kartu & Tombol Aksi */
+.order-card-footer {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.order-total-sum {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.order-total-sum strong {
+  font-size: 15px;
+  color: #ff9900;
+}
+
+.order-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Standarisasi Tombol */
+.btn-action-primary {
+  background: #ff9900;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 12.5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.btn-action-primary:hover {
+  background: #e68a00;
+}
+
+.btn-action-outline {
+  background: #ffffff;
+  color: #2e8b57;
+  border: 1px solid #2e8b57;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 12.5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.btn-action-outline:hover {
+  background: #f0fdf4;
+}
+
+.btn-action-cancel {
+  background: #ffffff;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-cancel:hover {
+  background: #fef2f2;
+}
+
+.btn-action-return {
+  background: #ffffff;
+  border: 1px solid #e74c3c;
+  color: #e74c3c;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-return:hover {
+  background: #fef2f2;
+}
+
+.empty-order-state {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 36px 16px;
+  text-align: center;
+  color: #94a3b8;
+  border: 1px solid #e2e8f0;
+  font-size: 13.5px;
+}
+
+/* --- 6. MODAL POP-UP (RATING & RETUR) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.modal-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.modal-title {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.modal-subtitle {
+  font-size: 12.5px;
+  color: #64748b;
+  margin-bottom: 14px;
+}
+
+.star-rating-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.star-clickable {
+  font-size: 28px;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.star-clickable.gold {
+  color: #f59e0b;
+}
+
+.modal-form-label {
+  font-size: 12.5px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+  color: #334155;
+}
+
+.modal-select-box {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  margin-bottom: 14px;
+  font-size: 13px;
+  outline: none;
+}
+
+.rating-textarea {
+  width: 100%;
+  height: 90px;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  resize: none;
+  font-size: 12.5px;
+  outline: none;
+  margin-bottom: 14px;
+}
+
+.rating-textarea:focus {
+  border-color: #2e8b57;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-cancel {
+  background: #e2e8f0;
+  color: #475569;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.btn-submit-review {
+  background: #2e8b57;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12.5px;
+}
+
+.text-danger {
+  color: #e74c3c !important;
+}
+
+.bg-danger {
+  background: #e74c3c !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   7. ATURAN RESPONSIVE MOBILE (BASELINE 360px - 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  /* Beri bantalan bawah aman agar daftar transaksi terbawah tidak tertutup bottom nav */
+  body {
+    padding-bottom: 75px !important;
+    overflow-x: hidden;
+  }
+
+  .order-page-container {
+    margin: 10px auto;
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .page-title-box {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .page-title-box h2 {
+    font-size: 15px;
+  }
+
+  .page-title-box p {
+    font-size: 11.5px;
+  }
+
+  .btn-toggle-history {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  /* Status Tab Berbentuk Geser Horizontal di Ponsel */
+  .status-tab-scroll-bar {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .status-tab-pill {
+    padding: 6px 12px;
+    font-size: 11.5px;
+  }
+
+  .pill-counter {
+    font-size: 10px;
+    padding: 1px 5px;
+  }
+
+  /* Sub-tab Riwayat */
+  .history-tab-btn {
+    padding: 10px 6px;
+    font-size: 11.5px;
+  }
+
+  /* Kartu Pesanan di HP */
+  .order-item-card {
+    border-radius: 6px;
+  }
+
+  .order-card-header {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .order-status-tag {
+    font-size: 11.5px;
+  }
+
+  .order-product-row {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .order-thumb-box {
+    width: 55px;
+    height: 55px;
+  }
+
+  .order-prod-title {
+    font-size: 12px;
+  }
+
+  .order-prod-variant,
+  .order-qty {
+    font-size: 10.5px;
+  }
+
+  .order-price {
+    font-size: 12.5px;
+  }
+
+  /* Footer Kartu & Tombol Aksi HP */
+  .order-card-footer {
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .order-total-sum {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+
+  .order-total-sum strong {
+    font-size: 13.5px;
+  }
+
+  .order-action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .btn-action-primary,
+  .btn-action-outline,
+  .btn-action-return {
+    padding: 7px 12px;
+    font-size: 11.5px;
+  }
+
+  .btn-action-cancel {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+
+/* --- STYLING TAMBAHAN STATUS PENGEMBALIAN & DISPUTE --- */
+.dispute-box-alert {
+  background: #fff7ed;
+  border: 1px dashed #ea580c;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 10px 16px;
+  font-size: 12px;
+  color: #9a3412;
+  line-height: 1.5;
+}
+
+.dispute-verdict-box {
+  background: #f0fdf4;
+  border: 1px dashed #16a34a;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 10px 16px;
+  font-size: 12px;
+  color: #166534;
+  line-height: 1.5;
+}
+
+.badge-alert-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pill-counter.has-alert {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+.btn-action-jne {
+  background: #f0f9ff;
+  color: #0284c7;
+  border: 1.5px solid #0284c7;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-jne:hover {
+  background: #0284c7;
+  color: #ffffff;
+}

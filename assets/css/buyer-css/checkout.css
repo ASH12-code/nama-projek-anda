@@ -1,0 +1,840 @@
+/* =========================================================
+   ON SHOP - CHECKOUT & PAYMENT STYLESHEET (Clean & Responsive)
+   Mendukung Voucher Platform ON Shop & Voucher Toko
+   File: assets/css/buyer-css/checkout.css
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #334155;
+  width: 100%;
+}
+
+.page-wrapper {
+  max-width: 1200px;
+  margin: 20px auto 40px auto;
+  padding: 0 15px;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.checkout-left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* KARTU UNIVERSAL */
+.checkout-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 18px 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.card-header-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.address-title span {
+  font-size: 15px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.btn-text-action {
+  background: none;
+  border: none;
+  color: #2e8b57;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-text-action:hover {
+  text-decoration: underline;
+}
+
+.address-body {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #475569;
+}
+
+.address-body strong {
+  color: #1e293b;
+}
+
+/* KARTU TOKO & PRODUK */
+.checkout-shops-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.shop-checkout-card {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+}
+
+.shop-meta-header {
+  background: #f8fafc;
+  padding: 12px 18px;
+  font-size: 13.5px;
+  font-weight: bold;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.shop-city-badge {
+  font-size: 11px;
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: normal;
+}
+
+.checkout-item-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 14px;
+}
+
+.checkout-item-row:last-of-type {
+  border-bottom: none;
+}
+
+.item-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  flex-shrink: 0;
+  background: #f8fafc;
+}
+
+.item-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-sub {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.item-price {
+  font-size: 14px;
+  font-weight: bold;
+  color: #2e8b57;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* DESAIN MENU VOUCHER */
+.shop-voucher-row {
+  background: #ffffff;
+  padding: 12px 18px;
+  border-top: 1px dashed #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.platform-voucher-row {
+  background: #f0fdf4;
+  border-top: 1px solid #dcfce7;
+  border-bottom: 1px dashed #dcfce7;
+}
+
+.platform-voucher-row.disabled-row {
+  background: #f8fafc;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px dashed #f1f5f9;
+}
+
+.voucher-info-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.voucher-icon-badge {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.voucher-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.voucher-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.voucher-status-empty {
+  font-size: 11.5px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.voucher-applied-text {
+  color: #15803d !important;
+  font-style: normal !important;
+  font-weight: 600;
+}
+
+.voucher-info-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.voucher-amount {
+  font-size: 13px;
+  font-weight: bold;
+  color: #64748b;
+}
+
+.voucher-amount.text-green {
+  color: #16a34a !important;
+}
+
+.btn-select-voucher {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-select-voucher:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+/* OPSI KURIR */
+.shop-shipping-box {
+  background: #fcfcfd;
+  padding: 14px 18px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.shipping-select {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  color: #334155;
+  background-color: #ffffff;
+  transition: border-color 0.2s;
+  max-width: 260px;
+  flex: 1;
+}
+
+.shipping-select:focus {
+  border-color: #2e8b57;
+}
+
+.shipping-cost-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff9900;
+  white-space: nowrap;
+}
+
+/* METODE PEMBAYARAN */
+.card-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 14px;
+}
+
+.payment-options-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-radio-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.payment-radio-item:hover {
+  border-color: #2e8b57;
+  background-color: #fcfdfc;
+}
+
+.payment-radio-item input[type="radio"] {
+  margin-top: 3px;
+  accent-color: #2e8b57;
+  cursor: pointer;
+}
+
+.payment-text-meta strong {
+  display: block;
+  font-size: 13.5px;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.payment-text-meta small {
+  color: #64748b;
+  font-size: 11.5px;
+  line-height: 1.4;
+  display: block;
+}
+
+.sub-bank-box {
+  background: #f8fafc;
+  border: 1px dashed #2e8b57;
+  border-radius: 6px;
+  padding: 14px;
+  margin-left: 28px;
+  margin-top: -2px;
+}
+
+.sub-bank-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #2e8b57;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.bank-grid-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.bank-sub-item {
+  font-size: 12.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #334155;
+}
+
+.bank-sub-item input[type="radio"] {
+  accent-color: #2e8b57;
+}
+
+/* RINGKASAN DESKTOP */
+.checkout-right-column {
+  position: relative;
+  width: 100%;
+}
+
+.summary-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 75px;
+}
+
+.summary-title {
+  font-size: 15.5px;
+  color: #1e293b;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 14px 0;
+}
+
+.calc-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.calc-total-row span {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.calc-total-row h2,
+#grandTotalDisplay {
+  font-size: 20px;
+  color: #ff9900;
+  font-weight: bold;
+}
+
+.btn-create-order {
+  width: 100%;
+  padding: 12px;
+  background: #ff9900;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-create-order:hover {
+  background: #e68a00;
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 15px;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.modal-address-items-wrapper {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.modal-address-item {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 12px 14px;
+  cursor: pointer;
+  background-color: #f8fafc;
+  transition: all 0.2s;
+}
+
+.modal-address-item:hover {
+  border-color: #2e8b57;
+  background-color: #f0fdf4;
+}
+
+.modal-address-item.selected {
+  border-color: #2e8b57;
+  background-color: #ecfdf5;
+  box-shadow: 0 0 0 1px #2e8b57;
+}
+
+/* Item pada Modal Voucher */
+.modal-voucher-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s;
+}
+
+.modal-voucher-item.disabled {
+  opacity: 0.5;
+  background-color: #f8fafc;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.btn-cancel {
+  padding: 9px 16px;
+  background: #e2e8f0;
+  color: #475569;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.btn-manage-addr {
+  padding: 9px 16px;
+  background: #2e8b57;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.modal-choice-box {
+  max-width: 380px;
+  text-align: center;
+  padding: 22px;
+}
+
+.choice-subtext {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.choice-info-summary {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+}
+
+.choice-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #334155;
+}
+
+.choice-row:last-child {
+  margin-bottom: 0;
+}
+
+.choice-row strong {
+  color: #2e8b57;
+}
+
+.modal-choice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-action-paynow {
+  width: 100%;
+  padding: 12px;
+  background: #2e8b57;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-action-paynow:hover {
+  background: #246e45;
+}
+
+.btn-action-paylater {
+  width: 100%;
+  padding: 11px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-action-paylater:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* RESPONSIVE MOBILE (360px - 768px) */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 110px;
+    overflow-x: hidden;
+  }
+
+  .page-wrapper {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  .checkout-grid {
+    display: block;
+    width: 100%;
+  }
+
+  .checkout-card {
+    padding: 14px;
+  }
+
+  .address-title span {
+    font-size: 14px;
+  }
+
+  .btn-text-action {
+    font-size: 12px;
+  }
+
+  .address-body {
+    font-size: 12px;
+  }
+
+  .shop-meta-header {
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+
+  .checkout-item-row {
+    padding: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .item-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .item-name {
+    font-size: 12px;
+  }
+
+  .item-sub {
+    font-size: 11px;
+  }
+
+  .item-price {
+    font-size: 13px;
+    margin-left: auto;
+  }
+
+  .shop-voucher-row {
+    padding: 10px 12px;
+  }
+
+  .voucher-title {
+    font-size: 12px;
+  }
+
+  .voucher-status-empty {
+    font-size: 11px;
+  }
+
+  .voucher-amount {
+    font-size: 12px;
+  }
+
+  .btn-select-voucher {
+    padding: 4px 10px;
+    font-size: 11.5px;
+  }
+
+  .shop-shipping-box {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .shipping-select {
+    max-width: 100%;
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .shipping-cost-label {
+    text-align: right;
+    font-size: 13px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .payment-radio-item {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .payment-text-meta strong {
+    font-size: 12.5px;
+  }
+
+  .payment-text-meta small {
+    font-size: 11px;
+  }
+
+  .sub-bank-box {
+    margin-left: 10px;
+    padding: 10px;
+  }
+
+  .bank-grid-options {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .bank-sub-item {
+    font-size: 12px;
+  }
+
+  .checkout-right-column {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 1200 !important;
+  }
+
+  .summary-card {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-top: 1px solid #e2e8f0 !important;
+    padding: 10px 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: #ffffff !important;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .summary-title,
+  .calc-row,
+  .summary-divider {
+    display: none !important;
+  }
+
+  .calc-total-row {
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .calc-total-row span {
+    font-size: 11px !important;
+    color: #64748b !important;
+  }
+
+  .calc-total-row h2,
+  #grandTotalDisplay {
+    font-size: 16px !important;
+  }
+
+  .btn-create-order {
+    width: auto !important;
+    min-width: 140px !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    border-radius: 6px !important;
+  }
+}
+
+/* Penyesuaian Baris Voucher Gratis Ongkir */
+.platform-shipping-voucher-row {
+  background: #f0fdf4;
+  border-top: 1px dashed #bbf7d0;
+  border-bottom: 1px solid #dcfce7;
+}
+.platform-shipping-voucher-row .voucher-title {
+  color: #166534;
+}

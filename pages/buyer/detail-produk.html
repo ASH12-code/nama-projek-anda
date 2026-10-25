@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Detail Produk - ON Shop</title>
+
+    <!-- CSS Universal Navbar, Toast, & Detail Produk Mandiri -->
+    <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/detail-produk.css" />
+</head>
+<body>
+
+    <!-- 1. Universal Top Navbar Model Keranjang (Tombol Kembali) -->
+    <nav class="navbar">
+        <!-- Slot Kiri: Tombol Kembali Murni (Desktop & Mobile) -->
+        <div class="nav-left-slot">
+            <button type="button" class="nav-back-btn" onclick="handleDetailBackNav()" title="Kembali">
+                <span class="nav-back-arrow">←</span>
+                <span class="nav-back-text">Kembali</span>
+            </button>
+        </div>
+
+        <!-- Kolom Pencarian Tengah Fleksibel -->
+        <div class="nav-search-wrapper">
+            <input 
+                type="text" 
+                id="navSearchInput" 
+                placeholder="Cari produk lain di ON Shop..." 
+                class="nav-search-input" 
+                autocomplete="off"
+            />
+            <button type="button" id="navSearchBtn" class="nav-search-btn" onclick="handleDetailSearch()">Cari</button>
+        </div>
+
+        <!-- Menu Aksi Kanan Desktop -->
+        <div class="nav-menu-group">
+            <a href="buka-toko.html" id="navSellerSlot" class="nav-seller-slot-btn nav-hidden">
+                Mulai Jual
+            </a>
+
+            <!-- 1. Tombol Pesan -->
+            <a href="chat.html" class="nav-text-btn" title="Pesan Obrolan">
+                <span>Pesan</span>
+                <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+            </a>
+
+            <!-- 2. Tombol Keranjang -->
+            <a href="keranjang.html" class="nav-text-btn" title="Keranjang Belanja">
+                <span>Keranjang</span>
+                <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+            </a>
+
+            <!-- 3. Dropdown Menu Akun -->
+            <div class="nav-account-dropdown-wrapper">
+                <div class="nav-account-trigger" id="navAccountTrigger">
+                    <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+                    <span class="nav-account-name" id="navAccountNameText">Akun</span>
+                    <span class="nav-dropdown-caret">▼</span>
+                </div>
+
+                <div class="nav-dropdown-menu" id="navAccountMenu">
+                    <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+                    <a href="pesanan-saya.html" class="nav-dropdown-item">📦 Pesanan Saya</a>
+                    <a href="pusat-bantuan.html" class="nav-dropdown-item">❓ Pusat Bantuan</a>
+                    <div class="nav-dropdown-divider"></div>
+                    <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+                        🚪 Keluar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Konten Halaman Detail Produk -->
+    <main class="page-container">
+        
+        <!-- Breadcrumb Jejak Navigasi (Hanya Desktop) -->
+        <div class="breadcrumb">
+            <a href="index.html">Beranda</a> &gt; <span id="breadcrumbCategory">Kategori</span> &gt; <span id="breadcrumbTitle">Memuat Produk...</span>
+        </div>
+
+        <!-- Kotak Utama Produk -->
+        <div class="product-top-layout">
+            
+            <!-- Kolom 1: Galeri Foto Produk -->
+            <div class="gallery-column">
+                <div class="main-image-wrapper">
+                    <img src="../../assets/images/placeholder.webp" alt="Produk Utama" class="main-image" id="mainImage" onerror="this.src='https://placehold.co/500x500?text=Produk'" />
+                </div>
+                <div class="thumbnail-list" id="thumbnailList">
+                    <!-- Thumbnail dirender via JS -->
+                </div>
+            </div>
+
+            <!-- Kolom 2: Informasi Produk, Varian & Tombol Aksi Desktop -->
+            <div class="info-column">
+                <h1 class="product-title" id="prodTitle">Memuat Nama Produk...</h1>
+                
+                <div class="stats-row">
+                    <span class="rating-stars" id="prodRatingText">⭐ 5.0</span>
+                    <span class="divider">|</span>
+                    <span id="reviewCountText">0 Penilaian</span>
+                    <span class="divider">|</span>
+                    <span id="soldCountText">0 Terjual</span>
+                </div>
+
+                <div class="price-box">
+                    <span class="current-price" id="currentPriceDisplay">Rp 0</span>
+                    <span class="original-price" id="originalPriceDisplay" style="display: none;">Rp 0</span>
+                    <span class="discount-badge" id="discountBadge" style="display: none;">-0%</span>
+                </div>
+
+                <!-- Pemilihan Varian -->
+                <div class="variant-section" id="variantSectionWrap">
+                    <label class="section-label">Pilih Varian:</label>
+                    <div class="variant-options" id="variantOptionsContainer">
+                        <!-- Pilihan varian dirender dinamis -->
+                    </div>
+                </div>
+
+                <!-- Kontrol Kuantitas Pembelian -->
+                <div class="quantity-section">
+                    <label class="section-label">Kuantitas:</label>
+                    <div class="qty-control-row">
+                        <div class="qty-wrapper">
+                            <button type="button" class="qty-btn" id="btnMin">-</button>
+                            <input type="text" value="1" class="qty-input" id="qtyInput" readonly />
+                            <button type="button" class="qty-btn" id="btnPlus">+</button>
+                        </div>
+                        <span class="stock-info" id="stockDisplay">Memuat stok...</span>
+                    </div>
+                </div>
+
+                <!-- Tombol Transaksi Desktop -->
+                <div class="action-buttons desktop-only-actions">
+                    <button type="button" class="btn-cart" onclick="handleAddToCart()">🛒 Masukkan Keranjang</button>
+                    <button type="button" class="btn-buy" onclick="handleDirectBuy()">Beli Sekarang</button>
+                </div>
+            </div>
+
+            <!-- Kolom 3: Profil Toko Penjual -->
+            <aside class="shop-vertical-card">
+                <div class="shop-card-header">
+                    <div class="shop-avatar" id="shopAvatarBadge">TK</div>
+                    <div class="shop-meta">
+                        <h4 class="shop-name" id="shopProfileName">Toko Penjual</h4>
+                        <span class="shop-badge">Penjual Terverifikasi</span>
+                        <span class="shop-city" id="shopCityLocation">📍 Indonesia</span>
+                    </div>
+                </div>
+                
+                <div class="shop-stats-grid">
+                    <div class="shop-stat-item">
+                        <span>Penilaian:</span>
+                        <strong>4.9 / 5.0</strong>
+                    </div>
+                    <div class="shop-stat-item">
+                        <span>Balas Chat:</span>
+                        <strong>100%</strong>
+                    </div>
+                    <div class="shop-stat-item">
+                        <span>Bergabung:</span>
+                        <strong>Aktif</strong>
+                    </div>
+                </div>
+
+                <div class="shop-actions">
+                    <a href="chat.html" class="btn-shop-chat" id="btnDetailChatSeller">💬 Chat Penjual</a>
+                    <a href="toko.html" class="btn-shop-visit" id="btnDetailVisitShop">Kunjungi Toko</a>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Tab Navigasi (Spesifikasi & Ulasan) -->
+        <div class="tabs-container">
+            <div class="tabs-nav-bar">
+                <button type="button" class="tab-item-btn active" onclick="switchTab('specsTab', this)">Spesifikasi & Deskripsi</button>
+                <button type="button" class="tab-item-btn" onclick="switchTab('reviewsTab', this)">Ulasan Pembeli (<span id="tabReviewCounter">0</span>)</button>
+            </div>
+
+            <!-- Panel 1: Spesifikasi & Deskripsi -->
+            <div class="tab-panel active" id="specsTab">
+                <div class="specs-box">
+                    <h3 class="panel-subtitle">Spesifikasi Barang</h3>
+                    <div class="spec-grid" id="specGridDetails">
+                        <div class="spec-label">Kategori</div>
+                        <div class="spec-value" id="specCategoryText">-</div>
+                        
+                        <div class="spec-label">Kondisi</div>
+                        <div class="spec-value">Baru (100% Original)</div>
+                        
+                        <div class="spec-label">Asal Pengiriman</div>
+                        <div class="spec-value" id="specOriginCity">Indonesia</div>
+                        
+                        <div class="spec-label">Masa Garansi</div>
+                        <div class="spec-value">Garansi Toko Resmi</div>
+                    </div>
+
+                    <h3 class="panel-subtitle" style="margin-top: 20px;">Deskripsi Lengkap</h3>
+                    <div class="description-text" id="prodDescriptionFull">
+                        <p>Memuat deskripsi produk...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 2: Ulasan Pembeli -->
+            <div class="tab-panel" id="reviewsTab">
+                <div class="reviews-box">
+                    <div class="review-score-summary">
+                        <div class="score-large">
+                            <h2 id="reviewSummaryAverage">5.0</h2>
+                            <div class="stars-gold">★★★★★</div>
+                            <small>dari 5 Bintang</small>
+                        </div>
+                    </div>
+
+                    <div class="review-items-container" id="productReviewsFeed">
+                        <!-- Ulasan dirender via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 3. Bilah Aksi Bawah Layar HP -->
+    <div class="mobile-bottom-actions">
+        <a href="chat.html" class="mobile-action-chat" id="btnMobileChatLink" aria-label="Chat">
+            <span class="action-icon">💬</span>
+            <span class="action-text">Chat</span>
+        </a>
+        <button type="button" class="mobile-btn-cart" onclick="handleAddToCart()">
+            + Keranjang
+        </button>
+        <button type="button" class="mobile-btn-buy" onclick="handleDirectBuy()">
+            Beli Sekarang
+        </button>
+    </div>
+
+    <!-- Skrip Universal Navbar, Toast, & Detail Produk -->
+    <script src="../../assets/js/buyer-js/toast.js"></script>
+    <script src="../../assets/js/buyer-js/navbar.js"></script>
+    <script src="../../assets/js/buyer-js/detail-produk.js"></script>
+
+</html>

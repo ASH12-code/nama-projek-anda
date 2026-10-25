@@ -1,0 +1,129 @@
+C:/laragon/www/on-shop/
+├── config/
+│   └── database.php
+│
+├── api/
+│   ├── admin/
+│   │   ├── get_disputes.php
+│   │   ├── resolve_dispute.php
+│   │   ├── get_users.php
+│   │   ├── ban_user.php
+│   │   ├── get_shops.php
+│   │   └── get_financials.php
+│   ├── buyer/
+│   │   ├── get_products.php
+│   │   ├── get_product_detail.php
+│   │   ├── get_cart.php
+│   │   ├── add_to_cart.php
+│   │   ├── create_order.php
+│   │   └── get_my_orders.php
+│   └── seller/
+│       ├── get_shop_info.php
+│       ├── get_seller_products.php
+│       ├── add_product.php
+│       ├── get_seller_orders.php
+│       └── update_order_status.php
+│
+├── assets/
+│   ├── css/
+│   │   ├── admin-css/
+│   │   │   └── admin.css
+│   │   ├── buyer-css/
+│   │   │   ├── akun.css
+│   │   │   ├── checkout.css
+│   │   │   ├── daftar-alamat.css
+│   │   │   ├── detail-produk.css
+│   │   │   ├── index.css
+│   │   │   ├── keranjang.css
+│   │   │   ├── login.css
+│   │   │   ├── pembayaran-qris.css
+│   │   │   ├── pembayaran-va.css
+│   │   │   ├── pengiriman.css
+│   │   │   ├── pesanan-saya.css
+│   │   │   ├── pusat-bantuan.css
+│   │   │   ├── register.css
+│   │   │   ├── riwayat-pesanan.css
+│   │   │   └── search.css
+│   │   └── seller-css/
+│   │       ├── chat-pelanggan.css
+│   │       ├── daftar-produk.css
+│   │       ├── dashbord-toko.css
+│   │       ├── kelola-pesanan.css
+│   │       ├── tambah-produk.css
+│   │       ├── tarik-saldo.css
+│   │       └── ulasan-toko.css
+│   │
+│   ├── js/
+│   │   ├── admin-js/
+│   │   │   ├── admin-keuangan.js
+│   │   │   ├── admin-pusat-bantuan.js
+│   │   │   ├── admin-toko.js
+│   │   │   ├── admin-user.js
+│   │   │   ├── dashbord-admin.js
+│   │   │   └── index-admin.js
+│   │   ├── buyer-js/
+│   │   │   ├── akun.js
+│   │   │   ├── checkout.js
+│   │   │   ├── daftar-alamat.js
+│   │   │   ├── detail-produk.js
+│   │   │   ├── index.js
+│   │   │   ├── keranjang.js
+│   │   │   ├── login.js
+│   │   │   ├── pembayaran-qris.js
+│   │   │   ├── pembayaran-va.js
+│   │   │   ├── pengiriman.js
+│   │   │   ├── pesanan-saya.js
+│   │   │   ├── pusat-bantuan.js
+│   │   │   ├── register.js
+│   │   │   ├── riwayat-pesanan.js
+│   │   │   └── search.js
+│   │   └── seller-js/
+│   │       ├── chat-pelanggan.js
+│   │       ├── daftar-produk.js
+│   │       ├── dashbord-toko.js
+│   │       ├── kelola-pesanan.js
+│   │       ├── tambah-produk.js
+│   │       ├── tarik-saldo.js
+│   │       └── ulasan-toko.js
+│   │
+│   └── images/
+│       └── dummy/
+│
+├── pages/
+│   ├── admin/
+│   │   ├── dashbord-admin.html
+│   │   ├── index.html
+│   │   ├── manajemen-keuangan.html
+│   │   ├── manajemen-toko.html
+│   │   ├── manajemen-user.html
+│   │   └── pusat-bantuan.html
+│   ├── buyer/
+│   │   ├── akun.html
+│   │   ├── checkout.html
+│   │   ├── daftar-alamat.html
+│   │   ├── detail-produk.html
+│   │   ├── index.html
+│   │   ├── keranjang.html
+│   │   ├── login.html
+│   │   ├── pembayaran-qris.html
+│   │   ├── pembayaran-va.html
+│   │   ├── pengiriman.html
+│   │   ├── pesanan-saya.html
+│   │   ├── pusat-bantuan.html
+│   │   ├── register.html
+│   │   ├── riwayat-pesanan.html
+│   │   └── search.html
+│   └── seller/
+│       ├── chat-pelanggan.html
+│       ├── daftar-produk.html
+│       ├── dashbord-toko.html
+│       ├── kelola-pesanan.html
+│       ├── tambah-produk.html
+│       ├── tarik-saldo.html
+│       └── ulasan-toko.html
+│
+└── uploads/
+    ├── avatars/
+    ├── ktp/
+    ├── products/
+    └── dispute-proofs/

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Pesan Obrolan - ON Shop</title>
+
+  <!-- CSS Terpisah -->
+  <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+  <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+  <link rel="stylesheet" href="../../assets/css/buyer-css/chat.css" />
+</head>
+<body>
+
+  <!-- 1. Universal Top Navbar (Tanpa Logo ON Shop, Hanya Tombol Kembali) -->
+  <nav class="navbar">
+    <!-- Slot Kiri: Murni Tombol Kembali (PC & Mobile) -->
+    <div class="nav-left-slot">
+      <button type="button" class="nav-back-btn" onclick="handleSmartBackNav()" title="Kembali">
+        <span class="nav-back-arrow">←</span>
+        <span class="nav-back-text">Kembali</span>
+      </button>
+    </div>
+
+    <!-- Kolom Pencarian Tengah Fleksibel -->
+    <div class="nav-search-wrapper">
+      <input
+        type="text"
+        id="navSearchInput"
+        placeholder="Cari produk di ON Shop..."
+        class="nav-search-input"
+        autocomplete="off"
+      />
+      <button type="button" id="navSearchBtn" class="nav-search-btn">Cari</button>
+    </div>
+
+    <!-- Menu Aksi Kanan Desktop (Tanpa Toko Saya) -->
+    <div class="nav-menu-group">
+      <!-- Tombol Teks Pesan (Aktif) -->
+      <a href="chat.html" class="nav-text-btn active" title="Pesan Obrolan">
+        <span>Pesan</span>
+        <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+      </a>
+
+      <!-- Tombol Teks Keranjang -->
+      <a href="keranjang.html" class="nav-text-btn" title="Keranjang Belanja">
+        <span>Keranjang</span>
+        <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+      </a>
+
+      <!-- Dropdown Akun Desktop -->
+      <div class="nav-account-dropdown-wrapper">
+        <div class="nav-account-trigger" id="navAccountTrigger">
+          <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+          <span class="nav-account-name" id="navAccountNameText">Akun</span>
+          <span class="nav-dropdown-caret">▼</span>
+        </div>
+
+        <div class="nav-dropdown-menu" id="navAccountMenu">
+          <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+          <a href="pesanan-saya.html" class="nav-dropdown-item">📦 Pesanan Saya</a>
+          <a href="pusat-bantuan.html" class="nav-dropdown-item">❓ Pusat Bantuan</a>
+          <div class="nav-dropdown-divider"></div>
+          <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+            🚪 Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. Konten Utama Chat -->
+  <main class="chat-layout">
+    <div class="chat-frame" id="chatFrame">
+      
+      <!-- Kolom Kontak Obrolan Toko -->
+      <aside class="chat-sidebar" id="chatSidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-header-top">
+            <h3>💬 Chat Toko</h3>
+          </div>
+          <div class="chat-search-box">
+            <span>🔍</span>
+            <input type="text" id="storeSearchInput" placeholder="Cari nama toko..." oninput="handleSearchStore()" />
+          </div>
+        </div>
+        <div class="chat-list" id="storeChatList">
+          <p style="text-align:center; padding:24px; color:#64748b; font-size:12.5px;">Memuat riwayat chat...</p>
+        </div>
+      </aside>
+
+      <!-- Kolom Dialog Obrolan Aktif -->
+      <section class="chat-main" id="chatMain">
+        <div class="chat-header">
+          <div class="header-shop-info">
+            <!-- Tombol Kembali ke Daftar Kontak (Khusus Layar HP) -->
+            <button type="button" class="btn-chat-mobile-back" onclick="closeMobileChatWindow()" title="Kembali ke Kontak">
+              ←
+            </button>
+            
+            <div class="chat-item-avatar" id="activeShopAvatar">--</div>
+            <div>
+              <h4 id="activeShopName">Pilih Toko</h4>
+              <small id="activeShopStatus">● Penjual Terdaftar</small>
+            </div>
+          </div>
+          <a href="#" class="btn-visit-store" id="btnShopVisitLink">Kunjungi Toko</a>
+        </div>
+
+        <!-- Sematan Produk yang Sedang Ditanyakan -->
+        <div class="chat-product-pinned" id="pinnedProductBar">
+          <img src="" id="pinnedImg" alt="Produk" onerror="this.src='https://placehold.co/100x100?text=Produk'" />
+          <div class="pinned-desc">
+            <h5 id="pinnedTitle">Nama Produk</h5>
+            <span id="pinnedPrice">Rp 0</span>
+          </div>
+          <button type="button" class="btn-send-inquiry" onclick="sendInquiryProduct()">Tanyakan Produk Ini</button>
+        </div>
+
+        <!-- Wadah Bubble Chat -->
+        <div class="chat-messages" id="chatMessages">
+          <p style="text-align:center; margin:auto; color:#94a3b8; font-size:13px;">Pilih salah satu toko di sebelah kiri untuk membuka obrolan.</p>
+        </div>
+
+        <!-- Balasan Cepat & Form Kirim -->
+        <div class="chat-footer">
+          <div class="quick-replies">
+            <span class="quick-pill" onclick="insertQuick('Halo kak, apakah barang ini masih ready stok?')">Stok ready?</span>
+            <span class="quick-pill" onclick="insertQuick('Bisa kirim hari ini pakai kurir instan/reguler?')">Bisa kirim hari ini?</span>
+            <span class="quick-pill" onclick="insertQuick('Apakah produk ini bergaransi resmi?')">Ada garansi resmi?</span>
+          </div>
+          <form class="chat-form" onsubmit="handleSendBuyerChat(event)">
+            <input type="text" id="buyerChatInput" class="chat-input" placeholder="Tulis pesan ke penjual... (Enter untuk kirim)" autocomplete="off" />
+            <button type="submit" class="btn-send" id="btnSendMsg">Kirim</button>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 3. Bottom Navigation Mobile (5 Slot Bersih) -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">🏠</div>
+      <span>Beranda</span>
+    </a>
+    <a href="chat.html" class="bottom-nav-item active">
+      <div class="bottom-icon-wrap">
+        <img src="../../assets/Images/icon/chat.png" alt="Chat" class="bottom-custom-icon-img" />
+        <span class="nav-badge-red nav-hidden" id="bottomNavChatBadge">0</span>
+      </div>
+      <span>Chat</span>
+    </a>
+    <a href="keranjang.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">
+        <img src="../../assets/Images/icon/basket.png" alt="Keranjang" class="bottom-custom-icon-img" />
+        <span class="nav-badge-red nav-hidden" id="bottomNavCartBadge">0</span>
+      </div>
+      <span>Keranjang</span>
+    </a>
+    <a href="pesanan-saya.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">📦</div>
+      <span>Pesanan</span>
+    </a>
+    <a href="akun.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">👤</div>
+      <span>Akun</span>
+    </a>
+  </nav>
+
+  <!-- Script JS Terpisah -->
+  <script src="../../assets/js/buyer-js/toast.js"></script>
+  <script src="../../assets/js/buyer-js/navbar.js"></script>
+  <script src="../../assets/js/buyer-js/chat.js"></script>
+</body>
+</html>

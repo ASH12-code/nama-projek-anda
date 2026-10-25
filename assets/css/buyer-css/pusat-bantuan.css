@@ -1,0 +1,633 @@
+/* =========================================================
+   ON SHOP - PUSAT BANTUAN STYLESHEET (Clean & Dynamic)
+   File: assets/css/buyer-css/pusat-bantuan.css
+   ========================================================= */
+
+/* --- 1. RESET DAN TATA LETAK UTAMA --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  color: #334155;
+  overflow-x: clip; /* Aman untuk sticky navbar tanpa off-canvas */
+}
+
+.help-main-container {
+  max-width: 1020px;
+  margin: 24px auto 40px auto;
+  padding: 0 16px;
+  width: 100%;
+}
+
+/* --- 2. BANNER HERO PENCARIAN SOLUSI --- */
+.help-hero-banner {
+  background: linear-gradient(135deg, #2e8b57 0%, #1e5e3a 100%);
+  color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.help-hero-banner h2 {
+  font-size: 22px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.help-hero-banner p {
+  font-size: 13.5px;
+  opacity: 0.92;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.help-search-wrapper {
+  max-width: 580px;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.help-search-wrapper input {
+  width: 100%;
+  padding: 12px 42px 12px 16px;
+  border-radius: 24px;
+  border: none;
+  font-size: 13.5px;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  color: #1e293b;
+}
+
+.search-icon-hint {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+}
+
+/* --- 3. KARTU PINTASAN CEPAT KE PESANAN --- */
+.quick-order-alert {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #ff9900;
+  border-radius: 8px;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  gap: 14px;
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.alert-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.alert-text-group strong {
+  font-size: 13.5px;
+  color: #1e293b;
+  display: block;
+}
+
+.alert-text-group p {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.btn-check-order {
+  background: #ff9900;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 12.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.btn-check-order:hover {
+  background: #e68a00;
+}
+
+/* --- 4. STRUKTUR DUA KOLOM FAQ --- */
+.faq-layout-wrapper {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+/* Kotak Sidebar & Kotak Jawaban Memakai Desain Selaras */
+.faq-categories-sidebar,
+.faq-content-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+/* Header Kotak dengan Tombol Toggle */
+.box-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.box-header-title {
+  font-size: 15px;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+.heading-meta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.faq-count-badge {
+  font-size: 11px;
+  background: #f0fdf4;
+  color: #2e8b57;
+  padding: 2px 7px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.btn-toggle-action {
+  background: none;
+  border: 1px solid #cbd5e1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #64748b;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-toggle-action:hover {
+  border-color: #2e8b57;
+  color: #2e8b57;
+  background-color: #f0fdf4;
+}
+
+.collapsible-content-wrapper.collapsed {
+  display: none !important;
+}
+
+/* Daftar Menu Kategori (Sisi Kiri) */
+.category-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 140px; /* Menjaga kestabilan tinggi 3 baris */
+}
+
+.faq-cat-btn {
+  width: 100%;
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.faq-cat-btn:hover {
+  background: #f0fdf4;
+  color: #2e8b57;
+  border-color: #a7f3d0;
+}
+
+.faq-cat-btn.active {
+  background: #2e8b57;
+  color: #ffffff;
+  border-color: #2e8b57;
+}
+
+/* Daftar Tanya Jawab (Sisi Kanan) */
+.faq-qa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 180px; /* Menjaga kestabilan tinggi 3 baris jawaban */
+}
+
+.faq-item-card {
+  border: 1px solid #f1f5f9;
+  background: #f8fafc;
+  border-radius: 6px;
+  padding: 14px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.faq-item-card:hover {
+  border-color: #cbd5e1;
+}
+
+.faq-question {
+  font-size: 13.5px;
+  font-weight: bold;
+  color: #2e8b57;
+  margin-bottom: 6px;
+}
+
+.faq-answer {
+  font-size: 12.5px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Footer Paginasi Bersama (3 Baris per Tampilan) */
+.pagination-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.pagination-info {
+  font-size: 11.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-page-nav {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 10.5px;
+  transition: all 0.15s ease;
+}
+
+.btn-page-nav:hover:not(:disabled) {
+  background: #2e8b57;
+  color: #ffffff;
+  border-color: #2e8b57;
+}
+
+.btn-page-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #f1f5f9;
+}
+
+/* --- 5. FORMULIR TIKET PENGADUAN --- */
+.support-ticket-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.ticket-header {
+  margin-bottom: 16px;
+}
+
+.ticket-header h3 {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.ticket-header p {
+  font-size: 12.5px;
+  color: #64748b;
+}
+
+.ticket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 12.5px;
+  font-weight: bold;
+  color: #475569;
+}
+
+.form-input {
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  color: #1e293b;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: #2e8b57;
+}
+
+.textarea-ticket {
+  height: 85px;
+  resize: vertical;
+}
+
+.ticket-action-bar {
+  text-align: right;
+  margin-top: 6px;
+}
+
+.btn-send-ticket {
+  background: #2e8b57;
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-send-ticket:hover {
+  background: #246d44;
+}
+
+.btn-send-ticket:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* --- 6. MODAL POP-UP PENGADUAN --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.modal-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.modal-icon {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  font-size: 17px;
+  color: #1e293b;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.modal-desc {
+  font-size: 12.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.ticket-code-text {
+  color: #2e8b57;
+  font-size: 15px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-confirm-modal {
+  background: #2e8b57;
+  color: #ffffff;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.text-danger {
+  color: #e74c3c;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   7. ATURAN RESPONSIVE MOBILE (BASELINE 360px - 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 25px !important;
+    overflow-x: clip !important;
+  }
+
+  .help-main-container {
+    margin: 10px auto;
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .help-hero-banner {
+    padding: 20px 14px;
+    margin-bottom: 12px;
+  }
+
+  .help-hero-banner h2 {
+    font-size: 17px;
+  }
+
+  .help-hero-banner p {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .help-search-wrapper input {
+    padding: 10px 36px 10px 14px;
+    font-size: 12px;
+  }
+
+  .search-icon-hint {
+    font-size: 13px;
+    right: 12px;
+  }
+
+  /* Kartu Pintasan Pesanan Tumpuk di Mobile */
+  .quick-order-alert {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .alert-text-group strong {
+    font-size: 12.5px;
+  }
+
+  .alert-text-group p {
+    font-size: 11px;
+  }
+
+  .btn-check-order {
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  /* FAQ: Tumpuk 1 Kolom Penuh */
+  .faq-layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .faq-categories-sidebar,
+  .faq-content-panel {
+    padding: 12px 14px;
+  }
+
+  .box-header-title {
+    font-size: 13.5px;
+  }
+
+  .category-menu-list,
+  .faq-qa-list {
+    min-height: auto;
+  }
+
+  .faq-item-card {
+    padding: 12px;
+  }
+
+  .faq-question {
+    font-size: 12.5px;
+  }
+
+  .faq-answer {
+    font-size: 11.5px;
+  }
+
+  /* Form Pengaduan di HP */
+  .support-ticket-section {
+    padding: 14px;
+  }
+
+  .ticket-header h3 {
+    font-size: 14.5px;
+  }
+
+  .ticket-header p {
+    font-size: 11.5px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-input {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .textarea-ticket {
+    height: 75px;
+  }
+
+  .btn-send-ticket {
+    width: 100%;
+    padding: 10px;
+    font-size: 12.5px;
+  }
+}

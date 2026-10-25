@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Global - Super Admin ON Shop</title>
+  
+  <!-- 1. CSS Global Sidebar / Navbar -->
+  <link rel="stylesheet" href="../../assets/css/admin-css/sidebar-admin.css" />
+  <!-- 2. CSS Khusus Halaman Index -->
+  <link rel="stylesheet" href="../../assets/css/admin-css/index-admin.css" />
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+
+  <!-- SIDEBAR NAVIGASI GLOBAL DENGAN BADGE NOTIFIKASI -->
+  <aside class="admin-sidebar">
+  <!-- Brand Logo Admin -->
+  <div class="sidebar-brand">
+    <div class="brand-logo-circle">ON</div>
+    <div>
+      <span class="brand-title">ON Shop</span>
+      <span class="brand-badge-admin">ADMIN</span>
+    </div>
+  </div>
+
+  <!-- 1. Menu Navigasi Utama -->
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-link">
+      <span class="nav-link-content">📊 Dashboard Global</span>
+    </a>
+    <a href="manajemen-toko.html" class="nav-link">
+      <span class="nav-link-content">🏪 Manajemen Toko</span>
+      <span class="nav-badge-pill" id="badgePendingShops"></span>
+    </a>
+    <a href="manajemen-user.html" class="nav-link">
+      <span class="nav-link-content">👥 Manajemen Pembeli</span>
+    </a>
+    <a href="manajemen-keuangan.html" class="nav-link">
+      <span class="nav-link-content">💰 Keuangan & Payout</span>
+      <span class="nav-badge-pill" id="badgePendingPayouts"></span>
+    </a>
+    <a href="pusat-bantuan.html" class="nav-link">
+      <span class="nav-link-content">⚖️ Pusat Bantuan</span>
+      <span class="nav-badge-pill" id="badgeOpenDisputes"></span>
+    </a>
+  </nav>
+
+  <!-- 2. Aksi Bawah Sidebar (Terpisah dari <nav> agar flex margin-top: auto bekerja sempurna) -->
+  <div class="sidebar-bottom-actions">
+    <!-- Tautan Kunjungi Marketplace (Buka di Tab Baru) -->
+    <!-- Jika nama filenya index.html di dalam folder buyer -->
+<a href="/on-shop/pages/buyer/index.html" target="_blank" rel="noopener noreferrer" class="nav-link back-store" title="Buka etalase marketplace publik di tab baru">
+  <span class="nav-link-content">🌐 Kunjungi Marketplace</span>
+  <span class="external-icon">↗</span>
+</a>
+
+    <!-- Tombol Logout Admin -->
+    <button type="button" class="btn-sidebar-logout" onclick="handleAdminLogout()">
+      🚪 Logout
+    </button>
+  </div>
+</aside>
+
+  <!-- KONTEN UTAMA DASHBOARD -->
+  <main class="admin-main-content">
+    
+    <!-- KOTAK 1: HEADER & UNDUH LAPORAN -->
+    <header class="admin-card header-control-card">
+      <div class="header-text-group">
+        <h2>Dashboard Metrik Global</h2>
+        <p>Pantau akumulasi GMV, komisi 5% platform, dan performa transaksi seluruh toko.</p>
+      </div>
+
+      <div class="header-action-group">
+        <select id="periodFilterSelect" onchange="fetchDashboardMetrics()" class="filter-select">
+          <option value="9_2026" selected>September 2026</option>
+          <option value="8_2026">Agustus 2026</option>
+          <option value="all_time">Semua Riwayat</option>
+        </select>
+
+        <button type="button" class="btn-export-report" onclick="handleExportReportCSV()">
+          📥 Unduh Laporan (.CSV)
+        </button>
+      </div>
+    </header>
+
+    <!-- KOTAK 2: 4 KARTU METRIK KPI -->
+    <section class="kpi-grid-container">
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Gross Merchandise Value (GMV)</span>
+          <h3 id="gmvValueText">Rp 0</h3>
+          <small class="kpi-trend positive" id="gmvGrowthText">Transaksi Selesai</small>
+        </div>
+        <div class="kpi-icon-bubble">💰</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Komisi Platform (5% Bersih)</span>
+          <h3 id="platformCommissionText" style="color: #2e8b57;">Rp 0</h3>
+          <small class="kpi-trend positive">Pendapatan Sah ON Shop</small>
+        </div>
+        <div class="kpi-icon-bubble bubble-green">📈</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Total Transaksi Selesai</span>
+          <h3 id="totalOrdersText">0 Pesanan</h3>
+          <small class="kpi-trend neutral" id="avgOrderValueText">Rata-rata Rp 0 / order</small>
+        </div>
+        <div class="kpi-icon-bubble">📦</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Toko Aktif Bertransaksi</span>
+          <h3 id="activeMerchantText">0 Merchant</h3>
+          <small class="kpi-trend positive" id="totalMerchantNote">Dari 0 toko terdaftar</small>
+        </div>
+        <div class="kpi-icon-bubble">🏪</div>
+      </div>
+    </section>
+
+    <!-- KOTAK 3: GRAFIK ANALITIK DENGAN TITIK ANGKA -->
+    <section class="admin-card chart-section-card">
+      <div class="chart-header-row">
+        <div>
+          <h3 id="chartHeaderTitle">Tren GMV & Komisi 5% Platform</h3>
+          <p class="section-subtitle">Perbandingan perputaran transaksi nyata toko dan bagi hasil komisi 5% platform.</p>
+        </div>
+        <div class="chart-legend-indicator">
+          <span class="legend-badge legend-gmv">● GMV (Juta Rp)</span>
+          <span class="legend-badge legend-comm">● Komisi 5% (Juta Rp)</span>
+        </div>
+      </div>
+      <div class="canvas-chart-wrapper">
+        <canvas id="adminMetricsChart"></canvas>
+      </div>
+    </section>
+
+    <!-- KOTAK 4: TABEL TRANSAKSI TERKINI REAL MARKETPLACE -->
+    <section class="admin-card table-section-card">
+      <div class="table-header-row">
+        <div>
+          <h3>Transaksi Terkini Seluruh Marketplace</h3>
+          <p class="section-subtitle">Aktivitas pesanan terkini yang masuk dari pembeli ke berbagai toko.</p>
+        </div>
+        <div class="table-tab-filter">
+          <button type="button" class="tab-btn-pill active" onclick="switchRecentTab('all', this)">Semua</button>
+          <button type="button" class="tab-btn-pill" onclick="switchRecentTab('lunas', this)">Lunas</button>
+          <button type="button" class="tab-btn-pill" onclick="switchRecentTab('proses', this)">Sedang Dikemas / Kirim</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>No. Pesanan</th>
+              <th>Nama Toko</th>
+              <th>Pesanan Barang</th>
+              <th>Total Transaksi</th>
+              <th>Komisi Platform (5%)</th>
+              <th>Metode Bayar</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="recentTransactionsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFIKASI -->
+  <div id="toastNotification" class="toast-box">
+    <span>✓</span>
+    <span id="toastMessage">Laporan berhasil diunduh!</span>
+  </div>
+
+  <!-- 1. JS Global Sidebar (Badge Notifikasi) -->
+  <script src="../../assets/js/admin-js/sidebar-admin.js"></script>
+  <!-- 2. JS Khusus Halaman Index (Metrik, Chart, Transaksi) -->
+  <script src="../../assets/js/admin-js/index-admin.js"></script>
+</body>
+</html>

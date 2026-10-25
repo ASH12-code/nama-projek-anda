@@ -1,0 +1,110 @@
+/* =========================================================
+   ON SHOP - TOAST NOTIFICATION UNIVERSAL (BUYER)
+   File: assets/css/buyer-css/toast.css
+   ========================================================= */
+
+#toastContainer {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.custom-toast {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 380px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e2e8f0;
+  border-top: 4px solid #2e8b57; /* Aksen default hijau ON Shop */
+  font-family: inherit;
+  font-size: 13.5px;
+  color: #1e293b;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.custom-toast-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.custom-toast-msg {
+  flex-grow: 1;
+  font-weight: 500;
+}
+
+.custom-toast-close {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.custom-toast-close:hover {
+  color: #334155;
+}
+
+/* Variasi Warna */
+.custom-toast.toast-success {
+  border-top-color: #2e8b57;
+}
+.custom-toast.toast-error {
+  border-top-color: #ef4444;
+}
+.custom-toast.toast-warning {
+  border-top-color: #f59e0b;
+}
+.custom-toast.toast-info {
+  border-top-color: #0284c7;
+}
+
+/* Penyesuaian di Layar HP */
+@media (max-width: 600px) {
+  #toastContainer {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+  }
+  .custom-toast {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================
+   TAMBAHAN KHUSUS HALAMAN AUTH (LOGIN & REGISTER)
+   Hanya aktif dan merapikan posisi tanpa merusak file lain
+   ========================================================= */
+
+body.auth-page #toastContainer,
+.auth-container ~ #toastContainer,
+#toastContainer {
+  /* Memastikan toast selalu berada di lapisan paling depan di atas kartu login/register */
+  z-index: 9999999 !important;
+}
+
+/* Pastikan font toast mewarisi font bersih antarmuka */
+.custom-toast {
+  box-sizing: border-box !important;
+}

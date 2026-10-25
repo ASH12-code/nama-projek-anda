@@ -1,0 +1,494 @@
+/* =========================================================
+   ON SHOP - SHOPPING CART STYLESHEET (Final Fix Mobile & Desktop)
+   File: assets/css/buyer-css/keranjang.css
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #334155;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  max-width: 1200px;
+  margin: 20px auto 40px auto;
+  padding: 0 15px;
+}
+
+/* --- TATA LETAK GRID DESKTOP --- */
+.cart-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* --- KOLOM KIRI: DAFTAR BARANG --- */
+.cart-left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.cart-header-panel {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.cart-header-panel h2 {
+  font-size: 17px;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.select-all-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.custom-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.custom-checkbox-label input[type="checkbox"],
+.shop-checkbox,
+.item-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #2e8b57;
+  cursor: pointer;
+}
+
+.btn-delete-selected {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-delete-selected:hover {
+  text-decoration: underline;
+}
+
+/* Daftar Toko */
+.shop-groups-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.shop-card-wrapper {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.shop-card-header {
+  background: #f8fafc;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.shop-title-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shop-name-label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.shop-location-tag {
+  font-size: 11px;
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Baris Item Produk */
+.shop-item-row {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 12px;
+}
+
+.shop-item-row:last-child {
+  border-bottom: none;
+}
+
+.item-thumb-wrapper {
+  width: 65px;
+  height: 65px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  flex-shrink: 0;
+  background: #f8fafc;
+}
+
+.item-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-variant-tag {
+  font-size: 11px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.item-price-column {
+  width: 110px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  color: #2e8b57;
+  flex-shrink: 0;
+}
+
+.item-actions-column {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 26px;
+  height: 26px;
+  background: #f8fafc;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.qty-input {
+  width: 32px;
+  height: 26px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid #cbd5e1;
+  border-right: 1px solid #cbd5e1;
+  font-weight: bold;
+  font-size: 12px;
+  outline: none;
+}
+
+.btn-remove-item {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+}
+
+.btn-remove-item:hover {
+  color: #ef4444;
+}
+
+/* --- KOLOM KANAN: RINGKASAN DESKTOP --- */
+.cart-right-column {
+  width: 100%;
+}
+
+.summary-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.summary-title {
+  font-size: 15px;
+  color: #1e293b;
+  margin-bottom: 14px;
+  font-weight: bold;
+}
+
+.summary-calc-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 12px 0;
+}
+
+.summary-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.summary-total-row span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.summary-total-row h2,
+#totalPriceDisplay {
+  font-size: 18px;
+  color: #ff9900;
+  font-weight: bold;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 11px;
+  background: #ff9900;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13.5px;
+  transition: background-color 0.2s ease;
+}
+
+.checkout-btn:hover {
+  background: #e68a00;
+}
+
+/* State Kosong */
+.empty-cart-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 50px 16px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.empty-icon {
+  font-size: 44px;
+  margin-bottom: 10px;
+}
+
+.empty-cart-box h3 {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.empty-cart-box p {
+  font-size: 12.5px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.btn-shopping-now {
+  background: #2e8b57;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 12.5px;
+  display: inline-block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE (BASELINE 360px - 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 130px; /* Ruang agar produk terbawah tidak tertutup sticky bar */
+  }
+
+  .page-wrapper {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  .cart-layout-grid {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-left-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Penataan Item di HP */
+  .shop-item-row {
+    padding: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .item-thumb-wrapper {
+    width: 55px;
+    height: 55px;
+  }
+
+  .item-name {
+    font-size: 12px;
+  }
+
+  .item-price-column {
+    width: auto;
+    font-size: 13px;
+    margin-left: 24px;
+  }
+
+  .item-actions-column {
+    margin-left: auto;
+  }
+
+  .qty-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .qty-input {
+    width: 30px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  /* BILAH CHECKOUT MENEMPEL DI BAWAH (STICKY BAWAH) */
+  .cart-right-column {
+    position: fixed;
+    bottom: 52px; /* Tepat di atas mobile-bottom-nav 52px */
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1200;
+  }
+/* Sembunyikan teks "ON Shop" di mobile (hanya tampilkan lingkaran ON) */
+  .nav-brand-text-desktop {
+    display: none !important;
+  }
+
+  /* Rapikan jarak logo lingkaran ON di mobile */
+  .nav-left-slot {
+    gap: 0 !important;
+  }
+
+  .nav-brand-link {
+    gap: 0 !important;
+  }
+
+  .nav-brand-circle {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 13px !important;
+  }
+  .summary-card {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 1px solid #e2e8f0;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .summary-title,
+  .summary-calc-row,
+  .summary-divider {
+    display: none;
+  }
+
+  .summary-total-row {
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summary-total-row span {
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  .summary-total-row h2,
+  #totalPriceDisplay {
+    font-size: 15px !important;
+  }
+
+  .checkout-btn {
+    width: auto;
+    padding: 9px 16px;
+    font-size: 12.5px;
+  }
+}

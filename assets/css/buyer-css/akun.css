@@ -1,0 +1,783 @@
+/* =========================================================
+   ON SHOP - AKUN SAYA STYLESHEET (Standardized & Clean)
+   Patokan Desain: Selaras dengan Keranjang Belanja & Navbar Standar
+   File: assets/css/buyer-css/akun.css
+   ========================================================= */
+
+/* --- 1. RESET DAN TATA LETAK UTAMA --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #334155;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.account-center-container {
+  max-width: 850px;
+  margin: 20px auto 50px auto;
+  padding: 0 16px;
+  width: 100%;
+}
+
+/* --- 2. HEADER KARTU PROFIL --- */
+.account-header-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px 24px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  gap: 16px;
+}
+
+.user-brief-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  flex-shrink: 0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid #2e8b57;
+  display: block;
+  background-color: #f1f5f9;
+}
+
+.avatar-change-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #ff9900;
+  color: #ffffff;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.avatar-change-btn:hover {
+  background-color: #e68a00;
+  transform: scale(1.05);
+}
+
+.user-text-meta h2 {
+  font-size: 18px;
+  color: #1e293b;
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+
+.user-text-meta p {
+  font-size: 12.5px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.user-status-pill {
+  font-size: 10.5px;
+  background: #e8f5e9;
+  color: #2e8b57;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.account-header-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.btn-logout {
+  background: #ffffff;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-logout:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.mobile-only-help {
+  display: none;
+}
+
+/* --- 3. TAB NAVIGASI HORIZONTAL --- */
+.account-tabs-nav {
+  display: flex;
+  background: #ffffff;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #e2e8f0;
+  border-bottom: 2px solid #f1f5f9;
+  overflow: hidden;
+}
+
+.account-tab-btn {
+  flex: 1;
+  padding: 12px 14px;
+  background: none;
+  border: none;
+  font-size: 13.5px;
+  font-weight: bold;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  text-align: center;
+}
+
+.account-tab-btn.active {
+  color: #2e8b57;
+  background: #ffffff;
+}
+
+.account-tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: #2e8b57;
+}
+
+/* Panel Konten Tab */
+.account-tab-panel {
+  background: #ffffff;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+/* --- 4. FORMULIR BIODATA DIRI --- */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 12.5px;
+  font-weight: bold;
+  color: #475569;
+}
+
+.form-control {
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  color: #1e293b;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.form-control:focus {
+  border-color: #2e8b57;
+}
+
+.form-control.input-disabled {
+  background-color: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.form-actions-bar {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+  text-align: right;
+}
+
+.btn-save-profile {
+  background: #2e8b57;
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-save-profile:hover {
+  background: #27774a;
+}
+
+/* --- 5. BUKU ALAMAT PENGIRIMAN --- */
+.address-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.address-panel-header h3 {
+  font-size: 15px;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+.btn-add-address {
+  background: #ff9900;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-add-address:hover {
+  background: #e68a00;
+}
+
+.address-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.address-card-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px 18px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.address-card-item.is-primary {
+  border-color: #2e8b57;
+  background: #ffffff;
+}
+
+.address-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.address-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.address-label-badge {
+  font-size: 10.5px;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.address-primary-badge {
+  font-size: 10.5px;
+  background: #e8f5e9;
+  color: #2e8b57;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.address-recipient {
+  font-size: 13.5px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+.address-phone {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: normal;
+}
+
+.address-detail-text {
+  font-size: 12.5px;
+  color: #475569;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.address-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-set-primary {
+  background: none;
+  border: 1px solid #2e8b57;
+  color: #2e8b57;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-set-primary:hover {
+  background: #f0fdf4;
+}
+
+.address-sub-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-addr-link {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #0055aa;
+  cursor: pointer;
+}
+
+.btn-addr-link.delete {
+  color: #ef4444;
+}
+
+/* --- 6. MODAL POP-UP (ALAMAT, CROP & KONFIRMASI) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.modal-box {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.modal-box.modal-box-crop {
+  max-width: 380px;
+  text-align: center;
+}
+
+.modal-box.modal-box-alert {
+  max-width: 380px;
+  text-align: center;
+  padding: 26px 20px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.modal-alert-icon {
+  font-size: 46px;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.modal-alert-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.modal-alert-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.modal-alert-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn-modal-cancel {
+  flex: 1;
+  padding: 11px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-modal-danger {
+  flex: 1;
+  padding: 11px;
+  border-radius: 8px;
+  border: none;
+  background: #ef4444;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.modal-title {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 14px;
+  font-weight: bold;
+}
+
+.crop-hint-text {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.form-group-row {
+  display: flex;
+  gap: 10px;
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+
+.textarea-address {
+  height: 60px;
+  resize: none;
+}
+
+.checkbox-inline {
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #334155;
+}
+
+.checkbox-inline input[type="checkbox"] {
+  accent-color: #2e8b57;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions-center {
+  justify-content: center;
+}
+
+.btn-cancel {
+  background: #e2e8f0;
+  color: #475569;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.btn-submit-review {
+  background: #2e8b57;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12.5px;
+}
+
+/* Crop Avatar Preview */
+.avatar-crop-preview-box {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 14px auto;
+  border: 3px solid #2e8b57;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-crop-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.crop-slider-group {
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.crop-slider-group label {
+  font-size: 11.5px;
+  font-weight: bold;
+  color: #475569;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.crop-range-slider {
+  width: 100%;
+  accent-color: #2e8b57;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   7. ATURAN RESPONSIVE MOBILE (BASELINE 360px - 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 75px !important;
+    overflow-x: hidden;
+  }
+
+  /* --- SINKRONISASI LOGO LINGKARAN ON PERSIS SEPERTI KERANJANG --- */
+  .nav-brand-text-desktop {
+    display: none !important; /* Hilangkan teks "ON Shop" di mobile */
+  }
+
+  .nav-left-slot {
+    margin-right: 4px !important;
+    gap: 0 !important;
+  }
+
+  .nav-brand-link {
+    gap: 0 !important;
+  }
+
+  .nav-brand-circle {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .nav-search-wrapper {
+    flex: 1 !important;
+    display: flex !important;
+    max-width: 100% !important;
+  }
+
+  /* Konten Akun di HP */
+  .account-center-container {
+    margin: 10px auto;
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .account-header-card {
+    padding: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .user-brief-info {
+    gap: 14px;
+  }
+
+  .avatar-wrapper {
+    width: 64px;
+    height: 64px;
+  }
+
+  .avatar-change-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+
+  .user-text-meta h2 {
+    font-size: 15px;
+  }
+
+  .user-text-meta p {
+    font-size: 11.5px;
+  }
+
+  .user-status-pill {
+    font-size: 10px;
+  }
+
+  .account-header-actions {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .btn-logout {
+    width: 100%;
+    text-align: center;
+    padding: 9px;
+    font-size: 12.5px;
+  }
+
+  .mobile-only-help {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .help-arrow {
+    color: #64748b;
+  }
+
+  .account-tab-btn {
+    padding: 10px;
+    font-size: 12.5px;
+  }
+
+  .account-tab-panel {
+    padding: 14px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+  }
+
+  .form-control {
+    padding: 8px 10px;
+    font-size: 12.5px;
+  }
+
+  .form-actions-bar {
+    margin-top: 14px;
+    padding-top: 12px;
+  }
+
+  .btn-save-profile {
+    width: 100%;
+    padding: 10px;
+    font-size: 12.5px;
+  }
+
+  .address-panel-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .address-panel-header h3 {
+    font-size: 13.5px;
+  }
+
+  .btn-add-address {
+    width: 100%;
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .address-card-item {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .address-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 8px;
+  }
+
+  .form-group-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

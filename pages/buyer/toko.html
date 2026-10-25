@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Profil Toko - ON Shop</title>
+  
+  <!-- CSS Universal & Toko Mandiri -->
+  <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+  <link rel="stylesheet" href="../../assets/css/buyer-css/index.css" />
+  <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+  <link rel="stylesheet" href="../../assets/css/buyer-css/toko.css" />
+</head>
+<body>
+
+  <!-- 1. Universal Top Navbar (Standar 80px & Skala 1.3x, Tanpa Logo ON Shop) -->
+  <nav class="navbar">
+    <!-- Slot Kiri: Tombol Kembali Murni (Desktop & Mobile) -->
+    <div class="nav-left-slot">
+      <button type="button" class="nav-back-btn" onclick="handleBackToDetailProduct()" title="Kembali ke Detail Produk">
+        <span class="nav-back-arrow">←</span>
+        <span class="nav-back-text">Kembali</span>
+      </button>
+    </div>
+
+    <!-- Kolom Pencarian Tengah -->
+    <div class="nav-search-wrapper">
+      <input
+        type="text"
+        id="storeSearchInput"
+        placeholder="Cari barang di toko ini..."
+        class="nav-search-input"
+        autocomplete="off"
+        oninput="handleSearchInStore(this.value)"
+      />
+      <button type="button" class="nav-search-btn">Cari</button>
+    </div>
+
+    <!-- Menu Aksi Desktop PC (Format Teks Skala 1.3x + Dropdown) -->
+    <div class="nav-menu-group">
+      <!-- 1. Tombol Pesan -->
+      <a href="chat.html" class="nav-text-btn" title="Pesan Obrolan">
+        <span>Pesan</span>
+        <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+      </a>
+
+      <!-- 2. Tombol Keranjang -->
+      <a href="keranjang.html" class="nav-text-btn" title="Keranjang Belanja">
+        <span>Keranjang</span>
+        <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+      </a>
+
+      <!-- 3. Dropdown Menu Akun -->
+      <div class="nav-account-dropdown-wrapper">
+        <div class="nav-account-trigger" id="navAccountTrigger">
+          <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+          <span class="nav-account-name" id="navAccountNameText">Akun</span>
+          <span class="nav-dropdown-caret">▼</span>
+        </div>
+
+        <div class="nav-dropdown-menu" id="navAccountMenu">
+          <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+          <a href="pesanan-saya.html" class="nav-dropdown-item">📦 Pesanan Saya</a>
+          <a href="pusat-bantuan.html" class="nav-dropdown-item">❓ Pusat Bantuan</a>
+          <div class="nav-dropdown-divider"></div>
+          <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+            🚪 Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. Konten Utama Etalase Toko -->
+  <main class="main-content box-container">
+    
+    <!-- Hero Banner Profil Toko -->
+    <div class="store-hero-card">
+      <div class="store-profile-left">
+        <div class="store-logo-circle" id="storeHeroAvatar">TO</div>
+        <div class="store-title-wrap">
+          <h2 id="storeHeroName">Memuat Toko...</h2>
+          <p id="storeHeroLocation">📍 Pangkalpinang • Aktif hari ini</p>
+          <span class="store-badge-verified">✓ Seller Terverifikasi ON Shop</span>
+        </div>
+      </div>
+      <div class="store-actions">
+        <a href="chat.html" class="btn-action-hero btn-action-chat" id="btnStoreChat">💬 Chat Penjual</a>
+        <button type="button" class="btn-action-hero btn-action-follow" onclick="toggleFollowStore(this)">+ Ikuti Toko</button>
+      </div>
+    </div>
+
+    <!-- Metrik Statistik Toko -->
+    <div class="store-stats-row">
+      <div class="stat-box">
+        <span>Total Produk</span>
+        <h4 id="statTotalProducts">-- Barang</h4>
+      </div>
+      <div class="stat-box">
+        <span>Penilaian Toko</span>
+        <h4>⭐ 4.9 (1.2k Ulasan)</h4>
+      </div>
+      <div class="stat-box">
+        <span>Performa Balas Chat</span>
+        <h4>100% (Hitungan Menit)</h4>
+      </div>
+      <div class="stat-box">
+        <span>Status Toko</span>
+        <h4 style="color:#2e8b57;">Terverifikasi</h4>
+      </div>
+    </div>
+
+    <!-- Tab Etalase Toko -->
+    <div class="store-tabs-wrapper">
+      <button type="button" class="store-tab-btn active" onclick="switchStoreTab('all', this)">Semua Produk</button>
+      <button type="button" class="store-tab-btn" onclick="switchStoreTab('pinned', this)">📌 Produk Unggulan</button>
+      <button type="button" class="store-tab-btn" onclick="switchStoreTab('promo', this)">Diskon Spesial</button>
+    </div>
+
+    <!-- Grid Produk Toko -->
+    <div class="product-grid" id="storeProductGrid" style="margin-top: 20px;">
+      <p style="grid-column: 1/-1; text-align: center; color: #888; padding: 40px;">Memuat produk toko...</p>
+    </div>
+
+  </main>
+
+  <!-- 3. Bottom Navigation Mobile (5 Slot Seimbang) -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">🏠</div>
+      <span>Beranda</span>
+    </a>
+    <a href="chat.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">
+        <img src="../../assets/Images/icon/chat.png" alt="Chat" class="bottom-custom-icon-img" />
+        <span class="nav-badge-red nav-hidden" id="bottomNavChatBadge">0</span>
+      </div>
+      <span>Chat</span>
+    </a>
+    <a href="keranjang.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">
+        <img src="../../assets/Images/icon/basket.png" alt="Keranjang" class="bottom-custom-icon-img" />
+        <span class="nav-badge-red nav-hidden" id="bottomNavCartBadge">0</span>
+      </div>
+      <span>Keranjang</span>
+    </a>
+    <a href="pesanan-saya.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">📦</div>
+      <span>Pesanan</span>
+    </a>
+    <a href="akun.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">👤</div>
+      <span>Akun</span>
+    </a>
+  </nav>
+
+  <!-- Skrip JavaScript Terpisah -->
+  <script src="../../assets/js/buyer-js/toast.js"></script>
+  <script src="../../assets/js/buyer-js/navbar.js"></script>
+  <script src="../../assets/js/buyer-js/toko.js"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Pusat Bantuan - ON Shop</title>
+    
+    <!-- CSS Universal, Toast, & Pusat Bantuan Mandiri -->
+    <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/pusat-bantuan.css" />
+</head>
+<body>
+
+    <!-- 1. Universal Top Navbar Identik Keranjang & Akun (Mobile: Hanya Logo Lingkaran ON) -->
+    <nav class="navbar">
+        <!-- Slot Kiri: Logo Bulat ON (Teks ON Shop otomatis sembunyi di HP) -->
+        <div class="nav-left-slot">
+            <a href="index.html" class="nav-brand-link" title="Kembali ke Beranda ON Shop">
+                <div class="nav-brand-circle">ON</div>
+                <span class="nav-brand-text-desktop">ON Shop</span>
+            </a>
+        </div>
+
+        <!-- Kolom Pencarian Tengah Fleksibel -->
+        <div class="nav-search-wrapper">
+            <input 
+                type="text" 
+                id="navSearchInput" 
+                placeholder="Cari solusi atau panduan..." 
+                class="nav-search-input" 
+                autocomplete="off"
+            />
+            <button type="button" id="navSearchBtn" class="nav-search-btn">Cari</button>
+        </div>
+
+        <!-- Menu Aksi Kanan Desktop -->
+        <div class="nav-menu-group">
+            <!-- 1. Tombol Pesan -->
+            <a href="chat.html" class="nav-text-btn" title="Pesan Obrolan">
+                <span>Pesan</span>
+                <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+            </a>
+
+            <!-- 2. Tombol Keranjang -->
+            <a href="keranjang.html" class="nav-text-btn" title="Keranjang Belanja">
+                <span>Keranjang</span>
+                <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+            </a>
+
+            <!-- 3. Dropdown Menu Akun -->
+            <div class="nav-account-dropdown-wrapper">
+                <div class="nav-account-trigger" id="navAccountTrigger">
+                    <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+                    <span class="nav-account-name" id="navAccountNameText">Akun</span>
+                    <span class="nav-dropdown-caret">▼</span>
+                </div>
+
+                <div class="nav-dropdown-menu" id="navAccountMenu">
+                    <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+                    <a href="pesanan-saya.html" class="nav-dropdown-item">📦 Pesanan Saya</a>
+                    <a href="pusat-bantuan.html" class="nav-dropdown-item active">❓ Pusat Bantuan</a>
+                    <div class="nav-dropdown-divider"></div>
+                    <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+                        🚪 Keluar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Konten Utama Pusat Bantuan -->
+    <main class="help-main-container">
+        
+        <!-- Banner Hero Pencarian Solusi FAQ -->
+        <header class="help-hero-banner">
+            <h2>Halo, ada yang bisa kami bantu?</h2>
+            <p>Temukan panduan pembayaran, estimasi pengiriman, hingga tata cara pengembalian barang.</p>
+            <div class="help-search-wrapper">
+                <input 
+                    type="text" 
+                    id="faqSearchInput" 
+                    placeholder="Ketik kata kunci kendala (misal: retur, qris, resi, cod)..." 
+                    onkeyup="handleFaqSearch()" 
+                />
+                <span class="search-icon-hint">🔍</span>
+            </div>
+        </header>
+
+        <!-- Kartu Pintasan Cepat ke Pesanan Saya -->
+        <div class="quick-order-alert">
+            <div class="alert-content">
+                <span class="alert-icon">📦</span>
+                <div class="alert-text-group">
+                    <strong>Punya kendala dengan pesanan saat ini?</strong>
+                    <p>Pantau resi, konfirmasi paket, atau ajukan retur langsung dari riwayat transaksi.</p>
+                </div>
+            </div>
+            <a href="pesanan-saya.html" class="btn-check-order">Cek Pesanan Saya</a>
+        </div>
+
+        <!-- Tata Letak FAQ: Dua Kolom Desktop / Tumpuk Mobile -->
+        <div class="faq-layout-wrapper">
+            
+            <!-- SISI KIRI: Sidebar Kategori (Dengan Toggle & Paginasi 3 Baris) -->
+            <aside class="faq-categories-sidebar">
+                <div class="box-header-row">
+                    <h3 class="box-header-title">Kategori Bantuan</h3>
+                    <button type="button" id="btnToggleCategory" class="btn-toggle-action" onclick="toggleCategorySection()">
+                        <span id="toggleCategoryIcon">▼</span>
+                        <span id="toggleCategoryText">Sembunyikan</span>
+                    </button>
+                </div>
+
+                <div id="categoryCollapsibleContent" class="collapsible-content-wrapper">
+                    <!-- Daftar Kategori Dirender Dinamis oleh JS -->
+                    <div class="category-menu-list" id="categoryMenuList"></div>
+
+                    <!-- Paginasi Kategori di Bagian Bawah -->
+                    <div class="pagination-footer-row" id="categoryPaginationRow">
+                        <span class="pagination-info" id="categoryPageIndicator">1 / 1</span>
+                        <div class="pagination-buttons">
+                            <button type="button" class="btn-page-nav" id="btnPrevCategory" onclick="prevCategoryPage()" title="Sebelumnya">
+                                ◀
+                            </button>
+                            <button type="button" class="btn-page-nav" id="btnNextCategory" onclick="nextCategoryPage()" title="Selanjutnya">
+                                ▶
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- SISI KANAN: Panel Solusi Jawaban (Dengan Toggle & Paginasi 3 Baris) -->
+            <section class="faq-content-panel">
+                <div class="box-header-row">
+                    <div class="heading-meta-wrap">
+                        <h3 class="box-header-title" id="currentCategoryHeading">Pembayaran & Tagihan</h3>
+                        <span id="faqResultCountText" class="faq-count-badge">0 Solusi Tersedia</span>
+                    </div>
+                    <button type="button" id="btnToggleAnswers" class="btn-toggle-action" onclick="toggleAnswersSection()">
+                        <span id="toggleAnswersIcon">▼</span>
+                        <span id="toggleAnswersText">Sembunyikan</span>
+                    </button>
+                </div>
+
+                <div id="answersCollapsibleContent" class="collapsible-content-wrapper">
+                    <!-- Daftar Jawaban Dirender Dinamis oleh JS -->
+                    <div class="faq-qa-list" id="faqListContainer"></div>
+
+                    <!-- Paginasi Jawaban di Bagian Bawah -->
+                    <div class="pagination-footer-row" id="answerPaginationRow">
+                        <span class="pagination-info" id="answerPageIndicator">1 / 1</span>
+                        <div class="pagination-buttons">
+                            <button type="button" class="btn-page-nav" id="btnPrevAnswer" onclick="prevAnswerPage()" title="Sebelumnya">
+                                ◀
+                            </button>
+                            <button type="button" class="btn-page-nav" id="btnNextAnswer" onclick="nextAnswerPage()" title="Selanjutnya">
+                                ▶
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Formulir Lapor Masalah (Customer Care & Terhubung ke Admin) -->
+        <section class="support-ticket-section">
+            <div class="ticket-header">
+                <h3>Belum Menemukan Jawaban? Lapor Masalah</h3>
+                <p>Laporan Anda akan otomatis tercatat di sistem Admin Customer Service ON Shop.</p>
+            </div>
+
+            <form id="supportTicketForm" onsubmit="handleTicketSubmit(event)" class="ticket-form">
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label for="ticketSubject">Subjek / Judul Laporan <span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            id="ticketSubject" 
+                            class="form-input" 
+                            placeholder="Contoh: Tagihan QRIS belum terverifikasi" 
+                            required 
+                            maxlength="200" 
+                        />
+                    </div>
+                    <div class="form-group flex-1">
+                        <label for="ticketCategorySelect">Kategori Kendala <span class="text-danger">*</span></label>
+                        <select id="ticketCategorySelect" class="form-input" required>
+                            <option value="" disabled selected>Pilih Kategori Kendala...</option>
+                            <option value="KENDALA_PEMBAYARAN">Kendala Pembayaran (QRIS / VA / COD)</option>
+                            <option value="PENGIRIMAN_KURIR">Pengiriman Kurir & Kendala Resi</option>
+                            <option value="LAPORAN_PENIPUAN_TOKO">Laporan Kendala / Toko Bermasalah</option>
+                            <option value="KEAMANAN_AKUN">Keamanan Akun & Profil</option>
+                            <option value="LAINNYA">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group mb-16">
+                    <label for="ticketMessage">Detail Pesan Kendala <span class="text-danger">*</span></label>
+                    <textarea 
+                        id="ticketMessage" 
+                        class="form-input textarea-ticket" 
+                        placeholder="Jelaskan kronologi kendala, sertakan nomor invoice atau resi jika ada..." 
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="ticket-action-bar">
+                    <button type="submit" class="btn-send-ticket" id="btnSubmitTicket">
+                        Lapor Masalah
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Modal Pop-up Berhasil Kirim Laporan -->
+    <div id="ticketModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-icon">✅</div>
+            <h3 class="modal-title">Laporan Masalah Berhasil Dikirim!</h3>
+            <p class="modal-desc">
+                Tiket pengaduan Anda berhasil dibuat dengan kode: <br />
+                <strong id="ticketCodeDisplay" class="ticket-code-text"></strong>.<br />
+                Tim Admin Customer Care akan memeriksa rincian masalah Anda secepatnya.
+            </p>
+            <div class="modal-actions">
+                <button type="button" class="btn-confirm-modal" onclick="closeTicketModal()">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Bottom Navigation Mobile Standar Baru (5 Slot Baku) -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">🏠</div>
+            <span>Beranda</span>
+        </a>
+        <a href="chat.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">
+                <img src="../../assets/Images/icon/chat.png" alt="Chat" class="bottom-custom-icon-img" />
+                <span class="nav-badge-red nav-hidden" id="bottomNavChatBadge">0</span>
+            </div>
+            <span>Chat</span>
+        </a>
+        <a href="keranjang.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">
+                <img src="../../assets/Images/icon/basket.png" alt="Keranjang" class="bottom-custom-icon-img" />
+                <span class="nav-badge-red nav-hidden" id="bottomNavCartBadge">0</span>
+            </div>
+            <span>Keranjang</span>
+        </a>
+        <a href="pesanan-saya.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">📦</div>
+            <span>Pesanan</span>
+        </a>
+        <a href="akun.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">👤</div>
+            <span>Akun</span>
+        </a>
+    </nav>
+
+    <!-- Skrip Universal Navbar, Toast, & Logika Pusat Bantuan -->
+    <script src="../../assets/js/buyer-js/toast.js"></script>
+    <script src="../../assets/js/buyer-js/navbar.js"></script>
+    <script src="../../assets/js/buyer-js/pusat-bantuan.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* ==========================================
+   NAVIGASI BACK-ONLY KHUSUS BUKA TOKO
+   ========================================== */
+.buka-toko-nav {
+  background-color: #2e8b57;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-back-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.nav-btn-back {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.nav-btn-back:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-btn-back svg {
+  display: block;
+}
+
+.nav-page-title {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+}
+
+/* ==========================================
+   WRAPPER & KARTU FORMULIR PENDAFTARAN
+   ========================================== */
+.open-shop-wrapper {
+  max-width: 680px;
+  margin: 30px auto 60px auto;
+  padding: 0 15px;
+}
+
+.open-shop-card {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Banner Header */
+.shop-header-banner {
+  background: linear-gradient(135deg, #2e8b57, #246b43);
+  padding: 24px 30px;
+  color: #ffffff;
+}
+
+.shop-header-banner h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.shop-header-banner p {
+  font-size: 13px;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Form Body */
+.shop-form-body {
+  padding: 25px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 20px;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.section-heading {
+  font-size: 15px;
+  color: #2e8b57;
+  font-weight: bold;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #334155;
+}
+
+.req-star {
+  color: #e74c3c;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  background-color: #ffffff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #2e8b57;
+}
+
+.field-hint {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Tombol Aksi */
+.form-actions {
+  margin-top: 10px;
+}
+
+.btn-submit-shop {
+  width: 100%;
+  padding: 13px;
+  background-color: #ff9900;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-submit-shop:hover {
+  background-color: #e68a00;
+}
+
+.btn-submit-shop:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   TOAST NOTIFIKASI KUSTOM
+   ========================================== */
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+  max-width: 420px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background-color: #334155;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(-15px) scale(0.96);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.toast-item.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.toast-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Varian Jenis Toast */
+.toast-success {
+  background-color: #0f172a;
+  border-left: 4px solid #10b981;
+}
+.toast-success .toast-icon {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.toast-error {
+  background-color: #0f172a;
+  border-left: 4px solid #ef4444;
+}
+.toast-error .toast-icon {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.toast-warning {
+  background-color: #0f172a;
+  border-left: 4px solid #f59e0b;
+}
+.toast-warning .toast-icon {
+  background-color: #f59e0b;
+  color: #ffffff;
+}
+
+.toast-info {
+  background-color: #0f172a;
+  border-left: 4px solid #3b82f6;
+}
+.toast-info .toast-icon {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .open-shop-wrapper {
+    margin: 15px auto 40px auto;
+  }
+  .form-row-2 {
+    grid-template-columns: 1fr;
+  }
+  .toast-container {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    align-items: center;
+  }
+  .toast-item {
+    width: 100%;
+    max-width: 100%;
+  }
+}

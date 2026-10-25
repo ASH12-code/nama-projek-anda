@@ -1,0 +1,196 @@
+/* =========================================================
+   ON SHOP - SEARCH RESULTS STYLESHEET (Clean & Responsive)
+   File: assets/css/buyer-css/search.css
+   ========================================================= */
+
+/* --- 1. INDIKATOR PENCARIAN --- */
+.search-main-wrapper {
+  padding-top: 15px;
+}
+
+.search-breadcrumb-header {
+  margin-bottom: 14px;
+  font-size: 15px;
+  color: #475569;
+}
+
+.keyword-highlight {
+  color: #ff9900;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* --- 2. BILAH SORTIR ALA SHOPEE (DESKTOP) --- */
+.shopee-sort-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ededed;
+  padding: 12px 18px;
+  border-radius: 6px;
+  gap: 12px;
+  margin-bottom: 22px;
+  border: 1px solid #e2e8f0;
+}
+
+.sort-label {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 600;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.sort-actions-scroll {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.sort-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sort-btn:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.sort-btn.active {
+  background-color: #ff9900;
+  color: #ffffff;
+  border-color: #ff9900;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(255, 153, 0, 0.25);
+}
+
+/* Dropdown Opsi Filter Harga */
+.sort-dropdown-container {
+  margin-left: 4px;
+}
+
+.sort-dropdown-container select {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  color: #334155;
+  font-weight: 500;
+  transition: border-color 0.2s ease;
+}
+
+.sort-dropdown-container select:focus {
+  border-color: #ff9900;
+}
+
+/* --- 3. STATE KOSONG JIKA PRODUK TIDAK ADA --- */
+.search-empty-box {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-top: 10px;
+}
+
+.search-empty-box .empty-icon {
+  font-size: 52px;
+  margin-bottom: 12px;
+}
+
+.search-empty-box h3 {
+  color: #1e293b;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.search-empty-box p {
+  color: #64748b;
+  font-size: 13.5px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   4. PENYESUAIAN MOBILE RESPONSIVE (BASELINE 360px - 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  .search-main-wrapper {
+    padding-top: 10px;
+  }
+
+  .search-breadcrumb-header {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .keyword-highlight {
+    font-size: 14.5px;
+  }
+
+  /* Bilah Sortir HP: Bisa di-swipe geser horizontal jika sempit */
+  .shopee-sort-bar {
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sort-label {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  .sort-actions-scroll {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hilangkan scrollbar jelek pada browser mobile */
+  .sort-actions-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sort-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  .sort-dropdown-container select {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .search-empty-box {
+    padding: 40px 15px;
+  }
+
+  .search-empty-box .empty-icon {
+    font-size: 40px;
+  }
+
+  .search-empty-box h3 {
+    font-size: 16px;
+  }
+
+  .search-empty-box p {
+    font-size: 12.5px;
+  }
+}

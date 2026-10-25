@@ -1,0 +1,612 @@
+/* =========================================================
+   PENGATURAN TOKO - STRICT 360PX RESPONSIVE & CENTERED AVATAR
+   File: assets/css/seller-css/pengaturan-toko.css
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: #f8f9fa;
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+.settings-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.shop-profile-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 8px 6px;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+  margin-bottom: 14px;
+}
+
+.shop-profile-link:hover, .shop-profile-link.active {
+  background: #f1f8f4;
+}
+
+.shop-profile {
+  text-align: center;
+}
+
+.shop-logo {
+  width: 60px;
+  height: 60px;
+  background: #2e8b57;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 auto 8px auto;
+  box-shadow: 0 2px 6px rgba(46, 139, 87, 0.2);
+  background-size: cover;
+  background-position: center;
+}
+
+.shop-name {
+  font-size: 15px;
+  color: #0f172a;
+  font-weight: bold;
+}
+
+.settings-hint {
+  font-size: 11px;
+  color: #2e8b57;
+  font-weight: bold;
+  display: block;
+  margin-top: 3px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-item {
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #334155;
+  border-radius: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #e8f5e9;
+  color: #2e8b57;
+}
+
+/* KONTEN UTAMA */
+.main-content {
+  flex: 1;
+  padding: 24px 28px 90px 28px;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+.mobile-top-bar {
+  display: none;
+}
+
+.page-title-row h2 {
+  color: #2e8b57;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.header-info-summary {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 18px;
+}
+
+.settings-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-top: 4px solid #2e8b57;
+  border-radius: 8px;
+  padding: 24px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+/* AVATAR TOKO DI TENGAH LAYAR */
+.avatar-center-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.avatar-clickable {
+  position: relative;
+  cursor: pointer;
+  width: 86px;
+  height: 86px;
+  margin-bottom: 8px;
+}
+
+.preview-avatar-circle {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: #2e8b57;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid #e2e8f0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: opacity 0.2s;
+}
+
+.avatar-clickable:hover .preview-avatar-circle {
+  opacity: 0.9;
+}
+
+.camera-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #2e8b57;
+  color: #ffffff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-change-photo {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.15s ease;
+}
+
+.btn-change-photo:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.photo-hint {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.form-section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #0f172a;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #0f172a;
+  outline: none;
+  background: #fafafa;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+  border-color: #2e8b57;
+  background: #ffffff;
+}
+
+small {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 3px;
+  display: block;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 14px;
+}
+
+.btn-cancel {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #475569;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-save {
+  padding: 8px 20px;
+  background: #2e8b57;
+  border: none;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.btn-save:hover {
+  background: #246d44;
+}
+
+.seller-bottom-nav {
+  display: none;
+}
+
+/* RESPONSIF MOBILE 360px - 768px */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none !important;
+  }
+
+  .settings-wrapper {
+    flex-direction: column;
+    width: 100vw;
+  }
+
+  .main-content {
+    width: 100vw;
+    padding: 0 10px 80px 10px;
+  }
+
+  .page-title-row {
+    display: none;
+  }
+
+  .mobile-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 12px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 12px;
+  }
+
+  .btn-back-nav {
+    background: none;
+    border: none;
+    font-size: 22px;
+    font-weight: bold;
+    color: #2e8b57;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .mobile-page-title {
+    font-size: 14.5px;
+    font-weight: bold;
+    color: #0f172a;
+  }
+
+  .settings-card {
+    padding: 16px 12px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button, .form-actions a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .seller-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 54px;
+    background-color: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1500;
+  }
+
+  .seller-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 600;
+    flex: 1;
+    height: 100%;
+    position: relative;
+  }
+
+  .seller-nav-item.active {
+    color: #2e8b57;
+  }
+
+  .seller-nav-icon {
+    font-size: 17px;
+    margin-bottom: 1px;
+  }
+}
+
+/* =========================================================
+   MODAL CROP & ZOOM FOTO PROFIL TOKO
+   ========================================================= */
+.crop-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.crop-modal-box {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 360px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.crop-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.crop-modal-header h4 {
+  font-size: 14.5px;
+  color: #0f172a;
+  font-weight: bold;
+}
+
+.btn-close-crop {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #64748b;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Wadah Viewport Kotak Potong */
+.crop-viewport-container {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  background: #0f172a;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.crop-viewport-container:active {
+  cursor: grabbing;
+}
+
+#rawCropImage {
+  position: absolute;
+  max-width: none;
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+/* Lingkaran Pratinjau (Masking Luar Gelap) */
+.crop-mask-circle {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid #2e8b57;
+  box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.5);
+  pointer-events: none;
+}
+
+/* Slider Zoom */
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.zoom-controls span {
+  font-size: 13px;
+  color: #475569;
+}
+
+.zoom-controls input[type="range"] {
+  flex: 1;
+  accent-color: #2e8b57;
+  cursor: pointer;
+}
+
+.crop-hint-text {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 6px;
+  text-align: center;
+}
+
+.crop-modal-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.btn-crop-cancel {
+  flex: 1;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #475569;
+}
+
+.btn-crop-apply {
+  flex: 1;
+  padding: 8px;
+  background: #2e8b57;
+  border: none;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #ffffff;
+}
+/* =========================================================
+   TOAST NOTIFICATION MELAYANG DI BAWAH (ANTI-ALERT)
+   ========================================================= */
+.toast-box {
+  position: fixed;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 10000;
+  opacity: 0;
+  transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+  pointer-events: none;
+  max-width: 90vw;
+  white-space: nowrap;
+}
+
+.toast-box.toast-show {
+  bottom: 74px; /* Tepat di atas bottom navigation mobile */
+  opacity: 1;
+}
+
+.toast-box.toast-success {
+  background: #2e8b57;
+  border: 1px solid #246d44;
+}
+
+.toast-box.toast-error {
+  background: #ef4444;
+  border: 1px solid #dc2626;
+}
+
+.toast-icon {
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

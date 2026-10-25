@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Buka Toko Gratis - ON Shop</title>
+    
+    <!-- CSS Universal, Toast, & Buka Toko Mandiri -->
+    <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/buka-toko.css" />
+</head>
+<body>
+
+    <!-- 1. Universal Top Navbar Standar Baru (Identik Keranjang, Akun, & Pesanan) -->
+    <nav class="navbar">
+        <!-- Slot Kiri: Logo Bulat ON (Teks ON Shop otomatis sembunyi di HP) -->
+        <div class="nav-left-slot">
+            <a href="index.html" class="nav-brand-link" title="Kembali ke Beranda ON Shop">
+                <div class="nav-brand-circle">ON</div>
+                <span class="nav-brand-text-desktop">ON Shop</span>
+            </a>
+        </div>
+
+        <!-- Kolom Pencarian Tengah Fleksibel -->
+        <div class="nav-search-wrapper">
+            <input 
+                type="text" 
+                id="navSearchInput" 
+                placeholder="Cari panduan buka toko..." 
+                class="nav-search-input" 
+                autocomplete="off"
+            />
+            <button type="button" id="navSearchBtn" class="nav-search-btn">Cari</button>
+        </div>
+
+        <!-- Menu Aksi Kanan Desktop -->
+        <div class="nav-menu-group">
+            <a href="chat.html" class="nav-text-btn" title="Pesan Obrolan">
+                <span>Pesan</span>
+                <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+            </a>
+
+            <a href="keranjang.html" class="nav-text-btn" title="Keranjang Belanja">
+                <span>Keranjang</span>
+                <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+            </a>
+
+            <div class="nav-account-dropdown-wrapper">
+                <div class="nav-account-trigger" id="navAccountTrigger">
+                    <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+                    <span class="nav-account-name" id="navAccountNameText">Akun</span>
+                    <span class="nav-dropdown-caret">▼</span>
+                </div>
+
+                <div class="nav-dropdown-menu" id="navAccountMenu">
+                    <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+                    <a href="pesanan-saya.html" class="nav-dropdown-item">📦 Pesanan Saya</a>
+                    <a href="pusat-bantuan.html" class="nav-dropdown-item">❓ Pusat Bantuan</a>
+                    <div class="nav-dropdown-divider"></div>
+                    <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+                        🚪 Keluar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Konten Pendaftaran Toko -->
+    <main class="open-shop-wrapper">
+        <div class="open-shop-card">
+            <div class="shop-header-banner">
+                <h2>Buka Toko Gratis di ON Shop</h2>
+                <p>Mulai jangkau jutaan pembeli dan kembangkan bisnis online Anda dengan mudah.</p>
+            </div>
+
+            <form id="openShopForm" onsubmit="handleOpenShopSubmit(event)" class="shop-form-body">
+                <!-- Seksi 1: Profil Toko -->
+                <div class="form-section">
+                    <h3 class="section-heading">1. Informasi Toko</h3>
+
+                    <div class="form-group">
+                        <label for="shopName">Nama Toko <span class="req-star">*</span></label>
+                        <input
+                            type="text"
+                            id="shopName"
+                            placeholder="Contoh: Toko Berkah Mandiri"
+                            required
+                            maxlength="100"
+                        />
+                        <small class="field-hint">Gunakan nama toko yang unik, jelas, dan mudah diingat pembeli.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shopDescription">Deskripsi Toko (Opsional)</label>
+                        <textarea
+                            id="shopDescription"
+                            rows="3"
+                            placeholder="Ceritakan kategori atau keunggulan produk yang Anda tawarkan..."
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Seksi 2: Alamat Penjemputan Kurir -->
+                <div class="form-section">
+                    <h3 class="section-heading">2. Lokasi Penjemputan Paket (Pickup Kurir)</h3>
+
+                    <div class="form-group">
+                        <label for="pickupAddress">Alamat Lengkap Toko / Gudang <span class="req-star">*</span></label>
+                        <textarea
+                            id="pickupAddress"
+                            rows="2"
+                            placeholder="Nama jalan, RT/RW, nomor ruko/rumah, kelurahan, kecamatan..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="pickupCity">Kota / Kabupaten <span class="req-star">*</span></label>
+                            <input
+                                type="text"
+                                id="pickupCity"
+                                placeholder="Contoh: Pangkalpinang"
+                                required
+                                maxlength="100"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="pickupProvince">Provinsi <span class="req-star">*</span></label>
+                            <input
+                                type="text"
+                                id="pickupProvince"
+                                placeholder="Contoh: Kepulauan Bangka Belitung"
+                                required
+                                maxlength="100"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seksi 3: Rekening Penjualan -->
+                <div class="form-section">
+                    <h3 class="section-heading">3. Rekening Penarikan Saldo Penjual</h3>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="bankName">Nama Bank <span class="req-star">*</span></label>
+                            <select id="bankName" required>
+                                <option value="" disabled selected>Pilih Bank Rekening</option>
+                                <option value="BCA">Bank BCA</option>
+                                <option value="Mandiri">Bank Mandiri</option>
+                                <option value="BRI">Bank BRI</option>
+                                <option value="BNI">Bank BNI</option>
+                                <option value="BSI">Bank Syariah Indonesia (BSI)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bankAccountNumber">Nomor Rekening <span class="req-star">*</span></label>
+                            <input
+                                type="text"
+                                id="bankAccountNumber"
+                                placeholder="Contoh: 1234567890"
+                                required
+                                maxlength="50"
+                                pattern="[0-9]+"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit-shop" id="btnSubmitShop">
+                        Daftarkan Toko Saya
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- 3. Bottom Navigation Mobile Standar Baru -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">🏠</div>
+            <span>Beranda</span>
+        </a>
+        <a href="chat.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">
+                <img src="../../assets/Images/icon/chat.png" alt="Chat" class="bottom-custom-icon-img" />
+                <span class="nav-badge-red nav-hidden" id="bottomNavChatBadge">0</span>
+            </div>
+            <span>Chat</span>
+        </a>
+        <a href="keranjang.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">
+                <img src="../../assets/Images/icon/basket.png" alt="Keranjang" class="bottom-custom-icon-img" />
+                <span class="nav-badge-red nav-hidden" id="bottomNavCartBadge">0</span>
+            </div>
+            <span>Keranjang</span>
+        </a>
+        <a href="pesanan-saya.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">📦</div>
+            <span>Pesanan</span>
+        </a>
+        <a href="akun.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">👤</div>
+            <span>Akun</span>
+        </a>
+    </nav>
+
+    <!-- Skrip Universal Navbar, Toast, & Buka Toko -->
+    <script src="../../assets/js/buyer-js/toast.js"></script>
+    <script src="../../assets/js/buyer-js/navbar.js"></script>
+    <script src="../../assets/js/buyer-js/buka-toko.js"></script>
+</body>
+</html>

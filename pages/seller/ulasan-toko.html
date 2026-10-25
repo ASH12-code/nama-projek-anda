@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Rating & Ulasan Toko - ON Shop Seller Centre</title>
+  <link rel="icon" href="data:,">
+  
+  <!-- CSS Navigasi Terpadu & CSS Ulasan -->
+  <link rel="stylesheet" href="../../assets/css/seller-css/seller-nav.css" />
+  <link rel="stylesheet" href="../../assets/css/seller-css/ulasan-toko.css" />
+</head>
+<body>
+  <div class="ulasan-wrapper">
+    
+    <!-- 1. SLOT SIDEBAR DESKTOP (Diisi otomatis oleh seller-nav-component.js) -->
+    <div id="sellerSidebarSlot"></div>
+
+    <!-- 2. KONTEN UTAMA -->
+    <main class="main-content">
+      <div class="page-title-row">
+        <h2>Penilaian & Ulasan Pembeli</h2>
+        <span class="info-note">Pantau kepuasan pelanggan dan jaga reputasi toko Anda dengan membalas ulasan pembeli.</span>
+      </div>
+
+      <!-- Ringkasan Skor Toko -->
+      <div class="rating-summary-card">
+        <div class="score-box">
+          <h1 id="averageScoreText">0.0</h1>
+          <div class="stars-gold" id="averageStarsVisual">☆☆☆☆☆</div>
+          <span>Berdasarkan <strong id="totalReviewsCount">0</strong> ulasan</span>
+        </div>
+        <div class="rating-breakdown">
+          <div class="breakdown-row">
+            <span>5 Bintang</span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="bar5" style="width: 0%"></div>
+            </div>
+            <span class="count-label" id="countStar5">0</span>
+          </div>
+          <div class="breakdown-row">
+            <span>4 Bintang</span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="bar4" style="width: 0%"></div>
+            </div>
+            <span class="count-label" id="countStar4">0</span>
+          </div>
+          <div class="breakdown-row">
+            <span>3 Bintang</span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="bar3" style="width: 0%"></div>
+            </div>
+            <span class="count-label" id="countStar3">0</span>
+          </div>
+          <div class="breakdown-row">
+            <span>2 Bintang</span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="bar2" style="width: 0%"></div>
+            </div>
+            <span class="count-label" id="countStar2">0</span>
+          </div>
+          <div class="breakdown-row">
+            <span>1 Bintang</span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="bar1" style="width: 0%"></div>
+            </div>
+            <span class="count-label" id="countStar1">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Filter Status Balasan -->
+      <div class="tab-filter-bar">
+        <button type="button" class="tab-btn active" data-filter="all">
+          Semua Ulasan <span class="tab-count" id="countTabAll">0</span>
+        </button>
+        <button type="button" class="tab-btn" data-filter="unreplied">
+          Perlu Dibalas
+          <span class="tab-count badge-warning-tab" id="countTabUnreplied">0</span>
+        </button>
+        <button type="button" class="tab-btn" data-filter="replied">
+          Sudah Dibalas <span class="tab-count" id="countTabReplied">0</span>
+        </button>
+      </div>
+
+      <!-- Toolbar Filter & Sortir -->
+      <div class="toolbar-card">
+        <div class="filter-group">
+          <label for="starFilter">Filter Rating:</label>
+          <select id="starFilter" onchange="applyFilters()">
+            <option value="all">Semua Bintang (1 - 5)</option>
+            <option value="5">5 Bintang Saja</option>
+            <option value="4">4 Bintang Saja</option>
+            <option value="3">3 Bintang Saja</option>
+            <option value="2">2 Bintang Saja</option>
+            <option value="1">1 Bintang Saja</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="sortOrder">Urutkan:</label>
+          <select id="sortOrder" onchange="applyFilters()">
+            <option value="newest">Tanggal Terbaru</option>
+            <option value="oldest">Tanggal Terlama</option>
+            <option value="rating_desc">Rating Tertinggi</option>
+            <option value="rating_asc">Rating Terendah</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Feed Kartu Ulasan -->
+      <div id="reviewFeedContainer" class="reviews-feed">
+        <!-- Dirender secara dinamis oleh assets/js/seller-js/ulasan-toko.js -->
+      </div>
+
+      <div id="emptyReviewState" class="empty-state hidden">
+        <p>Belum ada ulasan pembeli yang sesuai dengan kriteria filter.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- TOAST NOTIFICATION STANDAR (PENGGANTI ALERT) -->
+  <div id="toastNotification" class="toast-box">
+    <span class="toast-icon" id="toastIcon">✓</span>
+    <span id="toastMessage">Operasi berhasil!</span>
+  </div>
+
+  <!-- 3. SLOT BOTTOM NAVIGATION MOBILE (Diisi otomatis oleh seller-nav-component.js) -->
+  <div id="sellerBottomNavSlot"></div>
+
+  <!-- 4. SKRIP KOMPONEN TERPADU & LOGIKA ULASAN -->
+  <script src="../../assets/js/seller-js/seller-nav-component.js"></script>
+  <script src="../../assets/js/seller-js/ulasan-toko.js"></script>
+</body>
+</html>

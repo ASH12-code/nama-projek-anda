@@ -1,0 +1,810 @@
+/* =========================================================
+   ON SHOP - PRODUCT DETAIL STYLESHEET
+   File: assets/css/buyer-css/detail-produk.css
+   ========================================================= */
+
+/* --- 1. RESET DAN PENATAAN GLOBAL --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #f8f9fa;
+  color: #334155;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto 40px auto;
+  padding: 0 16px;
+}
+
+.breadcrumb {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.breadcrumb a {
+  color: #2e8b57;
+  text-decoration: none;
+}
+
+/* --- 2. KOTAK UTAMA PRODUK DESKTOP (3 KOLOM FLEX) --- */
+.product-top-layout {
+  display: flex;
+  gap: 24px;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+/* Kolom 1: Galeri Gambar */
+.gallery-column {
+  width: 360px;
+  flex-shrink: 0;
+}
+
+.main-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 12px;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnail-list {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  width: 100%;
+}
+
+.thumb-item {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: #f8fafc;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease;
+}
+
+.thumb-item.active {
+  border-color: #2e8b57;
+}
+
+/* Kolom 2: Informasi Produk */
+.info-column {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.product-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 10px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.stats-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.rating-stars {
+  color: #f59e0b;
+  font-weight: bold;
+}
+
+.divider {
+  color: #cbd5e1;
+}
+
+/* Box Harga */
+.price-box {
+  background: #fcfdfc;
+  border: 1px dashed #2e8b57;
+  padding: 12px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.current-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2e8b57;
+}
+
+.original-price {
+  font-size: 13.5px;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.discount-badge {
+  background: #e8f5e9;
+  color: #2e8b57;
+  font-size: 11.5px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Pilihan Varian */
+.variant-section {
+  margin-bottom: 18px;
+}
+
+.section-label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.variant-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.variant-pill {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 7px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.variant-pill.active {
+  border-color: #2e8b57;
+  color: #2e8b57;
+  background: #f1f8f4;
+  font-weight: bold;
+}
+
+/* Kontrol Kuantitas */
+.quantity-section {
+  margin-bottom: 22px;
+}
+
+.qty-control-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qty-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.qty-btn {
+  width: 30px;
+  height: 30px;
+  background: #f8fafc;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  color: #334155;
+}
+
+.qty-input {
+  width: 40px;
+  height: 30px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid #cbd5e1;
+  border-right: 1px solid #cbd5e1;
+  font-weight: bold;
+  font-size: 13px;
+  outline: none;
+}
+
+.stock-info {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Tombol Transaksi Desktop */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-cart {
+  padding: 11px 18px;
+  background: #f1f8f4;
+  border: 1px solid #2e8b57;
+  color: #2e8b57;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cart:hover {
+  background: #e8f5e9;
+}
+
+.btn-buy {
+  padding: 11px 26px;
+  background: #ff9900;
+  border: none;
+  color: #ffffff;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-buy:hover {
+  background: #e68a00;
+}
+
+/* Kolom 3: Profil Toko Desktop */
+.shop-vertical-card {
+  width: 240px;
+  flex-shrink: 0;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.shop-card-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.shop-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #2e8b57;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.shop-name {
+  font-size: 13.5px;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+.shop-badge {
+  font-size: 10px;
+  background: #e8f5e9;
+  color: #2e8b57;
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.shop-city {
+  font-size: 11px;
+  color: #64748b;
+  display: block;
+  margin-top: 2px;
+}
+
+.shop-stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  background: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  border: 1px solid #f1f5f9;
+}
+
+.shop-stat-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shop-stat-item strong {
+  color: #2e8b57;
+}
+
+.shop-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-shop-chat,
+.btn-shop-visit {
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-shop-chat {
+  background: #ffffff;
+  border: 1px solid #2e8b57;
+  color: #2e8b57;
+}
+
+.btn-shop-chat:hover {
+  background: #f1f8f4;
+}
+
+.btn-shop-visit {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.btn-shop-visit:hover {
+  background: #e2e8f0;
+}
+
+/* --- 3. TAB NAVIGASI (SPESIFIKASI & ULASAN) --- */
+.tabs-container {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.tabs-nav-bar {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.tab-item-btn {
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  font-size: 13.5px;
+  font-weight: bold;
+  color: #64748b;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-item-btn.active {
+  color: #2e8b57;
+  background: #ffffff;
+}
+
+.tab-item-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #2e8b57;
+}
+
+.tab-panel {
+  display: none;
+  padding: 20px;
+  width: 100%;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.panel-subtitle {
+  font-size: 14.5px;
+  color: #1e293b;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  row-gap: 10px;
+  font-size: 13px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.spec-label {
+  color: #64748b;
+}
+
+.spec-value {
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.description-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #334155;
+}
+
+/* Tab Ulasan */
+.review-score-summary {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  padding: 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.score-large h2 {
+  font-size: 32px;
+  color: #1e293b;
+}
+
+.stars-gold {
+  color: #f59e0b;
+  font-size: 16px;
+}
+
+.review-card-item {
+  border-bottom: 1px solid #f1f5f9;
+  padding: 14px 0;
+}
+
+.rev-user-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.rev-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.rev-subtext {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.rev-comment-text {
+  font-size: 12.5px;
+  color: #334155;
+  line-height: 1.5;
+}
+
+/* Toast Popup */
+.toast-popup {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: #2e8b57;
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 12.5px;
+  font-weight: bold;
+  z-index: 2000;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.mobile-bottom-actions {
+  display: none;
+}
+
+/* =========================================================
+   4. ATURAN RESPONSIVE MOBILE (BASELINE 360px - 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 75px !important;
+  }
+
+  .page-container {
+    margin: 8px auto !important;
+    padding: 0 8px !important;
+    width: 100% !important;
+  }
+
+  .breadcrumb {
+    display: none !important;
+  }
+
+  /* Kotak Utama Produk Jadi 1 Kolom Penuh Simetris */
+  .product-top-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 10px !important;
+    gap: 12px !important;
+    margin-bottom: 10px !important;
+    width: 100% !important;
+  }
+
+  .gallery-column {
+    width: 100% !important;
+  }
+
+  .main-image-wrapper {
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .thumb-item {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .info-column {
+    width: 100% !important;
+  }
+
+  .product-title {
+    font-size: 15px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .stats-row {
+    font-size: 11.5px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .price-box {
+    padding: 8px 10px !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .current-price {
+    font-size: 18px !important;
+  }
+
+  .original-price {
+    font-size: 12px !important;
+  }
+
+  .discount-badge {
+    font-size: 10px !important;
+  }
+
+  .section-label {
+    font-size: 11.5px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .variant-pill {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+  }
+
+  .qty-btn {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .qty-input {
+    width: 32px !important;
+    height: 26px !important;
+    font-size: 11.5px !important;
+  }
+
+  .stock-info {
+    font-size: 11px !important;
+  }
+
+  .desktop-only-actions {
+    display: none !important;
+  }
+
+  /* Profil Toko Kartu Horisontal Ramping */
+  .shop-vertical-card {
+    width: 100% !important;
+    border-left: none !important;
+    border-top: 1px solid #e2e8f0 !important;
+    padding-left: 0 !important;
+    padding-top: 10px !important;
+    gap: 8px !important;
+  }
+
+  .shop-card-header {
+    margin-bottom: 0 !important;
+  }
+
+  .shop-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 13px !important;
+  }
+
+  .shop-stats-grid {
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    padding: 8px !important;
+    font-size: 10.5px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .shop-stat-item {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2px !important;
+  }
+
+  .shop-actions {
+    flex-direction: row !important;
+    gap: 6px !important;
+  }
+
+  .btn-shop-chat,
+  .btn-shop-visit {
+    flex: 1 !important;
+    padding: 6px !important;
+    font-size: 11px !important;
+  }
+
+  /* Penyesuaian Tab Menu */
+  .tabs-nav-bar {
+    display: flex !important;
+  }
+
+  .tab-item-btn {
+    flex: 1 !important;
+    padding: 10px 4px !important;
+    font-size: 11.5px !important;
+    text-align: center !important;
+  }
+
+  .tab-panel {
+    padding: 10px !important;
+  }
+
+  .spec-grid {
+    grid-template-columns: 95px 1fr !important;
+    font-size: 11px !important;
+    row-gap: 6px !important;
+  }
+
+  .description-text {
+    font-size: 11.5px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Sticky Action Bar di Bawah Layar */
+  .mobile-bottom-actions {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 52px !important;
+    background-color: #ffffff !important;
+    border-top: 1px solid #e2e8f0 !important;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08) !important;
+    z-index: 1500 !important;
+    align-items: center !important;
+    padding: 6px 8px !important;
+    gap: 6px !important;
+  }
+
+  .mobile-action-chat {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    color: #64748b !important;
+    padding: 0 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .mobile-action-chat .action-icon {
+    font-size: 16px !important;
+  }
+
+  .mobile-action-chat .action-text {
+    font-size: 9.5px !important;
+  }
+
+  .mobile-btn-cart {
+    flex: 1 !important;
+    height: 38px !important;
+    background-color: #f1f8f4 !important;
+    border: 1px solid #2e8b57 !important;
+    color: #2e8b57 !important;
+    font-size: 11.5px !important;
+    font-weight: bold !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+  }
+
+  .mobile-btn-buy {
+    flex: 1 !important;
+    height: 38px !important;
+    background-color: #ff9900 !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 11.5px !important;
+    font-weight: bold !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+  }
+
+  .toast-popup {
+    bottom: 60px !important;
+    right: 10px !important;
+    left: 10px !important;
+    text-align: center !important;
+  }
+}
+

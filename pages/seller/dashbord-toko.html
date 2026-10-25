@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Dasbor Penjualan - ON Shop Seller Centre</title>
+  <link rel="icon" href="data:,">
+  
+  <!-- 1. CSS NAVIGASI TERPADU & DASBOR -->
+  <link rel="stylesheet" href="../../assets/css/seller-css/seller-nav.css" />
+  <link rel="stylesheet" href="../../assets/css/seller-css/dashbord-toko.css" />
+
+  <!-- Library Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+</head>
+<body>
+  <div class="dashboard-wrapper" style="display: flex; width: 100vw; max-width: 100vw; min-height: 100vh;">
+    
+    <!-- 1. SLOT SIDEBAR DESKTOP (Diisi otomatis oleh seller-nav-component.js) -->
+    <div id="sellerSidebarSlot"></div>
+
+    <!-- 2. KONTEN UTAMA DASBOR -->
+    <main class="main-content" style="flex: 1; padding: 24px 30px 100px 30px; width: 100%; overflow-x: hidden;">
+      <h2 class="page-heading">Ringkasan Performa Toko</h2>
+
+      <!-- 4 KOTAK RINGKASAN SALDO & OMZET -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <p>Saldo Siap Tarik (Available)</p>
+          <h3 id="statAvailableBalance">Rp 0</h3>
+          <button type="button" class="btn-withdraw" onclick="window.location.href='tarik-saldo.html'">Tarik Dana</button>
+        </div>
+        <div class="stat-card">
+          <p>Saldo Tertahan (Escrow)</p>
+          <h3 id="statEscrowBalance">Rp 0</h3>
+        </div>
+        <div class="stat-card">
+          <p>Pesanan Perlu Diproses</p>
+          <h3 id="statOrdersToProcess">0 <span class="text-small">Pesanan</span></h3>
+        </div>
+        <div class="stat-card">
+          <p>Total Omzet Bersih</p>
+          <h3 id="statTotalRevenue">Rp 0</h3>
+        </div>
+      </div>
+
+      <!-- GRAFIK ANALITIK -->
+      <div class="chart-section">
+        <!-- Grafik Tren Omzet -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h4>Tren Pendapatan Bersih</h4>
+            <select id="salesPeriodSelect" class="select-chart-period" onchange="loadSalesChartOnly()">
+              <option value="daily">7 Hari Terakhir (Harian)</option>
+              <option value="weekly">4 Minggu Terakhir (Mingguan)</option>
+              <option value="semester1">Semester 1 (Jan - Jun)</option>
+              <option value="semester2">Semester 2 (Jul - Des)</option>
+            </select>
+          </div>
+          <div class="chart-box">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Grafik Top 5 Produk -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h4>Top 5 Produk Terlaris</h4>
+            <select id="productsPeriodSelect" class="select-chart-period" onchange="loadTopProductsChartOnly()">
+              <option value="all_time">Sepanjang Waktu</option>
+              <option value="last_7_days">7 Hari Terakhir</option>
+              <option value="last_30_days">30 Hari Terakhir</option>
+              <option value="month_jan">Januari 2026</option>
+              <option value="month_feb">Februari 2026</option>
+            </select>
+          </div>
+          <div class="chart-box">
+            <canvas id="topProductsChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 PESANAN TERBARU -->
+      <div class="table-card">
+        <h4>5 Pesanan Terbaru Toko</h4>
+        <div class="orders-list-box" id="recentOrdersContainer">
+          <!-- Dirender via JavaScript -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 3. SLOT BOTTOM NAVIGATION MOBILE (5 MENU BAKU + NOTIF MERAH) -->
+  <div id="sellerBottomNavSlot"></div>
+
+  <!-- 4. SKRIP KOMPONEN TERPADU & LOGIKA DASBOR -->
+  <script src="../../assets/js/seller-js/seller-nav-component.js"></script>
+  <!-- Pastikan namanya sesuai file fisik: dashbord-toko.js -->
+  <script src="../../assets/js/seller-js/dashbord-toko.js"></script>
+</body>
+</html>

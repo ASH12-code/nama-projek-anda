@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Produk & Etalase - ON Shop Seller Centre</title>
+  
+  <link rel="icon" href="data:,">
+  
+  <!-- 1. CSS Komponen Navigasi Global -->
+  <link rel="stylesheet" href="../../assets/css/seller-css/seller-nav.css" />
+  <!-- 2. CSS Etalase & Produk -->
+  <link rel="stylesheet" href="../../assets/css/seller-css/index.css" />
+</head>
+<body>
+  <div class="seller-layout-container" style="display: flex; width: 100vw; max-width: 100vw; min-height: 100vh;">
+    
+    <!-- 1. SLOT SIDEBAR DESKTOP (Diisi otomatis oleh seller-nav-component.js) -->
+    <div id="sellerSidebarSlot"></div>
+
+    <!-- 2. KONTEN UTAMA ETALASE -->
+    <main class="main-content">
+      
+      <!-- HEADER PROFIL MOBILE (BERSIH & MINIMALIS, KLIK LANGSUNG KE PENGATURAN) -->
+<div class="mobile-seller-top-header">
+  <a href="pengaturan-toko.html" class="mobile-profile-clickable" title="Ketuk untuk ke Pengaturan Toko">
+    <div class="mobile-profile-logo" id="mobileHeaderShopLogo">TO</div>
+    <div class="mobile-profile-info">
+      <span class="mobile-profile-name" id="mobileHeaderShopName">Toko Budi2 Official</span>
+      <span class="mobile-profile-sub">Seller Terverifikasi • Ketuk untuk Pengaturan</span>
+    </div>
+  </a>
+</div>
+
+      <!-- BANNER SELAMAT DATANG TOKO -->
+      <div class="shop-banner">
+        <div>
+          <h3>Katalog & Etalase Produk</h3>
+          <p>Atur visibilitas, stok, dan sematkan produk unggulan di bagian teratas toko Anda.</p>
+        </div>
+      </div>
+
+      <!-- SEKSI PRODUK PIN / UNGGULAN -->
+      <div class="pinned-section">
+        <div class="section-header">
+          <h4>📌 Produk Unggulan Tersemat <span class="pin-count-text" id="pinCountLabel">(0 / 10 Dipilih)</span></h4>
+        </div>
+        <div class="product-grid" id="pinnedGridBox">
+          <!-- Dirender dinamis oleh index.js -->
+        </div>
+      </div>
+
+      <!-- KATALOG UTAMA & TAB FILTER STATUS -->
+      <div class="catalog-box">
+        <div class="tab-status-bar">
+          <div class="tab-group">
+            <button type="button" class="tab-btn active" data-tab="all">
+              Semua <span class="tab-count" id="countAll">0</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="active">
+              Aktif <span class="tab-count" id="countActive">0</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="out_of_stock">
+              Habis <span class="tab-count urgent" id="countOutOfStock">0</span>
+            </button>
+            <button type="button" class="tab-btn" data-tab="archived">
+              Diarsipkan <span class="tab-count" id="countArchived">0</span>
+            </button>
+          </div>
+          <div style="padding: 10px 0;">
+            <a href="tambah-produk.html" class="btn-add-primary">+ Tambah Produk</a>
+          </div>
+        </div>
+
+        <div class="catalog-body">
+          <div class="product-grid" id="allProductGridBox">
+            <!-- Dirender dinamis oleh index.js -->
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- 3. SLOT BOTTOM NAVIGATION MOBILE (Diisi otomatis oleh seller-nav-component.js) -->
+  <div id="sellerBottomNavSlot"></div>
+
+  <!-- MODAL KONFIRMASI HAPUS CUSTOM (PENGGANTI WINDOW.CONFIRM) -->
+  <div class="custom-confirm-overlay" id="deleteConfirmModal">
+    <div class="custom-confirm-box">
+      <div class="confirm-icon-box">🗑️</div>
+      <h4>Hapus Produk Permanen?</h4>
+      <p>Produk beserta seluruh data varian dan foto akan dihapus dari etalase toko Anda.</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn-confirm-cancel" onclick="closeDeleteConfirmModal()">Batal</button>
+        <button type="button" class="btn-confirm-delete" id="btnExecuteDelete">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION STANDAR (PENGGANTI ALERT) -->
+  <div id="toastNotification" class="toast-box">
+    <span class="toast-icon" id="toastIcon">✓</span>
+    <span id="toastMessage">Aksi berhasil dijalankan!</span>
+  </div>
+
+ 
+  <!-- 4. SKRIP JAVASCRIPT -->
+  <!-- Skrip Navigasi & Notifikasi Terpadu -->
+  <script src="../../assets/js/seller-js/seller-nav-component.js"></script>
+  <!-- Skrip Pengelolaan Katalog Produk -->
+  <script src="../../assets/js/seller-js/index.js"></script>
+</body>
+</html>

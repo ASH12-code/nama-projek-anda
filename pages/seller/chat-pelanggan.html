@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Pesan Pelanggan - ON Shop Seller Centre</title>
+  <link rel="icon" href="data:,">
+  
+  <!-- CSS Navigasi Terpadu & CSS Chat -->
+  <link rel="stylesheet" href="../../assets/css/seller-css/seller-nav.css" />
+  <link rel="stylesheet" href="../../assets/css/seller-css/chat-pelanggan.css" />
+</head>
+<body>
+  <div class="chat-app-wrapper">
+    
+    <!-- 1. SLOT SIDEBAR DESKTOP (Diisi otomatis oleh seller-nav-component.js) -->
+    <div id="sellerSidebarSlot"></div>
+
+    <!-- 2. KONTEN APLIKASI CHAT -->
+    <main class="chat-main-container">
+      <div class="chat-card-frame" id="chatCardFrame">
+        
+        <!-- KOLOM KIRI: DAFTAR KONTAK PEMBELI -->
+        <div class="chat-inbox-column">
+          <div class="inbox-header">
+            <h4>Obrolan Pembeli</h4>
+            <div class="inbox-search-box">
+              <span>🔍</span>
+              <input type="text" id="buyerSearchInput" placeholder="Cari nama pembeli..." oninput="handleSearchBuyer()" />
+            </div>
+          </div>
+          <div class="conversation-list" id="conversationListContainer">
+            <!-- Dirender dinamis oleh JS -->
+          </div>
+        </div>
+
+        <!-- KOLOM KANAN: RUANG DIALOG PESAN -->
+        <div class="chat-dialog-column" id="chatDialogColumn">
+          <!-- Header Lawan Bicara -->
+          <div class="active-user-header">
+            <div class="user-meta-left">
+              <button type="button" class="btn-back-to-list" onclick="closeChatOnMobile()" title="Kembali ke Daftar">←</button>
+              <div class="user-avatar-badge" id="activeUserAvatar">--</div>
+              <div class="user-meta-info">
+                <h4 id="activeUserName">Pilih Pembeli</h4>
+                <small id="activeUserStatus">Online • Pembeli Terdaftar</small>
+              </div>
+            </div>
+            <a href="kelola-pesanan.html" id="btnCheckOrderLink" class="btn-link-order">Cek Pesanan Pembeli</a>
+          </div>
+
+          <!-- Sematan Produk Terkait Pesanan Terakhir -->
+          <div class="pinned-product-bar" id="pinnedProductBar" style="display: none;">
+            <img src="" id="pinnedProdImg" alt="Produk" class="pinned-thumb" onerror="this.src='https://placehold.co/100x100?text=Produk'" />
+            <div class="pinned-meta">
+              <span class="pinned-title" id="pinnedProdTitle">Nama Barang</span>
+              <span class="pinned-price" id="pinnedProdPrice">Rp 0</span>
+            </div>
+            <span class="pinned-badge" id="pinnedOrderCode">INV</span>
+          </div>
+
+          <!-- Badan Pesan Percakapan -->
+          <div class="chat-messages-scroll" id="messagesScrollBody">
+            <div class="chat-placeholder-empty" id="emptyChatPlaceholder">
+              <p>Pilih salah satu pembeli di sebelah kiri untuk membaca dan membalas pesan.</p>
+            </div>
+          </div>
+
+          <!-- Footer Balasan Cepat & Formulir Input -->
+          <div class="chat-footer-form">
+            <div class="quick-reply-bar">
+              <button type="button" class="btn-quick-tag" onclick="insertQuickReply('Halo kak, barang ini ready stok dan siap dikirim ya!')">Stok Ready?</button>
+              <button type="button" class="btn-quick-tag" onclick="insertQuickReply('Pesanan sedang dikemas rapi dan akan diserahkan ke kurir hari ini.')">Status Pengiriman</button>
+              <button type="button" class="btn-quick-tag" onclick="insertQuickReply('Terima kasih banyak atas pesanannya kak, ditunggu bintang 5-nya!')">Terima Kasih</button>
+            </div>
+            <form id="chatSubmitForm" onsubmit="handleSendSubmit(event)">
+              <textarea id="chatInputMessage" placeholder="Ketik balasan untuk pembeli... (Enter untuk kirim)" rows="1" onkeydown="handleInputKey(event)"></textarea>
+              <button type="submit" class="btn-send-chat" id="btnSendChat">Kirim</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- 3. SLOT BOTTOM NAVIGATION MOBILE (Diisi otomatis oleh seller-nav-component.js) -->
+  <div id="sellerBottomNavSlot"></div>
+
+  <!-- Skrip Terpusat Navigasi & Logika Chat -->
+  <script src="../../assets/js/seller-js/seller-nav-component.js"></script>
+  <script src="../../assets/js/seller-js/chat-pelanggan.js"></script>
+</body>
+</html>

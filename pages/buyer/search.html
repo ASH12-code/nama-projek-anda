@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Hasil Pencarian - ON Shop</title>
+  
+  <!-- CSS Universal & Search -->
+  <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+  <link rel="stylesheet" href="../../assets/css/buyer-css/index.css" />
+  <link rel="stylesheet" href="../../assets/css/buyer-css/search.css" />
+  <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+</head>
+<body>
+
+  <!-- 1. Universal Top Navbar Identik Keranjang (Tanpa Menu Toko Saya) -->
+  <nav class="navbar">
+    <!-- Slot Kiri: Logo Bulat ON (Teks ON Shop otomatis sembunyi di HP) -->
+    <div class="nav-left-slot">
+      <a href="index.html" class="nav-brand-link" title="Kembali ke Beranda ON Shop">
+        <div class="nav-brand-circle">ON</div>
+        <span class="nav-brand-text-desktop">ON Shop</span>
+      </a>
+    </div>
+
+    <!-- Kolom Pencarian Tengah Fleksibel -->
+    <div class="nav-search-wrapper">
+      <input 
+        type="text" 
+        id="pageSearchInput" 
+        placeholder="Cari produk lain di ON Shop..." 
+        class="nav-search-input" 
+        autocomplete="off"
+      />
+      <button type="button" id="pageSearchBtn" class="nav-search-btn">Cari</button>
+    </div>
+
+    <!-- Menu Aksi Kanan Desktop (Murni: Pesan, Keranjang, Akun) -->
+    <div class="nav-menu-group">
+      <!-- 1. Tombol Pesan -->
+      <a href="chat.html" class="nav-text-btn" title="Pesan Obrolan">
+        <span>Pesan</span>
+        <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+      </a>
+
+      <!-- 2. Tombol Keranjang -->
+      <a href="keranjang.html" class="nav-text-btn" title="Keranjang Belanja">
+        <span>Keranjang</span>
+        <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+      </a>
+
+      <!-- 3. Dropdown Menu Akun -->
+      <div class="nav-account-dropdown-wrapper">
+        <div class="nav-account-trigger" id="navAccountTrigger">
+          <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+          <span class="nav-account-name" id="navAccountNameText">Akun</span>
+          <span class="nav-dropdown-caret">▼</span>
+        </div>
+
+        <div class="nav-dropdown-menu" id="navAccountMenu">
+          <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+          <a href="pesanan-saya.html" class="nav-dropdown-item">📦 Pesanan Saya</a>
+          <a href="pusat-bantuan.html" class="nav-dropdown-item">❓ Pusat Bantuan</a>
+          <div class="nav-dropdown-divider"></div>
+          <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+            🚪 Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. Konten Hasil Pencarian -->
+  <main class="main-content search-main-wrapper">
+    
+    <!-- Indikator Kata Kunci -->
+    <div class="search-breadcrumb-header">
+      <span>Hasil pencarian untuk: <strong id="searchedKeywordText" class="keyword-highlight">''</strong></span>
+    </div>
+
+    <!-- Toolbar Sortir Produk -->
+    <div class="shopee-sort-bar">
+      <span class="sort-label">Urutkan</span>
+      <div class="sort-actions-scroll">
+        <button type="button" class="sort-btn active" data-sort="terkait">Terkait</button>
+        <button type="button" class="sort-btn" data-sort="terbaru">Terbaru</button>
+        <button type="button" class="sort-btn" data-sort="terlaris">Terlaris</button>
+
+        <!-- Dropdown Urutkan Harga -->
+        <div class="sort-dropdown-container">
+          <select id="priceSortSelect" onchange="handlePriceSortChange(this)">
+            <option value="">Harga</option>
+            <option value="price_asc">Harga: Rendah ke Tinggi</option>
+            <option value="price_desc">Harga: Tinggi ke Rendah</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid Produk Pencarian -->
+    <div class="product-grid" id="searchProductGrid">
+      <p style="grid-column: 1/-1; text-align: center; color: #888; padding: 40px;">Mencari produk...</p>
+    </div>
+
+    <!-- Kotak Kosong Jika Tidak Ditemukan -->
+    <div id="searchEmptyState" class="search-empty-box hidden">
+      <div class="empty-icon">🔍</div>
+      <h3>Barang tidak ditemukan</h3>
+      <p>Coba kata kunci lain atau periksa kembali ejaan produk yang Anda cari.</p>
+    </div>
+
+  </main>
+
+  <!-- 3. Bottom Navigation Mobile (5 Slot Gambar Baku) -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">🏠</div>
+      <span>Beranda</span>
+    </a>
+    <a href="chat.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">
+        <img src="../../assets/Images/icon/chat.png" alt="Chat" class="bottom-custom-icon-img" />
+        <span class="nav-badge-red nav-hidden" id="bottomNavChatBadge">0</span>
+      </div>
+      <span>Chat</span>
+    </a>
+    <a href="keranjang.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">
+        <img src="../../assets/Images/icon/basket.png" alt="Keranjang" class="bottom-custom-icon-img" />
+        <span class="nav-badge-red nav-hidden" id="bottomNavCartBadge">0</span>
+      </div>
+      <span>Keranjang</span>
+    </a>
+    <a href="pesanan-saya.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">📦</div>
+      <span>Pesanan</span>
+    </a>
+    <a href="akun.html" class="bottom-nav-item">
+      <div class="bottom-icon-wrap">👤</div>
+      <span>Akun</span>
+    </a>
+  </nav>
+
+  <!-- Script Terpisah -->
+  <script src="../../assets/js/buyer-js/toast.js"></script>
+  <script src="../../assets/js/buyer-js/navbar.js"></script>
+  <script src="../../assets/js/buyer-js/search.js"></script>
+</body>
+</html>

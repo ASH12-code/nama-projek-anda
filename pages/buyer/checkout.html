@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Checkout Pembayaran - ON Shop</title>
+    
+    <!-- CSS Universal, Toast, & Checkout Mandiri -->
+    <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/checkout.css" />
+  </head>
+  <body>
+
+    <!-- 1. Universal Top Navbar Standar Baru -->
+    <nav class="navbar">
+      <div class="nav-left-slot">
+        <button type="button" class="nav-back-btn" onclick="handleCheckoutBackNav()" title="Kembali">
+          <span class="nav-back-arrow">←</span>
+          <span class="nav-back-text">Kembali</span>
+        </button>
+      </div>
+
+      <div class="nav-search-wrapper">
+        <input 
+          type="text" 
+          id="navSearchInput" 
+          placeholder="Cari produk lain di ON Shop..." 
+          class="nav-search-input" 
+          autocomplete="off"
+        />
+        <button type="button" id="navSearchBtn" class="nav-search-btn">Cari</button>
+      </div>
+
+      <div class="nav-menu-group">
+        <a href="chat.html" class="nav-text-btn" title="Pesan Obrolan">
+          <span>Pesan</span>
+          <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+        </a>
+
+        <a href="keranjang.html" class="nav-text-btn" title="Keranjang Belanja">
+          <span>Keranjang</span>
+          <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+        </a>
+
+        <div class="nav-account-dropdown-wrapper">
+          <div class="nav-account-trigger" id="navAccountTrigger">
+            <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+            <span class="nav-account-name" id="navAccountNameText">Akun</span>
+            <span class="nav-dropdown-caret">▼</span>
+          </div>
+
+          <div class="nav-dropdown-menu" id="navAccountMenu">
+            <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+            <a href="pesanan-saya.html" class="nav-dropdown-item">📦 Pesanan Saya</a>
+            <a href="pusat-bantuan.html" class="nav-dropdown-item">❓ Pusat Bantuan</a>
+            <div class="nav-dropdown-divider"></div>
+            <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+              🚪 Keluar
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 2. Konten Utama Checkout -->
+    <main class="page-wrapper">
+      <div class="checkout-grid">
+        
+        <!-- Sisi Kiri: Alamat, Produk per Toko, Voucher, & Metode Pembayaran -->
+        <div class="checkout-left-column">
+          
+          <!-- Kartu Alamat Pengiriman -->
+          <section class="checkout-card address-card">
+            <div class="card-header-between">
+              <div class="address-title">
+                <span>📍 Alamat Pengiriman</span>
+              </div>
+              <button
+                type="button"
+                class="btn-text-action"
+                onclick="openAddressModal()"
+              >
+                Ubah Alamat
+              </button>
+            </div>
+            <div class="address-body" id="currentAddressBox">
+              <p style="color: #64748b; font-size: 13px;">Memuat alamat pengiriman...</p>
+            </div>
+          </section>
+
+          <!-- Wadah Daftar Produk per Toko, Voucher, & Kurir (Dirender JS) -->
+          <div id="checkoutShopsContainer" class="checkout-shops-wrapper"></div>
+
+          <!-- Pilihan Metode Pembayaran -->
+          <section class="checkout-card payment-card">
+            <h3 class="card-title">Metode Pembayaran</h3>
+
+            <div class="payment-options-vertical">
+              <label class="payment-radio-item">
+                <input
+                  type="radio"
+                  name="payment_method"
+                  value="COD"
+                  checked
+                  onchange="handlePaymentChange(this.value)"
+                />
+                <div class="payment-text-meta">
+                  <strong>COD (Bayar di Tempat)</strong>
+                  <small>Bayar tunai kepada kurir saat paket tiba di alamat Anda</small>
+                </div>
+              </label>
+
+              <label class="payment-radio-item">
+                <input
+                  type="radio"
+                  name="payment_method"
+                  value="QRIS"
+                  onchange="handlePaymentChange(this.value)"
+                />
+                <div class="payment-text-meta">
+                  <strong>QRIS (Semua E-Wallet & Mobile Banking)</strong>
+                  <small>Kode QR otomatis muncul untuk dipindai melalui GoPay, OVO, DANA, BCA, dll.</small>
+                </div>
+              </label>
+
+              <label class="payment-radio-item">
+                <input
+                  type="radio"
+                  name="payment_method"
+                  value="VA"
+                  onchange="handlePaymentChange(this.value)"
+                />
+                <div class="payment-text-meta">
+                  <strong>Transfer Bank (Virtual Account)</strong>
+                  <small>Verifikasi otomatis melalui nomor Virtual Account resmi</small>
+                </div>
+              </label>
+
+              <div id="subBankContainer" class="sub-bank-box hidden">
+                <span class="sub-bank-title">Pilih Rekening Bank:</span>
+                <div class="bank-grid-options">
+                  <label class="bank-sub-item">
+                    <input type="radio" name="selected_bank" value="VA_BCA" checked />
+                    <span>BCA Virtual Account</span>
+                  </label>
+                  <label class="bank-sub-item">
+                    <input type="radio" name="selected_bank" value="VA_MANDIRI" />
+                    <span>Mandiri Virtual Account</span>
+                  </label>
+                  <label class="bank-sub-item">
+                    <input type="radio" name="selected_bank" value="VA_BRI" />
+                    <span>BRI Virtual Account</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Sisi Kanan: Ringkasan Tagihan & Tombol Bayar -->
+        <aside class="checkout-right-column">
+          <div class="summary-card" id="summaryCard">
+            <h3 class="summary-title">Ringkasan Pembayaran</h3>
+
+            <div class="calc-row">
+              <span>Total Harga Barang:</span>
+              <strong id="subtotalGoodsDisplay">Rp 0</strong>
+            </div>
+
+            <div class="calc-row">
+              <span>Total Diskon Produk:</span>
+              <strong id="totalProductDiscountDisplay" style="color: #16a34a;">-Rp 0</strong>
+            </div>
+
+            <div class="calc-row">
+              <span>Total Ongkos Kirim:</span>
+              <strong id="totalShippingDisplay">Rp 0</strong>
+            </div>
+
+            <div class="calc-row">
+              <span>Total Diskon Ongkir:</span>
+              <strong id="totalShippingDiscountDisplay" style="color: #16a34a;">-Rp 0</strong>
+            </div>
+
+            <div class="calc-row">
+              <span>Biaya Penanganan:</span>
+              <strong id="serviceFeeDisplay">Rp 1.000</strong>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="calc-total-row">
+              <span>Total Tagihan:</span>
+              <h2 id="grandTotalDisplay">Rp 0</h2>
+            </div>
+
+            <button
+              type="button"
+              class="btn-create-order"
+              id="btnSubmitOrder"
+              onclick="processCreateOrder()"
+            >
+              Buat Pesanan
+            </button>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+
+    <!-- Modal Pop-up Pemilihan Alamat Tersimpan -->
+    <div id="addressModal" class="modal-overlay hidden">
+      <div class="modal-content modal-address-list">
+        <h3>Pilih Alamat Pengiriman</h3>
+        <div id="addressListModalContainer" class="modal-address-items-wrapper"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeAddressModal()">Tutup</button>
+          <a href="akun.html" class="btn-manage-addr">Kelola Alamat</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Pop-up Pemilihan Voucher (Platform & Toko) -->
+    <div id="voucherSelectorModal" class="modal-overlay hidden">
+      <div class="modal-content" style="max-width: 440px;">
+        <h3 id="voucherModalTitle" style="margin-bottom: 8px;">Pilih Voucher</h3>
+        <p id="voucherModalSubtitle" style="font-size: 12.5px; color: #64748b; margin-bottom: 14px;">Gunakan voucher untuk mendapatkan potongan harga terbaik.</p>
+        
+        <div id="voucherModalListContainer" style="max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+          <p style="font-size: 13px; color: #94a3b8; text-align: center; padding: 20px;">Memuat voucher...</p>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 16px;">
+          <button type="button" class="btn-cancel" onclick="closeVoucherModal()">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Konfirmasi Pembayaran -->
+    <div id="paymentChoiceModal" class="modal-overlay hidden">
+      <div class="modal-content modal-choice-box">
+        <h3>Lanjutkan Pembayaran?</h3>
+        <p class="choice-subtext">Pesanan Anda telah dicatat. Pilih waktu pelunasan:</p>
+        
+        <div class="choice-info-summary">
+          <div class="choice-row">
+            <span>Total Tagihan:</span>
+            <strong id="modalGrandTotal">Rp 0</strong>
+          </div>
+          <div class="choice-row">
+            <span>Metode:</span>
+            <strong id="modalPaymentMethod">QRIS</strong>
+          </div>
+        </div>
+
+        <div class="modal-choice-buttons">
+          <button type="button" class="btn-action-paynow" onclick="handleConfirmPayNow()">
+            Bayar Sekarang
+          </button>
+          <button type="button" class="btn-action-paylater" onclick="handleConfirmPayLater()">
+            Bayar Nanti (Ke Pesanan Saya)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skrip Universal Navbar, Toast, & Logika Checkout -->
+    <script src="../../assets/js/buyer-js/toast.js"></script>
+    <script src="../../assets/js/buyer-js/navbar.js"></script>
+    <script src="../../assets/js/buyer-js/checkout.js"></script>
+  </body>
+</html>

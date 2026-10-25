@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Pesanan Saya - ON Shop</title>
+
+    <!-- CSS Universal, Toast, & Pesanan Saya Mandiri -->
+    <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/pesanan-saya.css" />
+</head>
+<body>
+
+    <!-- 1. Universal Top Navbar Identik Keranjang & Akun -->
+    <nav class="navbar">
+        <div class="nav-left-slot">
+            <a href="index.html" class="nav-brand-link" title="Kembali ke Beranda ON Shop">
+                <div class="nav-brand-circle">ON</div>
+                <span class="nav-brand-text-desktop">ON Shop</span>
+            </a>
+        </div>
+
+        <div class="nav-search-wrapper">
+            <input 
+                type="text" 
+                id="navSearchInput" 
+                placeholder="Cari pesanan atau produk..." 
+                class="nav-search-input" 
+                autocomplete="off"
+            />
+            <button type="button" id="navSearchBtn" class="nav-search-btn">Cari</button>
+        </div>
+
+        <div class="nav-menu-group">
+            <a href="chat.html" class="nav-text-btn" title="Pesan Obrolan">
+                <span>Pesan</span>
+                <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+            </a>
+
+            <a href="keranjang.html" class="nav-text-btn" title="Keranjang Belanja">
+                <span>Keranjang</span>
+                <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+            </a>
+
+            <div class="nav-account-dropdown-wrapper">
+                <div class="nav-account-trigger" id="navAccountTrigger">
+                    <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+                    <span class="nav-account-name" id="navAccountNameText">Akun</span>
+                    <span class="nav-dropdown-caret">▼</span>
+                </div>
+
+                <div class="nav-dropdown-menu" id="navAccountMenu">
+                    <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+                    <a href="pesanan-saya.html" class="nav-dropdown-item active">📦 Pesanan Saya</a>
+                    <a href="pusat-bantuan.html" class="nav-dropdown-item">❓ Pusat Bantuan</a>
+                    <div class="nav-dropdown-divider"></div>
+                    <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+                        🚪 Keluar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Konten Halaman Pesanan Saya -->
+    <main class="order-page-container">
+        
+        <!-- Header Judul Halaman -->
+        <div class="page-title-box">
+            <div class="title-header-flex">
+                <div>
+                    <h2 id="mainPageTitle">Pesanan Saya</h2>
+                    <p id="mainPageSubtitle">Pantau status transaksi, rincian kiriman paket, dan ulasan belanja Anda.</p>
+                </div>
+                <button type="button" class="btn-toggle-history" id="btnToggleHistory" onclick="toggleHistoryView()">
+                    📜 Riwayat Transaksi
+                </button>
+            </div>
+        </div>
+
+        <!-- TAMPILAN 1: PESANAN AKTIF -->
+        <div id="activeOrdersSection">
+            <!-- BILAH TAB STATUS HORIZONTAL (SCROLLABLE & DRAGGABLE) -->
+            <div class="status-tab-scroll-bar">
+                <button type="button" class="status-tab-pill active" onclick="switchOrderStatus('unpaid', this)">
+                    Belum Dibayar <span class="pill-counter" id="unpaidCountText">0</span>
+                </button>
+                <button type="button" class="status-tab-pill" onclick="switchOrderStatus('packed', this)">
+                    Sedang Dikemas <span class="pill-counter" id="packedCountText">0</span>
+                </button>
+                <button type="button" class="status-tab-pill" onclick="switchOrderStatus('shipped', this)">
+                    Dalam Pengiriman <span class="pill-counter" id="shippedCountText">0</span>
+                </button>
+                <button type="button" class="status-tab-pill" onclick="switchOrderStatus('arrived', this)">
+                    Barang Sampai <span class="pill-counter" id="arrivedCountText">0</span>
+                </button>
+                <button type="button" class="status-tab-pill" id="tabPillDispute" onclick="switchOrderStatus('dispute', this)">
+                    Pengembalian <span class="pill-counter" id="returnCountText">0</span>
+                </button>
+                <button type="button" class="status-tab-pill" onclick="switchOrderStatus('review', this)">
+                    Beri Penilaian <span class="pill-counter" id="reviewCountText">0</span>
+                </button>
+            </div>
+
+            <!-- Wadah Daftar Kartu Pesanan Aktif -->
+            <section class="order-feed-section" id="orderFeedContainer">
+                <div class="empty-order-state">Memuat daftar pesanan...</div>
+            </section>
+        </div>
+
+        <!-- TAMPILAN 2: RIWAYAT TRANSAKSI LENGKAP -->
+        <div id="historySection" class="hidden">
+            <div class="history-tabs-bar">
+                <button type="button" class="history-tab-btn active" onclick="switchHistoryTab('selesai', this)">
+                    ✅ Selesai (<span id="countHistorySelesai">0</span>)
+                </button>
+                <button type="button" class="history-tab-btn" onclick="switchHistoryTab('pengembalian', this)">
+                    🔄 Pengembalian (<span id="countHistoryRetur">0</span>)
+                </button>
+                <button type="button" class="history-tab-btn" onclick="switchHistoryTab('dibatalkan', this)">
+                    ❌ Dibatalkan (<span id="countHistoryBatal">0</span>)
+                </button>
+            </div>
+
+            <!-- Wadah Kartu Riwayat -->
+            <section class="order-feed-section" id="historyFeedContainer"></section>
+        </div>
+
+    </main>
+
+    <!-- Modal Konfirmasi Batal Pesanan -->
+    <div id="cancelConfirmModal" class="modal-overlay hidden">
+        <div class="modal-box" style="max-width: 380px; text-align: center; padding: 22px;">
+            <div style="font-size: 36px; margin-bottom: 8px;">⚠️</div>
+            <h3 style="font-size: 16px; font-weight: bold; color: #1e293b; margin-bottom: 6px;">Batalkan Pesanan?</h3>
+            <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-bottom: 20px;">
+                Apakah Anda yakin ingin membatalkan pesanan ini? Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button type="button" class="btn-cancel" onclick="closeCancelConfirmModal()" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; cursor: pointer;">
+                    Tidak
+                </button>
+                <button type="button" id="btnConfirmProceedCancel" onclick="executeCancelOrder()" style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: #ef4444; color: #ffffff; font-weight: bold; cursor: pointer;">
+                    Ya, Batalkan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pop-up Beri Rating + Unggah & Atur Gambar -->
+    <div id="ratingModal" class="modal-overlay hidden">
+        <div class="modal-box" style="max-width: 440px; text-align: left; max-height: 90vh; overflow-y: auto;">
+            <h3 class="modal-title" style="text-align: center;">Beri Penilaian Produk</h3>
+            <p class="modal-subtitle" id="ratingProductName" style="text-align: center; color: #64748b; font-size: 13px; margin-bottom: 12px;">Nama Produk</p>
+
+            <div class="star-rating-selector" id="starSelector" style="justify-content: center; margin-bottom: 14px;">
+                <span class="star-clickable" onclick="setRating(1)">★</span>
+                <span class="star-clickable" onclick="setRating(2)">★</span>
+                <span class="star-clickable" onclick="setRating(3)">★</span>
+                <span class="star-clickable" onclick="setRating(4)">★</span>
+                <span class="star-clickable" onclick="setRating(5)">★</span>
+            </div>
+            <input type="hidden" id="selectedStarValue" value="5" />
+
+            <label style="font-size: 12px; font-weight: bold; color: #475569; display: block; margin-bottom: 4px;">Ulasan Anda:</label>
+            <textarea id="ratingCommentInput" placeholder="Bagikan kepuasan Anda mengenai kualitas barang dan respon penjual..." class="rating-textarea" style="width: 100%; height: 70px; margin-bottom: 14px; font-size: 12.5px;"></textarea>
+
+            <label style="font-size: 12px; font-weight: bold; color: #475569; display: block; margin-bottom: 4px;">Foto Produk (Opsional):</label>
+            <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 10px;">
+                <label for="reviewImageInput" style="background: #f1f5f9; border: 1px dashed #cbd5e1; padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; color: #2e8b57;">
+                    📷 Pilih Foto
+                </label>
+                <input type="file" id="reviewImageInput" accept=".jpg,.jpeg,.png,.webp" style="display: none;" onchange="handleReviewImageSelect(event)" />
+                <button type="button" id="btnRemoveReviewImg" onclick="removeReviewImage()" style="display: none; background: none; border: none; color: #ef4444; font-size: 12px; cursor: pointer; font-weight: 600;">
+                    Hapus Foto
+                </button>
+            </div>
+
+            <div id="reviewImageAdjustContainer" style="display: none; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+                <span style="font-size: 11.5px; font-weight: bold; color: #334155; display: block; margin-bottom: 8px;">Sesuaikan Tampilan Foto:</span>
+                
+                <div style="width: 180px; height: 180px; margin: 0 auto 12px auto; border-radius: 8px; overflow: hidden; border: 2px solid #2e8b57; background: #000; position: relative;">
+                    <img id="reviewImgPreview" src="" alt="Pratinjau" style="position: absolute; transform-origin: center center;" />
+                </div>
+
+                <div style="margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-bottom: 2px;">
+                        <span>Zoom (Skala):</span>
+                        <strong id="zoomValText">1.0x</strong>
+                    </div>
+                    <input type="range" id="reviewImgZoom" min="1" max="3" step="0.1" value="1" style="width: 100%; accent-color: #2e8b57;" oninput="updateReviewImageTransform()" />
+                </div>
+
+                <div style="margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-bottom: 2px;">
+                        <span>Posisi Horizontal:</span>
+                        <strong id="posXValText">0px</strong>
+                    </div>
+                    <input type="range" id="reviewImgPosX" min="-100" max="100" step="1" value="0" style="width: 100%; accent-color: #2e8b57;" oninput="updateReviewImageTransform()" />
+                </div>
+
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-bottom: 2px;">
+                        <span>Posisi Vertikal:</span>
+                        <strong id="posYValText">0px</strong>
+                    </div>
+                    <input type="range" id="reviewImgPosY" min="-100" max="100" step="1" value="0" style="width: 100%; accent-color: #2e8b57;" oninput="updateReviewImageTransform()" />
+                </div>
+            </div>
+
+            <div class="modal-actions" style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn-cancel" onclick="closeRatingModal()" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; cursor: pointer;">Batal</button>
+                <button type="button" class="btn-submit-review" id="btnSubmitReview" onclick="submitRating()" style="padding: 8px 18px; border-radius: 6px; border: none; background: #2e8b57; color: #fff; font-weight: bold; cursor: pointer;">Kirim Penilaian</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AJUKAN PENGEMBALIAN DENGAN UPLOAD & ZOOM/GESER GAMBAR BUKTI -->
+    <div id="returnModal" class="modal-overlay hidden">
+        <div class="modal-box" style="max-width: 440px; text-align: left; max-height: 90vh; overflow-y: auto;">
+            <h3 class="modal-title text-danger" style="text-align: center;">Ajukan Pengembalian Barang</h3>
+            <p class="modal-subtitle" id="returnProductName" style="text-align: center; color: #64748b; font-size: 13px; margin-bottom: 12px;">Nama Produk</p>
+
+            <label class="modal-form-label">Alasan Pengembalian:</label>
+            <select id="returnReasonSelect" class="modal-select-box">
+                <option value="Barang rusak / cacat fisik saat diterima">Barang rusak / cacat fisik saat diterima</option>
+                <option value="Produk tidak sesuai spesifikasi / salah varian">Produk tidak sesuai spesifikasi / salah varian</option>
+                <option value="Aksesoris atau kelengkapan pesanan kurang">Aksesoris atau kelengkapan pesanan kurang</option>
+            </select>
+
+            <label class="modal-form-label">Keterangan Kendala:</label>
+            <textarea id="returnNotesInput" placeholder="Ceritakan detail kendala produk Anda..." class="rating-textarea" style="width: 100%; height: 75px; margin-bottom: 12px; font-size: 12.5px;"></textarea>
+
+            <!-- Input Unggah Bukti Foto Retur -->
+            <label class="modal-form-label">Bukti Foto Kerusakan / Kendala (Opsional):</label>
+            <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 10px;">
+                <label for="returnImageInput" style="background: #f1f5f9; border: 1px dashed #cbd5e1; padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; color: #e74c3c;">
+                    📷 Unggah Foto Bukti
+                </label>
+                <input type="file" id="returnImageInput" accept=".jpg,.jpeg,.png,.webp" style="display: none;" onchange="handleReturnImageSelect(event)" />
+                <button type="button" id="btnRemoveReturnImg" onclick="removeReturnImage()" style="display: none; background: none; border: none; color: #ef4444; font-size: 12px; cursor: pointer; font-weight: 600;">
+                    Hapus Foto
+                </button>
+            </div>
+
+            <!-- Kontainer Pratinjau & Kontrol Slider Foto Retur -->
+            <div id="returnImageAdjustContainer" style="display: none; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+                <span style="font-size: 11.5px; font-weight: bold; color: #334155; display: block; margin-bottom: 8px;">Sesuaikan Sudut Bukti Foto:</span>
+                
+                <div style="width: 180px; height: 180px; margin: 0 auto 12px auto; border-radius: 8px; overflow: hidden; border: 2px solid #e74c3c; background: #000; position: relative;">
+                    <img id="returnImgPreview" src="" alt="Pratinjau Bukti" style="position: absolute; transform-origin: center center;" />
+                </div>
+
+                <div style="margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-bottom: 2px;">
+                        <span>Zoom (Skala):</span>
+                        <strong id="zoomValReturnText">1.0x</strong>
+                    </div>
+                    <input type="range" id="returnImgZoom" min="1" max="3" step="0.1" value="1" style="width: 100%; accent-color: #e74c3c;" oninput="updateReturnImageTransform()" />
+                </div>
+
+                <div style="margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-bottom: 2px;">
+                        <span>Posisi Horizontal:</span>
+                        <strong id="posXValReturnText">0px</strong>
+                    </div>
+                    <input type="range" id="returnImgPosX" min="-100" max="100" step="1" value="0" style="width: 100%; accent-color: #e74c3c;" oninput="updateReturnImageTransform()" />
+                </div>
+
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-bottom: 2px;">
+                        <span>Posisi Vertikal:</span>
+                        <strong id="posYValReturnText">0px</strong>
+                    </div>
+                    <input type="range" id="returnImgPosY" min="-100" max="100" step="1" value="0" style="width: 100%; accent-color: #e74c3c;" oninput="updateReturnImageTransform()" />
+                </div>
+            </div>
+
+            <div class="modal-actions" style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn-cancel" onclick="closeReturnModal()">Batal</button>
+                <button type="button" id="btnSubmitReturn" class="btn-submit-review bg-danger" onclick="submitReturnRequest()">Kirim Pengajuan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Bottom Navigation Mobile Standar Baru -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">🏠</div>
+            <span>Beranda</span>
+        </a>
+        <a href="chat.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">
+                <img src="../../assets/Images/icon/chat.png" alt="Chat" class="bottom-custom-icon-img" />
+                <span class="nav-badge-red nav-hidden" id="bottomNavChatBadge">0</span>
+            </div>
+            <span>Chat</span>
+        </a>
+        <a href="keranjang.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">
+                <img src="../../assets/Images/icon/basket.png" alt="Keranjang" class="bottom-custom-icon-img" />
+                <span class="nav-badge-red nav-hidden" id="bottomNavCartBadge">0</span>
+            </div>
+            <span>Keranjang</span>
+        </a>
+        <a href="pesanan-saya.html" class="bottom-nav-item active">
+            <div class="bottom-icon-wrap">📦</div>
+            <span>Pesanan</span>
+        </a>
+        <a href="akun.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">👤</div>
+            <span>Akun</span>
+        </a>
+    </nav>
+
+    <!-- Skrip Universal Navbar, Toast, & Logika Pesanan -->
+    <script src="../../assets/js/buyer-js/toast.js"></script>
+    <script src="../../assets/js/buyer-js/navbar.js"></script>
+    <script src="../../assets/js/buyer-js/pesanan-saya.js"></script>
+</body>
+</html>

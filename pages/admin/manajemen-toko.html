@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manajemen Toko - Super Admin ON Shop</title>
+  
+  <!-- 1. CSS Global Sidebar Navigasi -->
+  <link rel="stylesheet" href="../../assets/css/admin-css/sidebar-admin.css" />
+  <!-- 2. CSS Khusus Modul Toko -->
+  <link rel="stylesheet" href="../../assets/css/admin-css/admin-toko.css" />
+</head>
+<body class="admin-body">
+
+  <!-- SIDEBAR NAVIGASI GLOBAL -->
+  <aside class="admin-sidebar">
+    <!-- Brand Logo Admin -->
+    <div class="sidebar-brand">
+      <div class="brand-logo-circle">ON</div>
+      <div>
+        <span class="brand-title">ON Shop</span>
+        <span class="brand-badge-admin">ADMIN</span>
+      </div>
+    </div>
+
+    <!-- 1. Menu Navigasi Utama -->
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-link">
+        <span class="nav-link-content">📊 Dashboard Global</span>
+      </a>
+      <a href="manajemen-toko.html" class="nav-link active">
+        <span class="nav-link-content">🏪 Manajemen Toko</span>
+        <span class="nav-badge-pill" id="badgePendingShops"></span>
+      </a>
+      <a href="manajemen-user.html" class="nav-link">
+        <span class="nav-link-content">👥 Manajemen Pembeli</span>
+      </a>
+      <a href="manajemen-keuangan.html" class="nav-link">
+        <span class="nav-link-content">💰 Keuangan & Payout</span>
+        <span class="nav-badge-pill" id="badgePendingPayouts"></span>
+      </a>
+      <a href="pusat-bantuan.html" class="nav-link">
+        <span class="nav-link-content">⚖️ Pusat Bantuan</span>
+        <span class="nav-badge-pill" id="badgeOpenDisputes"></span>
+      </a>
+    </nav>
+
+    <!-- 2. Aksi Bawah Sidebar -->
+    <div class="sidebar-bottom-actions">
+      <a href="/on-shop/pages/buyer/index.html" target="_blank" rel="noopener noreferrer" class="nav-link back-store" title="Buka etalase marketplace publik di tab baru">
+        <span class="nav-link-content">🌐 Kunjungi Marketplace</span>
+        <span class="external-icon">↗</span>
+      </a>
+
+      <!-- Tombol Logout Admin -->
+      <button type="button" class="btn-sidebar-logout" onclick="handleAdminLogout()">
+        🚪 Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- KONTEN UTAMA MANAJEMEN TOKO -->
+  <main class="admin-main-content">
+    
+    <!-- KOTAK 1: HEADER & PENCARIAN -->
+    <header class="admin-card header-control-card">
+      <div class="header-text-group">
+        <h2>Manajemen Toko & Merchant</h2>
+        <p>Verifikasi pengajuan toko baru, kelola badge resmi, dan kontrol status operasional toko.</p>
+      </div>
+
+      <div>
+        <input
+          type="text"
+          id="merchantSearchInput"
+          placeholder="Cari nama toko, pemilik, kota..."
+          onkeyup="filterMerchantTable()"
+          class="search-input-box"
+        />
+      </div>
+    </header>
+
+    <!-- TAB FILTER STATUS TOKO -->
+    <div class="merchant-tabs-bar">
+      <button type="button" class="tab-btn-pill active" onclick="switchMerchantTab('all', this)">
+        Semua Toko (<span id="countAll">0</span>)
+      </button>
+      <button type="button" class="tab-btn-pill" onclick="switchMerchantTab('pending', this)">
+        ⏳ Menunggu Verifikasi (<span id="countPending">0</span>)
+      </button>
+      <button type="button" class="tab-btn-pill" onclick="switchMerchantTab('verified', this)">
+        ✅ Terverifikasi (<span id="countVerified">0</span>)
+      </button>
+      <button type="button" class="tab-btn-pill" onclick="switchMerchantTab('suspended', this)">
+        🚫 Dibekukan (<span id="countSuspended">0</span>)
+      </button>
+    </div>
+
+    <!-- KOTAK 2: TABEL DATA TOKO DARI MYSQL -->
+    <section class="admin-card table-section-card">
+      <div class="table-responsive">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>Toko & Badge</th>
+              <th>Pemilik Toko</th>
+              <th>Kota Gudang</th>
+              <th>Produk Aktif</th>
+              <th>Rating</th>
+              <th>Status Akun</th>
+              <th style="text-align: right;">Aksi Kendali</th>
+            </tr>
+          </thead>
+          <tbody id="merchantTableBody">
+            <!-- Render via JS Backend -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL PERIKSA BERKAS KTP (APPROVAL) -->
+  <div id="approvalModal" class="modal-overlay hidden">
+    <div class="modal-box modal-wide">
+      <h3 class="modal-title" style="color: #2e8b57;">Pemeriksaan Berkas Toko</h3>
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">
+        Tinjau keabsahan identitas KTP dan rekening sebelum memberikan izin jualan.
+      </p>
+
+      <div class="approval-grid">
+        <div class="approval-data-column">
+          <div class="data-group">
+            <label>Nama Toko:</label>
+            <strong id="modalShopName">-</strong>
+          </div>
+          <div class="data-group">
+            <label>Nama Pemilik:</label>
+            <span id="modalOwnerName">-</span>
+          </div>
+          <div class="data-group">
+            <label>Nomor WhatsApp:</label>
+            <span id="modalShopPhone">-</span>
+          </div>
+          <div class="data-group">
+            <label>Lokasi Gudang / Kota:</label>
+            <span id="modalShopCity">-</span>
+          </div>
+          <div class="data-group">
+            <label>Rekening Pencairan Dana:</label>
+            <strong id="modalShopBank" style="color: #ea580c;">-</strong>
+          </div>
+        </div>
+
+        <div class="approval-ktp-column">
+          <label style="font-size: 11.5px; font-weight: bold; color: #64748b; display: block; margin-bottom: 6px;">
+            Foto KTP Pemilik:
+          </label>
+          <div class="ktp-preview-wrapper">
+            <img id="modalKtpImage" src="" alt="Pratinjau KTP" class="ktp-preview-img" />
+          </div>
+        </div>
+      </div>
+
+      <div id="rejectReasonBox" class="hidden" style="margin-top: 10px;">
+        <label style="font-size: 12px; font-weight: bold; color: #dc2626;">Alasan Penolakan:</label>
+        <textarea
+          id="rejectReasonInput"
+          class="form-control"
+          style="height: 65px; margin-top: 4px;"
+          placeholder="Contoh: Foto KTP buram dan nama rekening tidak cocok..."
+        ></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeApprovalModal()">Tutup</button>
+        <button type="button" class="btn-action-danger" id="btnShowRejectBox" onclick="showRejectInput()">
+          Tolak Berkas
+        </button>
+        <button type="button" class="btn-action-primary" id="btnApproveStore" onclick="confirmApproveStore()">
+          Setujui & Verifikasi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL SUSPEND TOKO (PEMBEKUAN) -->
+  <div id="suspendModal" class="modal-overlay hidden">
+    <div class="modal-box modal-danger">
+      <h3 class="modal-title" style="color: #dc2626;">Bekukan Operasional Toko</h3>
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;" id="suspendShopLabel">
+        Toko yang dibekukan tidak akan tampil di marketplace.
+      </p>
+
+      <div class="form-group">
+        <label style="font-size: 12px; font-weight: bold; color: #334155;">Skema Pembekuan:</label>
+        <div style="display: flex; gap: 20px; margin-top: 4px;">
+          <label style="font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            <input type="radio" name="suspendType" value="temporary" checked onchange="toggleSuspendDuration(true)" />
+            Sementara (Batas Waktu)
+          </label>
+          <label style="font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            <input type="radio" name="suspendType" value="permanent" onchange="toggleSuspendDuration(false)" />
+            Permanen / Manual
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" id="durationSelectBox">
+        <label style="font-size: 12px; font-weight: bold; color: #334155;">Durasi Hukuman:</label>
+        <select id="suspendDurationSelect" class="form-control">
+          <option value="3">3 Hari Kalender</option>
+          <option value="7" selected>7 Hari Kalender</option>
+          <option value="30">30 Hari Kalender</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label style="font-size: 12px; font-weight: bold; color: #334155;">Catatan Pelanggaran:</label>
+        <textarea
+          id="suspendReasonInput"
+          class="form-control"
+          style="height: 70px;"
+          placeholder="Tuliskan indikasi kecurangan, komplain barang palsu, dsb..."
+        ></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeSuspendModal()">Batal</button>
+        <button type="button" class="btn-action-danger" onclick="executeSuspendStore()">
+          Konfirmasi Bekukan Toko
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIKASI TUNGGAL & VALID -->
+  <div id="toastNotification" class="toast-box">
+    <span id="toastIcon" class="toast-icon-circle">✓</span>
+    <span id="toastMessage">Operasi berhasil dilakukan!</span>
+  </div>
+
+  <!-- 1. JS Navigasi Sidebar Global -->
+  <script src="../../assets/js/admin-js/sidebar-admin.js"></script>
+  <!-- 2. JS Logika Modul Toko Backend -->
+  <script src="../../assets/js/admin-js/admin-toko.js"></script>
+</body>
+</html>

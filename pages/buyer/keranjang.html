@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Keranjang Belanja - ON Shop</title>
+    
+    <!-- CSS Universal, Toast, & Keranjang Mandiri -->
+    <link rel="stylesheet" href="../../assets/css/buyer-css/navbar.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/toast.css" />
+    <link rel="stylesheet" href="../../assets/css/buyer-css/keranjang.css" />
+</head>
+<body>
+
+    <!-- 1. Universal Top Navbar Identik Index (Tanpa Menu Toko Saya) -->
+    <nav class="navbar">
+        <!-- Slot Kiri: Logo Bulat ON + ON Shop Menuju Index -->
+        <!-- Slot Kiri: Logo Bulat ON (Teks ON Shop otomatis sembunyi di HP) -->
+<div class="nav-left-slot">
+    <a href="index.html" class="nav-brand-link" title="Kembali ke Beranda ON Shop">
+        <div class="nav-brand-circle">ON</div>
+        <span class="nav-brand-text-desktop">ON Shop</span>
+    </a>
+</div>
+        <!-- Kolom Pencarian Tengah -->
+        <div class="nav-search-wrapper">
+            <input 
+                type="text" 
+                id="navSearchInput" 
+                placeholder="Cari produk di keranjang..." 
+                class="nav-search-input" 
+                autocomplete="off"
+            />
+            <button type="button" id="navSearchBtn" class="nav-search-btn">Cari</button>
+        </div>
+
+        <!-- Menu Aksi Kanan Desktop (Murni: Pesan, Keranjang Aktif, Akun) -->
+        <div class="nav-menu-group">
+            <!-- 1. Tombol Pesan -->
+            <a href="chat.html" class="nav-text-btn" title="Pesan Obrolan">
+                <span>Pesan</span>
+                <span class="nav-badge-red nav-hidden" id="navbarChatBadge">0</span>
+            </a>
+
+            <!-- 2. Tombol Keranjang (Aktif) -->
+            <a href="keranjang.html" class="nav-text-btn active" title="Keranjang Belanja">
+                <span>Keranjang</span>
+                <span class="nav-badge-red nav-hidden" id="navbarCartBadge">0</span>
+            </a>
+
+            <!-- 3. Dropdown Menu Akun -->
+            <div class="nav-account-dropdown-wrapper">
+                <div class="nav-account-trigger" id="navAccountTrigger">
+                    <div class="nav-account-avatar" id="navAccountAvatarBadge">👤</div>
+                    <span class="nav-account-name" id="navAccountNameText">Akun</span>
+                    <span class="nav-dropdown-caret">▼</span>
+                </div>
+
+                <div class="nav-dropdown-menu" id="navAccountMenu">
+                    <a href="akun.html" class="nav-dropdown-item">👤 Profil Saya</a>
+                    <a href="pesanan-saya.html" class="nav-dropdown-item">📦 Pesanan Saya</a>
+                    <a href="pusat-bantuan.html" class="nav-dropdown-item">❓ Pusat Bantuan</a>
+                    <div class="nav-dropdown-divider"></div>
+                    <button type="button" class="nav-dropdown-item nav-dropdown-logout" onclick="handleBuyerLogout()">
+                        🚪 Keluar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Konten Utama Keranjang -->
+    <main class="page-wrapper">
+        <div class="cart-layout-grid">
+            
+            <!-- Sisi Kiri: Daftar Keranjang per Toko -->
+            <div class="cart-left-column">
+                
+                <!-- Panel Header & Checkbox Pilih Semua -->
+                <div class="cart-header-panel">
+                    <h2>Keranjang Belanja</h2>
+                    <div class="select-all-row">
+                        <label class="custom-checkbox-label">
+                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)" />
+                            <span class="checkbox-text">Pilih Semua (<span id="totalItemsCount">0</span> Produk)</span>
+                        </label>
+                        <button type="button" class="btn-delete-selected" onclick="deleteSelectedItems()">Hapus Terpilih</button>
+                    </div>
+                </div>
+
+                <!-- Wadah render kelompok toko & produk -->
+                <div id="shopGroupsContainer" class="shop-groups-wrapper"></div>
+
+                <!-- State Kosong jika keranjang kosong -->
+                <div id="emptyCartState" class="empty-cart-box hidden">
+                    <div class="empty-icon">🛒</div>
+                    <h3>Keranjang belanja Anda kosong</h3>
+                    <p>Yuk, cari produk impian dan tambahkan ke keranjang!</p>
+                    <a href="index.html" class="btn-shopping-now">Mulai Belanja</a>
+                </div>
+
+            </div>
+
+            <!-- Sisi Kanan: Ringkasan Belanja (Sticky di Desktop, Bar Bawah di Mobile) -->
+            <aside class="cart-right-column">
+                <div class="summary-card" id="summaryCard">
+                    <h3 class="summary-title">Ringkasan Belanja</h3>
+                    
+                    <div class="summary-calc-row">
+                        <span>Total Barang Terpilih</span>
+                        <strong id="selectedItemCountText">0 Barang</strong>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-total-row">
+                        <span>Total Tagihan:</span>
+                        <h2 id="totalPriceDisplay">Rp 0</h2>
+                    </div>
+
+                    <button type="button" class="checkout-btn" id="checkoutBtn" onclick="handleProceedCheckout()">
+                        Beli Sekarang (<span id="checkoutBadgeCount">0</span>)
+                    </button>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- 3. Bottom Navigation Mobile (5 Slot Baku) -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">🏠</div>
+            <span>Beranda</span>
+        </a>
+        <a href="chat.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">
+                <img src="../../assets/Images/icon/chat.png" alt="Chat" class="bottom-custom-icon-img" />
+                <span class="nav-badge-red nav-hidden" id="bottomNavChatBadge">0</span>
+            </div>
+            <span>Chat</span>
+        </a>
+        <a href="keranjang.html" class="bottom-nav-item active">
+            <div class="bottom-icon-wrap">
+                <img src="../../assets/Images/icon/basket.png" alt="Keranjang" class="bottom-custom-icon-img" />
+                <span class="nav-badge-red nav-hidden" id="bottomNavCartBadge">0</span>
+            </div>
+            <span>Keranjang</span>
+        </a>
+        <a href="pesanan-saya.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">📦</div>
+            <span>Pesanan</span>
+        </a>
+        <a href="akun.html" class="bottom-nav-item">
+            <div class="bottom-icon-wrap">👤</div>
+            <span>Akun</span>
+        </a>
+    </nav>
+
+    <!-- Skrip Terpisah -->
+    <script src="../../assets/js/buyer-js/toast.js"></script>
+    <script src="../../assets/js/buyer-js/navbar.js"></script>
+    <script src="../../assets/js/buyer-js/keranjang.js"></script>
+</body>
+</html>

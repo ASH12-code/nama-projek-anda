@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pusat Bantuan - Super Admin ON Shop</title>
+  
+  <!-- 1. CSS Global Sidebar Navigasi -->
+  <link rel="stylesheet" href="../../assets/css/admin-css/sidebar-admin.css" />
+  <!-- 2. CSS Khusus Modul Bantuan -->
+  <link rel="stylesheet" href="../../assets/css/admin-css/admin-bantuan.css" />
+</head>
+<body class="admin-body">
+
+  <!-- SIDEBAR NAVIGASI GLOBAL -->
+<aside class="admin-sidebar">
+  <!-- Brand Logo Admin -->
+  <div class="sidebar-brand">
+    <div class="brand-logo-circle">ON</div>
+    <div>
+      <span class="brand-title">ON Shop</span>
+      <span class="brand-badge-admin">ADMIN</span>
+    </div>
+  </div>
+
+  <!-- 1. Menu Navigasi Utama -->
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-link">
+      <span class="nav-link-content">📊 Dashboard Global</span>
+    </a>
+    <a href="manajemen-toko.html" class="nav-link">
+      <span class="nav-link-content">🏪 Manajemen Toko</span>
+      <span class="nav-badge-pill" id="badgePendingShops"></span>
+    </a>
+    <a href="manajemen-user.html" class="nav-link">
+      <span class="nav-link-content">👥 Manajemen Pembeli</span>
+    </a>
+    <a href="manajemen-keuangan.html" class="nav-link">
+      <span class="nav-link-content">💰 Keuangan & Payout</span>
+      <span class="nav-badge-pill" id="badgePendingPayouts"></span>
+    </a>
+    <a href="pusat-bantuan.html" class="nav-link">
+      <span class="nav-link-content">⚖️ Pusat Bantuan</span>
+      <span class="nav-badge-pill" id="badgeOpenDisputes"></span>
+    </a>
+  </nav>
+
+  <!-- 2. Aksi Bawah Sidebar (Terpisah dari <nav> agar flex margin-top: auto bekerja sempurna) -->
+  <div class="sidebar-bottom-actions">
+    <!-- Tautan Kunjungi Marketplace (Buka di Tab Baru) -->
+    <!-- Jika nama filenya index.html di dalam folder buyer -->
+<a href="/on-shop/pages/buyer/index.html" target="_blank" rel="noopener noreferrer" class="nav-link back-store" title="Buka etalase marketplace publik di tab baru">
+  <span class="nav-link-content">🌐 Kunjungi Marketplace</span>
+  <span class="external-icon">↗</span>
+</a>
+
+    <!-- Tombol Logout Admin -->
+    <button type="button" class="btn-sidebar-logout" onclick="handleAdminLogout()">
+      🚪 Logout
+    </button>
+  </div>
+</aside>
+
+  <!-- KONTEN UTAMA PUSAT BANTUAN -->
+  <main class="admin-main-content">
+    
+    <!-- KOTAK 1: HEADER & PENCARIAN -->
+    <header class="admin-card header-control-card">
+      <div class="header-text-group">
+        <h2>Pusat Bantuan & Sidang Mediasi</h2>
+        <p>Tangani klaim komplain retur barang, selesaikan sengketa pembeli vs penjual, dan tetapkan vonis pelepasan dana escrow.</p>
+      </div>
+
+      <div>
+        <input
+          type="text"
+          id="disputeSearchInput"
+          placeholder="Cari invoice, pembeli, user ID, toko..."
+          onkeyup="filterDisputeTable()"
+          class="search-input-box"
+        />
+      </div>
+    </header>
+
+    <!-- 4 KARTU METRIK MEDIASI BANTUAN -->
+    <section class="dispute-kpi-grid">
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Kasus Baru Menunggu</span>
+          <h3 id="metricPendingCountText" style="color: #dc2626;">0 Kasus</h3>
+          <small class="kpi-subtext">Perlu Tindakan Admin Segera</small>
+        </div>
+        <div class="kpi-icon-bubble bubble-red">⚠️</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Sedang Dalam Mediasi</span>
+          <h3 id="metricReviewCountText">0 Kasus</h3>
+          <small class="kpi-subtext">Menunggu Respon Bukti Toko</small>
+        </div>
+        <div class="kpi-icon-bubble bubble-orange">⚖️</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Dana Dikembalikan (Refund)</span>
+          <h3 id="metricRefundedCountText">0 Kasus</h3>
+          <small class="kpi-subtext">Hak Pembeli Dimenangkan</small>
+        </div>
+        <div class="kpi-icon-bubble">↩️</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Ditolak / Diteruskan</span>
+          <h3 id="metricReleasedCountText" style="color: #2e8b57;">0 Kasus</h3>
+          <small class="kpi-subtext">Dana Diberikan ke Toko</small>
+        </div>
+        <div class="kpi-icon-bubble bubble-green">✓</div>
+      </div>
+    </section>
+
+    <!-- TAB FILTER STATUS KASUS -->
+    <div class="dispute-tabs-bar">
+      <button type="button" class="tab-btn-pill active" onclick="switchDisputeTab('all', this)">
+        Semua Kasus (<span id="countAll">0</span>)
+      </button>
+      <button type="button" class="tab-btn-pill" onclick="switchDisputeTab('PENDING', this)">
+        ⏳ Menunggu Tindakan (<span id="countPending">0</span>)
+      </button>
+      <button type="button" class="tab-btn-pill" onclick="switchDisputeTab('IN_REVIEW', this)">
+        ⚖️ Dalam Mediasi (<span id="countReview">0</span>)
+      </button>
+      <button type="button" class="tab-btn-pill" onclick="switchDisputeTab('REFUNDED', this)">
+        ↩️ Selesai Refund (<span id="countRefunded">0</span>)
+      </button>
+      <button type="button" class="tab-btn-pill" onclick="switchDisputeTab('RELEASED_TO_SELLER', this)">
+        ✅ Diteruskan ke Toko (<span id="countReleased">0</span>)
+      </button>
+    </div>
+
+    <!-- KOTAK 2: TABEL DATA KASUS BANTUAN DARI MYSQL -->
+    <section class="admin-card table-section-card">
+      <div class="table-responsive">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>ID Tiket & Invoice</th>
+              <th>Pembeli (Pelapor)</th>
+              <th>Toko Terlapor</th>
+              <th>Nilai Dana Sengketa</th>
+              <th>Alasan Komplain</th>
+              <th>Status Mediasi</th>
+              <th style="text-align: right;">Aksi Sidang</th>
+            </tr>
+          </thead>
+          <tbody id="disputeTableBody">
+            <!-- Render via JS Backend -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL SIDANG MEDIASI & VONIS PUTUSAN -->
+  <div id="disputeModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <h3 class="modal-title" style="color: #2e8b57;">Sidang Mediasi & Tinjauan Bukti</h3>
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">
+        Evaluasi argumen kedua belah pihak beserta bukti foto sebelum memutuskan pelepasan dana transaksi.
+      </p>
+
+      <div class="dispute-evidence-grid">
+        <div class="evidence-text-column">
+          <div class="data-group">
+            <label>Tiket & No. Invoice:</label>
+            <strong id="modalInvoiceText">-</strong>
+          </div>
+          <div class="data-group">
+            <label>Pihak Pembeli (Penggugat):</label>
+            <span id="modalBuyerText">-</span>
+          </div>
+          <div class="data-group">
+            <label>Pihak Toko (Tergugat):</label>
+            <strong id="modalShopText">-</strong>
+          </div>
+          <div class="data-group">
+            <label>Nilai Dana Tertahan:</label>
+            <strong id="modalAmountText" style="color: #ea580c; font-size: 14.5px;">-</strong>
+          </div>
+          <div class="data-group">
+            <label>Klaim Keluhan Pembeli:</label>
+            <p id="modalBuyerComplaint" style="color: #1e293b; background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 12.5px;">
+              -
+            </p>
+          </div>
+        </div>
+
+        <div class="evidence-photo-column">
+          <label style="font-size: 11.5px; font-weight: bold; color: #64748b; display: block; margin-bottom: 6px;">
+            Bukti Lampiran Barang:
+          </label>
+          <div class="evidence-preview-wrapper" onclick="openLightboxViewer()" title="Klik untuk memperbesar bukti">
+            <img id="modalEvidenceImage" src="" alt="Bukti Sengketa" class="evidence-preview-img" />
+            <div class="img-hover-overlay">
+              <span>🔍 Perbesar Bukti</span>
+            </div>
+          </div>
+          <small style="color: #64748b; font-size: 11px; display: block; margin-top: 4px; text-align: center;">
+            *Klik gambar untuk membuka mode Zoom
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label style="font-size: 12px; font-weight: bold; color: #334155;">Catatan Vonis Admin (Akan dikirim ke kedua pihak):</label>
+        <textarea
+          id="adminVerdictNotes"
+          class="form-control"
+          style="height: 65px;"
+          placeholder="Tuliskan pertimbangan putusan penegakan solusi..."
+        ></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeDisputeModal()">Tutup</button>
+        <button type="button" class="btn-action-refund" id="btnRefundBuyer" onclick="handleVerdict('refund')">
+          ↩️ Refund Saldo ke Pembeli
+        </button>
+        <button type="button" class="btn-action-release" id="btnReleaseShop" onclick="handleVerdict('release')">
+          ✅ Teruskan Dana ke Toko
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX ZOOM IN / ZOOM OUT BUKTI FOTO -->
+  <div id="lightboxOverlay" class="lightbox-overlay hidden">
+    <div class="lightbox-toolbar">
+      <button type="button" class="lightbox-btn" onclick="zoomInImage()" title="Perbesar (+)">+</button>
+      <button type="button" class="lightbox-btn" onclick="zoomOutImage()" title="Perkecil (-)">−</button>
+      <button type="button" class="lightbox-btn" onclick="resetZoomImage()" title="Reset Ukuran" style="font-size: 12px;">1:1</button>
+      <span id="zoomPercentText" class="lightbox-zoom-text">100%</span>
+    </div>
+
+    <button type="button" class="lightbox-close-btn" onclick="closeLightboxViewer()" title="Tutup Viewer">✕</button>
+
+    <div class="lightbox-stage" id="lightboxStage">
+      <img id="lightboxTargetImage" src="" alt="Bukti Foto Lampiran" class="lightbox-image-target" />
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIKASI MANDIRI -->
+  <div id="toastNotification" class="toast-box">
+    <span id="toastIcon" class="toast-icon-circle">✓</span>
+    <span id="toastMessage">Operasi berhasil dilakukan!</span>
+  </div>
+
+  <!-- 1. JS Navigasi Sidebar Global -->
+  <script src="../../assets/js/admin-js/sidebar-admin.js"></script>
+  <!-- 2. JS Modul Bantuan Backend -->
+  <script src="../../assets/js/admin-js/admin-bantuan.js"></script>
+</body>
+</html>

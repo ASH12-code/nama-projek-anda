@@ -1,0 +1,320 @@
+/* =========================================================
+   ON SHOP - INDEX & HOMEPAGE STYLESHEET (PRESISI & SERAGAM)
+   File: assets/css/buyer-css/index.css
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.box-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 16px 0 40px 0;
+  width: 100%;
+}
+
+/* 1. Seksi Banner */
+.banner-section {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.banner-wrapper {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+}
+
+.banner-wrapper img {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+/* 2. Seksi Kategori Pilihan */
+.category-section {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  overflow: hidden;
+}
+
+.category-section h3,
+.product-section h3 {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 8px 4px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  min-width: 0;
+  width: 100%;
+}
+
+.category-item:hover {
+  transform: translateY(-2px);
+  border-color: #2e8b57;
+  box-shadow: 0 4px 10px rgba(46, 139, 87, 0.1);
+}
+
+.category-item.active {
+  border-color: #2e8b57;
+  background-color: #f0fdf4;
+}
+
+.category-item.active .category-name {
+  color: #2e8b57;
+  font-weight: 700;
+}
+
+.category-img-box {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.category-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.category-name {
+  font-size: 11px;
+  color: #334155;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  padding: 0 2px;
+}
+
+/* 3. Seksi Rekomendasi Produk (KUNCI SERAGAM & RATA) */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+
+.product-card {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 0;
+  text-decoration: none;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Kotak Gambar Wajib Persegi Sempurna 1:1 */
+.product-img-wrapper {
+  width: 100%;
+  padding-top: 100%; /* Rasio 1:1 Persegi */
+  position: relative;
+  background-color: #f8fafc;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.product-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Gambar terpotong pas di tengah tanpa merusak kartu */
+  display: block;
+}
+
+/* Bagian Isi Kartu */
+.product-card-body {
+  padding: 10px 10px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.product-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.4;
+  height: 36px; /* Kunci tepat 2 baris agar semua kartu sejajar */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+
+.product-price {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ea580c;
+  margin-bottom: 8px;
+}
+
+.product-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: auto;
+}
+
+.product-rating {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.product-location {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95px;
+  color: #94a3b8;
+}
+
+/* Responsif Mobile */
+@media (max-width: 768px) {
+  .box-container {
+    padding: 0 8px;
+  }
+
+  .category-section {
+    padding: 10px 6px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+  }
+
+  .category-img-box {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 3px;
+  }
+
+  .category-thumb {
+    width: 32px;
+    height: 32px;
+  }
+
+  .category-name {
+    font-size: 9.5px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .product-title {
+    font-size: 12px;
+    height: 34px;
+  }
+
+  .product-price {
+    font-size: 13.5px;
+  }
+}
+/* Sembunyikan teks "ON Shop" di samping logo bulat khusus tampilan mobile */
+@media (max-width: 768px) {
+  .nav-brand-text-desktop {
+    display: none !important;
+  }
+
+  /* Tampilkan tombol Toko Saya / Mulai Jual di sebelah logo bulat */
+  .nav-shop-pill-mobile {
+    display: inline-flex !important;
+    align-items: center;
+    background-color: #ffffff;
+    color: #2e8b57;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    margin-right: 6px;
+  }
+
+  /* Lebarkan kotak pencarian di sebelah kanan tombol toko mobile */
+  .nav-search-wrapper {
+    flex: 1 !important;
+    display: flex !important;
+    max-width: none !important;
+  }
+}
+
+/* Sembunyikan tombol mobile default jika belum didefinisikan */
+.nav-shop-pill-mobile {
+  display: none;
+}

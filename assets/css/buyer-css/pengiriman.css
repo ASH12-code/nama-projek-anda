@@ -1,0 +1,187 @@
+/* --- RESET & BASIC --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+body {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+.checkout-container,
+.tracking-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.box-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.section-title {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* --- 1. ALAMAT PENGIRIMAN --- */
+.address-card {
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 4px;
+}
+.address-header {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.label-address {
+  background: #e0f7fa;
+  color: #00796b;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.address-text {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+.courier-note {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+.courier-note:focus {
+  border-color: #ee4d2d;
+}
+
+/* --- 2. OPSI PENGIRIMAN (Radio Box) --- */
+.shipping-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.shipping-radio {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.shipping-radio:hover {
+  background-color: #fafafa;
+}
+.ship-input {
+  margin-right: 15px;
+  width: 18px;
+  height: 18px;
+  accent-color: #ee4d2d;
+}
+.ship-details {
+  flex: 1;
+}
+.ship-name {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 3px;
+}
+.ship-etd {
+  font-size: 12px;
+  color: #888;
+}
+.ship-price {
+  font-weight: bold;
+  color: #333;
+}
+
+/* --- 3. PELACAKAN PAKET (Timeline) --- */
+.receipt-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  border: 1px dashed #ccc;
+}
+.courier-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+}
+
+/* Garis Waktu Vertikal */
+.timeline {
+  list-style: none;
+  padding-left: 15px;
+  border-left: 2px solid #ddd;
+  margin-left: 10px;
+}
+.timeline-item {
+  position: relative;
+  padding-left: 20px;
+  padding-bottom: 25px;
+}
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  background: #ddd;
+  border-radius: 50%;
+  border: 3px solid #fff;
+}
+/* Penanda Status Aktif (Teratas) */
+.timeline-item.active::before {
+  background: #ee4d2d;
+  border-color: #ffccc3;
+  box-shadow: 0 0 0 2px #ee4d2d;
+}
+.timeline-item.active .event {
+  font-weight: bold;
+  color: #ee4d2d;
+}
+
+.time {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 5px;
+}
+.event {
+  font-size: 14px;
+  color: #333;
+}
+
+/* --- TOMBOL GENERAL --- */
+.btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-sm {
+  font-size: 12px;
+}
+.btn-outline {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #555;
+}
+.btn-outline:hover {
+  background: #f0f0f0;
+}

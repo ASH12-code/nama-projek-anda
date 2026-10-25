@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Pengiriman</title>
+    <link rel="stylesheet" href="../../assets/css/buyer-css/pengiriman.css">
+</head>
+<body>
+
+    <!-- bagian untuk Home-page.html (Navbar) -->
+    
+    <div class="checkout-container">
+        <h2>Checkout Pesanan</h2>
+
+        <!-- 1. Bagian Alamat Pengiriman -->
+        <div class="box-container">
+            <h3 class="section-title">📍 Alamat Pengiriman</h3>
+            <div class="address-card">
+                <div class="address-header">
+                    <span class="label-address">Rumah</span>
+                    <strong>Budi Santoso</strong> | 0812-3456-7890
+                </div>
+                <p class="address-text">Jl. Merdeka Raya No. 45, RT 01/RW 02, Jakarta Selatan, DKI Jakarta, 12345</p>
+                
+                <input type="text" class="courier-note" placeholder="Catatan untuk kurir (Misal: Titip di pos satpam atau pagar hitam)">
+                
+                <!-- bagian untuk modal-pilih-alamat.html -->
+                <button class="btn btn-outline btn-sm" style="margin-top: 15px;">Pilih Alamat Lain</button>
+            </div>
+        </div>
+
+        <!-- 2. Pilihan Layanan & Opsi Ekspedisi -->
+        <div class="box-container">
+            <h3 class="section-title">🚚 Opsi Pengiriman</h3>
+            <div class="shipping-options">
+                
+                <!-- Opsi 1: Instan -->
+                <label class="shipping-radio">
+                    <input type="radio" name="shipping" value="15000" class="ship-input">
+                    <div class="ship-details">
+                        <div class="ship-name">Instan / Sameday (Gojek/Grab)</div>
+                        <div class="ship-etd">Estimasi tiba dalam 2-4 jam</div>
+                    </div>
+                    <div class="ship-price">Rp 15.000</div>
+                </label>
+
+                <!-- Opsi 2: Reguler -->
+                <label class="shipping-radio">
+                    <input type="radio" name="shipping" value="10000" class="ship-input" checked>
+                    <div class="ship-details">
+                        <div class="ship-name">Reguler (J&E, SiCepat, JNT)</div>
+                        <div class="ship-etd">Estimasi tiba 13 - 15 Sep</div>
+                    </div>
+                    <div class="ship-price">Rp 10.000</div>
+                </label>
+
+                <!-- Opsi 3: Kargo -->
+                <label class="shipping-radio">
+                    <input type="radio" name="shipping" value="35000" class="ship-input">
+                    <div class="ship-details">
+                        <div class="ship-name">Kargo / Hemat (Paket Besar)</div>
+                        <div class="ship-etd">Estimasi tiba 16 - 19 Sep</div>
+                    </div>
+                    <div class="ship-price">Rp 35.000</div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Ringkasan Singkat untuk melihat perubahan JS -->
+        <div class="box-container summary-box">
+            <span>Ongkos Kirim:</span>
+            <strong id="displayOngkir" style="color: #ee4d2d; font-size: 18px;">Rp 10.000</strong>
+        </div>
+
+    </div>
+
+    <script src="../../assets/js/buyer-js/pengiriman.js"></script>
+</body>
+</html>

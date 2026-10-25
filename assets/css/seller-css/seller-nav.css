@@ -1,0 +1,252 @@
+/* =========================================================
+   KOMPONEN NAVIGASI GLOBAL PENJUAL (DESKTOP & MOBILE 360PX)
+   File: assets/css/seller-css/seller-nav.css
+   ========================================================= */
+
+/* 1. SIDEBAR DESKTOP */
+.seller-sidebar-component {
+  width: 250px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  min-height: 100vh;
+}
+
+.seller-profile-anchor {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 10px 8px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.seller-profile-anchor:hover {
+  background: #e8f5e9;
+  border-color: #2e8b57;
+}
+
+.seller-sidebar-logo {
+  width: 58px;
+  height: 58px;
+  background: #2e8b57;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 auto 8px auto;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 2px 6px rgba(46, 139, 87, 0.2);
+}
+
+.seller-sidebar-name {
+  font-size: 14.5px;
+  font-weight: bold;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.seller-sidebar-settings-btn {
+  display: inline-block;
+  font-size: 11px;
+  color: #2e8b57;
+  font-weight: bold;
+  margin-top: 3px;
+}
+
+.seller-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.seller-sidebar-link {
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #334155;
+  border-radius: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.seller-sidebar-link:hover {
+  background: #e8f5e9;
+  color: #2e8b57;
+}
+
+.seller-sidebar-link.active {
+  background: #2e8b57;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.seller-sidebar-link.active .global-badge-pill {
+  background: #ffffff !important;
+  color: #ef4444 !important;
+}
+
+/* Badge Notifikasi Merah Desktop */
+.global-badge-pill {
+  background-color: #ef4444;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 7px;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+/* 2. HEADER PROFIL KHUSUS MOBILE (ATAS ETALASE) */
+.mobile-seller-top-header {
+  display: none;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.mobile-profile-clickable {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+}
+
+.mobile-profile-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #2e8b57;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.mobile-profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-profile-name {
+  font-size: 13.5px;
+  font-weight: bold;
+  color: #0f172a;
+}
+
+.mobile-profile-sub {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.btn-mobile-gear {
+  padding: 6px 12px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #334155;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 3. BOTTOM NAVIGATION MOBILE (AUTO HIDE ON SCROLL) */
+.seller-bottom-nav-component {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 54px;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+  justify-content: space-around;
+  align-items: center;
+  z-index: 2500;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+}
+
+.seller-bottom-nav-component.nav-hidden {
+  transform: translateY(100%);
+}
+
+.seller-bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 600;
+  flex: 1;
+  height: 100%;
+  position: relative;
+}
+
+.seller-bottom-nav-item.active {
+  color: #2e8b57;
+}
+
+.seller-bottom-nav-icon {
+  font-size: 17px;
+  margin-bottom: 1px;
+}
+
+.mobile-badge-pill {
+  position: absolute;
+  top: 4px;
+  right: 20%;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 1px 4px;
+  border-radius: 10px;
+  display: none;
+}
+
+/* Responsif Mobile Rules */
+@media (max-width: 768px) {
+  .seller-sidebar-component {
+    display: none !important;
+  }
+  .mobile-seller-top-header {
+    display: flex;
+  }
+  .seller-bottom-nav-component {
+    display: flex;
+  }
+}

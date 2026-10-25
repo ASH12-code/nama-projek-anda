@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keuangan & Payout - Super Admin ON Shop</title>
+  
+  <!-- 1. CSS Global Sidebar Navigasi -->
+  <link rel="stylesheet" href="../../assets/css/admin-css/sidebar-admin.css" />
+  <!-- 2. CSS Khusus Modul Keuangan -->
+  <link rel="stylesheet" href="../../assets/css/admin-css/admin-keuangan.css" />
+</head>
+<body class="admin-body">
+
+ <aside class="admin-sidebar">
+  <!-- Brand Logo Admin -->
+  <div class="sidebar-brand">
+    <div class="brand-logo-circle">ON</div>
+    <div>
+      <span class="brand-title">ON Shop</span>
+      <span class="brand-badge-admin">ADMIN</span>
+    </div>
+  </div>
+
+  <!-- 1. Menu Navigasi Utama -->
+  <nav class="sidebar-nav">
+    <a href="index.html" class="nav-link">
+      <span class="nav-link-content">📊 Dashboard Global</span>
+    </a>
+    <a href="manajemen-toko.html" class="nav-link">
+      <span class="nav-link-content">🏪 Manajemen Toko</span>
+      <span class="nav-badge-pill" id="badgePendingShops"></span>
+    </a>
+    <a href="manajemen-user.html" class="nav-link">
+      <span class="nav-link-content">👥 Manajemen Pembeli</span>
+    </a>
+    <a href="manajemen-keuangan.html" class="nav-link">
+      <span class="nav-link-content">💰 Keuangan & Payout</span>
+      <span class="nav-badge-pill" id="badgePendingPayouts"></span>
+    </a>
+    <a href="pusat-bantuan.html" class="nav-link">
+      <span class="nav-link-content">⚖️ Pusat Bantuan</span>
+      <span class="nav-badge-pill" id="badgeOpenDisputes"></span>
+    </a>
+  </nav>
+
+  <!-- 2. Aksi Bawah Sidebar (Terpisah dari <nav> agar flex margin-top: auto bekerja sempurna) -->
+  <div class="sidebar-bottom-actions">
+    <!-- Tautan Kunjungi Marketplace (Buka di Tab Baru) -->
+    <!-- Jika nama filenya index.html di dalam folder buyer -->
+<a href="/on-shop/pages/buyer/index.html" target="_blank" rel="noopener noreferrer" class="nav-link back-store" title="Buka etalase marketplace publik di tab baru">
+  <span class="nav-link-content">🌐 Kunjungi Marketplace</span>
+  <span class="external-icon">↗</span>
+</a>
+
+    <!-- Tombol Logout Admin -->
+    <button type="button" class="btn-sidebar-logout" onclick="handleAdminLogout()">
+      🚪 Logout
+    </button>
+  </div>
+</aside>
+
+  <!-- KONTEN UTAMA MANAJEMEN KEUANGAN -->
+  <main class="admin-main-content">
+    
+    <!-- KOTAK 1: HEADER & PENCARIAN -->
+    <header class="admin-card header-control-card">
+      <div class="header-text-group">
+        <h2>Keuangan & Antrean Payout</h2>
+        <p>Kelola pencairan dana saldo dompet merchant dan audit mutasi transaksi platform.</p>
+      </div>
+
+      <div>
+        <input
+          type="text"
+          id="payoutSearchInput"
+          placeholder="Cari toko, bank, no rekening..."
+          onkeyup="filterPayoutTable()"
+          class="search-input-box"
+        />
+      </div>
+    </header>
+
+    <!-- 4 KARTU METRIK KEUANGAN PLATFORM -->
+    <section class="finance-kpi-grid">
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Saldo Escrow Platform</span>
+          <h3 id="metricEscrowText">Rp 0</h3>
+          <small class="kpi-subtext">Pesanan Dikemas & Dikirim</small>
+        </div>
+        <div class="kpi-icon-bubble bubble-orange">🔒</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Komisi Platform (5%)</span>
+          <h3 id="metricCommissionText" style="color: #2e8b57;">Rp 0</h3>
+          <small class="kpi-subtext">Pendapatan Bersih Sah</small>
+        </div>
+        <div class="kpi-icon-bubble bubble-green">📈</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Menunggu Pencairan</span>
+          <h3 id="metricPendingAmountText">Rp 0</h3>
+          <small class="kpi-subtext" id="metricPendingCountText">0 Permintaan Toko</small>
+        </div>
+        <div class="kpi-icon-bubble">⏳</div>
+      </div>
+
+      <div class="admin-card kpi-card">
+        <div class="kpi-text-area">
+          <span class="kpi-label">Total Payout Berhasil</span>
+          <h3 id="metricSuccessPayoutText">Rp 0</h3>
+          <small class="kpi-subtext">Dana Telah Diteruskan</small>
+        </div>
+        <div class="kpi-icon-bubble">✓</div>
+      </div>
+    </section>
+
+    <!-- TAB FILTER STATUS PAYOUT -->
+    <div class="finance-tabs-bar">
+      <div class="tab-pills-group">
+        <button type="button" class="tab-btn-pill active" onclick="switchPayoutTab('all', this)">
+          Semua Payout (<span id="countAll">0</span>)
+        </button>
+        <button type="button" class="tab-btn-pill" onclick="switchPayoutTab('PENDING', this)">
+          ⏳ Menunggu (<span id="countPending">0</span>)
+        </button>
+        <button type="button" class="tab-btn-pill" onclick="switchPayoutTab('SUCCESS', this)">
+          ✅ Berhasil (<span id="countSuccess">0</span>)
+        </button>
+        <button type="button" class="tab-btn-pill" onclick="switchPayoutTab('REJECTED', this)">
+          ❌ Ditolak (<span id="countRejected">0</span>)
+        </button>
+      </div>
+
+      <button type="button" class="btn-view-logs" onclick="openMutationLogsModal()">
+        📑 Mutasi Kas Global
+      </button>
+    </div>
+
+    <!-- KOTAK 2: TABEL ANTREAN PENARIKAN DANA DARI MYSQL -->
+    <section class="admin-card table-section-card">
+      <div class="table-responsive">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>ID Penarikan</th>
+              <th>Nama Toko</th>
+              <th>Rekening Tujuan</th>
+              <th>Nominal Payout</th>
+              <th>Tanggal Pengajuan</th>
+              <th>Status</th>
+              <th style="text-align: right;">Aksi Verifikasi</th>
+            </tr>
+          </thead>
+          <tbody id="payoutTableBody">
+            <!-- Render via JS Backend -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL PROSES PAYOUT -->
+  <div id="processPayoutModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <h3 class="modal-title" style="color: #2e8b57;">Verifikasi Pencairan Saldo</h3>
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">
+        Pastikan transfer manual ke rekening toko telah dilakukan sebelum menyetujui.
+      </p>
+
+      <div class="payout-detail-box">
+        <div class="payout-detail-row">
+          <span>Toko Pemohon:</span>
+          <strong id="modalShopName">-</strong>
+        </div>
+        <div class="payout-detail-row">
+          <span>Nominal Penarikan:</span>
+          <strong id="modalAmount" style="color: #2e8b57; font-size: 15px;">-</strong>
+        </div>
+        <div class="payout-detail-row">
+          <span>Bank Tujuan:</span>
+          <span id="modalBankName">-</span>
+        </div>
+        <div class="payout-detail-row">
+          <span>Nomor Rekening:</span>
+          <strong id="modalBankAccount">-</strong>
+        </div>
+      </div>
+
+      <div id="rejectReasonBox" class="hidden">
+        <div class="form-group">
+          <label style="font-size: 12px; font-weight: bold; color: #dc2626;">Alasan Penolakan Payout:</label>
+          <textarea
+            id="rejectReasonInput"
+            class="form-control"
+            style="height: 65px;"
+            placeholder="Contoh: Nomor rekening tidak valid atau data bank tidak sesuai..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeProcessModal()">Batal</button>
+        <button type="button" class="btn-action-danger" id="btnRejectPayout" onclick="handleRejectClick()">
+          Tolak
+        </button>
+        <button type="button" class="btn-action-primary" id="btnApprovePayout" onclick="handleApprovePayout()">
+          Setujui & Tandai Ditransfer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL MUTASI KAS GLOBAL -->
+  <div id="mutationLogsModal" class="modal-overlay hidden">
+    <div class="modal-box modal-wide">
+      <h3 class="modal-title" style="color: #2e8b57;">Buku Kas Mutasi Global Toko</h3>
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">
+        Catatan aliran pemasukan dari pesanan selesai, pengembalian dana, dan penarikan kas.
+      </p>
+
+      <div style="max-height: 380px; overflow-y: auto;">
+        <table class="modal-sub-table">
+          <thead>
+            <tr>
+              <th>Waktu</th>
+              <th>Entitas Dompet</th>
+              <th>Jenis Mutasi</th>
+              <th>Nominal</th>
+              <th>Keterangan</th>
+            </tr>
+          </thead>
+          <tbody id="mutationTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeMutationLogsModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIKASI MANDIRI -->
+  <div id="toastNotification" class="toast-box">
+    <span id="toastIcon" class="toast-icon-circle">✓</span>
+    <span id="toastMessage">Operasi berhasil dilakukan!</span>
+  </div>
+
+  <!-- 1. JS Navigasi Sidebar Global -->
+  <script src="../../assets/js/admin-js/sidebar-admin.js"></script>
+  <!-- 2. JS Modul Keuangan Backend -->
+  <script src="../../assets/js/admin-js/admin-keuangan.js"></script>
+</body>
+</html>

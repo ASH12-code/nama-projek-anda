@@ -1,0 +1,13 @@
+http://localhost/on-shop/pages/buyer/.....html
+
+http://localhost/on-shop/pages/buyer/index.html
+
+
+http://localhost/on-shop/pages/buyer/detail-produk.html
+http://localhost/on-shop/api/buyer/get_product_detail.php?id=1 (mencari status)
+
+http://localhost/on-shop/pages/buyer/register.html
+
+http://localhost/on-shop/pages/buyer/login.html
+
+http://localhost/on-shop/pages/buyer/akun.html

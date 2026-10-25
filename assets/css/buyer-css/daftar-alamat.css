@@ -1,0 +1,89 @@
+/* --- OVERLAY POP-UP --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Latar belakang semi-transparan */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Memastikan modal selalu berada di paling atas */
+}
+
+/* --- KOTAK MODAL --- */
+.modal-content {
+  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  padding: 25px;
+  max-height: 90vh; /* Agar tidak melebihi tinggi layar */
+  overflow-y: auto; /* Bisa di-scroll jika isinya panjang */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.modal-header h3 {
+  color: #333;
+  font-size: 18px;
+  margin: 0;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #888;
+  line-height: 1;
+}
+
+.btn-close:hover {
+  color: #ee4d2d;
+}
+
+/* --- GAYA PILIH ALAMAT (Radio) --- */
+.address-option {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.address-option:hover {
+  background: #fafafa;
+  border-color: #ccc;
+}
+.address-radio {
+  margin-right: 15px;
+  margin-top: 3px;
+  accent-color: #ee4d2d;
+  width: 18px;
+  height: 18px;
+}
+.address-info {
+  flex: 1;
+}
+.address-name {
+  margin-bottom: 5px;
+  color: #333;
+}
+.address-detail {
+  font-size: 13px;
+  color: #757575;
+  line-height: 1.5;
+}

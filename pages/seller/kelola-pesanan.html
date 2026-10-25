@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Kelola Pesanan - ON Shop Seller Centre</title>
+  <link rel="icon" href="data:,">
+  
+  <!-- CSS Navigasi Global & CSS Kelola Pesanan -->
+  <link rel="stylesheet" href="../../assets/css/seller-css/seller-nav.css" />
+  <link rel="stylesheet" href="../../assets/css/seller-css/kelola-pesanan.css" />
+
+  <!-- Pustaka Barcode Generator (JsBarcode CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+  <div class="orders-wrapper" style="display: flex; width: 100vw; max-width: 100vw; min-height: 100vh;">
+    
+    <!-- 1. SLOT SIDEBAR DESKTOP (Diisi otomatis oleh seller-nav-component.js) -->
+    <div id="sellerSidebarSlot"></div>
+
+    <!-- 2. KONTEN UTAMA -->
+    <main class="main-content" style="flex: 1; padding: 20px 24px 100px 24px; width: 100%; overflow-x: hidden;">
+      <div class="page-title-row">
+        <h2>Kelola Pesanan Masuk</h2>
+        <div class="header-info-summary">
+          <span>Pantau transaksi toko, proses pengiriman paket, dan cetak resi thermal.</span>
+        </div>
+      </div>
+
+      <!-- Tab Filter Status Pesanan -->
+      <div class="tab-filter-bar">
+        <button class="tab-btn active" data-status="all" onclick="handleTabClick('all', this)">
+          Semua <span class="tab-count" id="countAll">0</span>
+        </button>
+        <button class="tab-btn" data-status="DIKEMAS" onclick="handleTabClick('DIKEMAS', this)">
+          Perlu Diproses 
+          <span class="tab-count badge-danger" id="countDikemas">0</span>
+        </button>
+        <button class="tab-btn" data-status="DIKIRIM" onclick="handleTabClick('DIKIRIM', this)">
+          Dikirim <span class="tab-count" id="countDikirim">0</span>
+        </button>
+        <button class="tab-btn" data-status="SELESAI" onclick="handleTabClick('SELESAI', this)">
+          Selesai <span class="tab-count" id="countSelesai">0</span>
+        </button>
+        <button class="tab-btn" data-status="BATAL" onclick="handleTabClick('BATAL', this)">
+          Dibatalkan <span class="tab-count" id="countBatal">0</span>
+        </button>
+      </div>
+
+      <!-- Toolbar Pencarian & Filter Kurir -->
+      <div class="toolbar-card">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="orderSearchInput" placeholder="Cari invoice, pembeli, atau resi..." oninput="handleOrderSearch()" />
+        </div>
+        <div class="filter-courier">
+          <select id="courierFilter" onchange="handleCourierFilter()">
+            <option value="">Semua Kurir</option>
+            <option value="JNE">JNE</option>
+            <option value="SiCepat">SiCepat</option>
+            <option value="J&T">J&T Express</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Feed Kartu Pesanan -->
+      <div id="ordersContainer" class="orders-feed">
+        <!-- Dirender via JavaScript -->
+      </div>
+
+      <!-- State Kosong -->
+      <div id="emptyOrderState" class="empty-state hidden">
+        <p>Tidak ada pesanan pada status ini.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- =========================================================
+       MODAL 1: ATUR PENGIRIMAN & BOOKING RESI
+       ========================================================= -->
+  <div class="modal-overlay" id="shippingModal">
+    <div class="modal-card">
+      <div class="modal-header-row">
+        <h3>Atur Pengiriman Pesanan</h3>
+        <button type="button" class="btn-close-modal" onclick="closeShippingModal()">✕</button>
+      </div>
+      <p style="font-size:12px; color:#64748b;" id="modalOrderInvText">#ORD-000000</p>
+
+      <div class="booking-res-box">
+        <div class="booking-code-label">KODE BOOKING KURIR OTOMATIS:</div>
+        <div class="booking-code-val" id="modalBookingCode">BOOK-XXXX-XXXX</div>
+      </div>
+
+      <p class="label-preview-hint">
+        Serahkan kode booking ini kepada kurir pick-up atau drop-off di gerai terdekat tanpa membayar tunai ke kurir.
+      </p>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-modal-cancel" onclick="closeShippingModal()">Tutup</button>
+        <button type="button" class="btn-modal-print" onclick="openThermalPrintModal()">🖨️ Pratinjau Resi Thermal</button>
+        <button type="button" class="btn-modal-confirm" onclick="confirmPackageHandover()">Konfirmasi Diserahkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 2: PRATINJAU & CETAK RESI THERMAL (100x150 mm)
+       ========================================================= -->
+  <div class="modal-overlay" id="thermalLabelModal">
+    <div class="modal-card modal-thermal-width">
+      <div class="modal-header-row">
+        <h3>Pratinjau Label Pengiriman</h3>
+        <button type="button" class="btn-close-modal" onclick="closeThermalModal()">✕</button>
+      </div>
+
+      <div class="thermal-paper" id="printableThermalArea">
+        <div class="thermal-header">
+          <div class="thermal-brand">ON SHOP</div>
+          <div class="thermal-courier-box" id="lblCourierName">JNE REGULER</div>
+        </div>
+
+        <div class="barcode-container">
+          <svg id="barcodeCanvas"></svg>
+          <div class="barcode-text" id="lblTrackingCode">ON-TRK-8829102911</div>
+        </div>
+
+        <div class="thermal-grid-meta">
+          <div class="meta-section">
+            <span class="meta-title">PENERIMA:</span>
+            <strong id="lblRecipientName">Budi Santoso</strong>
+            <div id="lblRecipientPhone">0812-3456-7890</div>
+            <p id="lblRecipientAddress">Jl. Merdeka No. 10, Pangkalpinang</p>
+          </div>
+          <div class="meta-section">
+            <span class="meta-title">PENGIRIM:</span>
+            <strong id="lblSenderName">Toko Budi2 Official</strong>
+            <div id="lblSenderCity">Pangkalpinang</div>
+            <p>Non-COD (Lunas)</p>
+          </div>
+        </div>
+
+        <div class="thermal-items-list">
+          <span class="meta-title">RINCIAN BARANG:</span>
+          <ul id="lblItemsList"></ul>
+        </div>
+
+        <div class="thermal-footer">
+          <span>Dicetak otomatis via Sistem Penjual ON Shop</span>
+          <span id="lblPrintDate">26/09/2026</span>
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top: 14px;">
+        <button type="button" class="btn-modal-cancel" onclick="closeThermalModal()">Tutup</button>
+        <button type="button" class="btn-modal-print" onclick="triggerNativePrint()">🖨️ Cetak ke Printer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 3: LINIMASA PELACAKAN KURIR
+       ========================================================= -->
+  <div class="modal-overlay" id="trackingTimelineModal">
+    <div class="modal-card">
+      <div class="modal-header-row">
+        <h3>Lacak Perjalanan Paket</h3>
+        <button type="button" class="btn-close-modal" onclick="closeTrackingModal()">✕</button>
+      </div>
+
+      <div class="tracking-summary-card">
+        <div>
+          <span style="font-size: 11px; color:#64748b;">Kurir:</span>
+          <strong style="display:block; font-size:13px; color:#0f172a;" id="trkCourierText">JNE (Reguler)</strong>
+        </div>
+        <div>
+          <span style="font-size: 11px; color:#64748b;">No. Resi:</span>
+          <code style="font-size: 12px; font-weight:bold; color:#2e8b57;" id="trkResiCode">JNE-ID-881920</code>
+        </div>
+      </div>
+
+      <div class="timeline-container" id="timelineList"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-modal-cancel" onclick="closeTrackingModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 4: NOTA RINCIAN TRANSAKSI
+       ========================================================= -->
+  <div class="modal-overlay" id="orderDetailModal">
+    <div class="modal-card">
+      <div class="modal-header-row">
+        <h3>Nota Rincian Pesanan</h3>
+        <button type="button" class="btn-close-modal" onclick="closeDetailModal()">✕</button>
+      </div>
+
+      <div class="receipt-box" id="receiptContent"></div>
+
+      <div class="modal-actions" style="margin-top: 14px;">
+        <button type="button" class="btn-modal-cancel" onclick="closeDetailModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 5: KONFIRMASI BATAL PESANAN (CUSTOM MODAL)
+       ========================================================= -->
+  <div class="modal-overlay" id="cancelConfirmModal" style="display:none; z-index:10001;">
+    <div class="modal-card" style="max-width: 320px; text-align: center;">
+      <div style="font-size:32px; margin-bottom:8px;">⚠️</div>
+      <h3 style="margin-bottom:6px;">Batalkan Pesanan?</h3>
+      <p style="font-size:12px; color:#64748b; line-height:1.4; margin-bottom:16px;">
+        Pesanan ini akan dibatalkan dan pembeli akan mendapatkan pengembalian saldo secara otomatis.
+      </p>
+      <div class="modal-actions" style="justify-content:center; gap:10px;">
+        <button type="button" class="btn-modal-cancel" onclick="closeCancelConfirmModal()">Kembali</button>
+        <button type="button" class="btn-modal-confirm" style="background:#ef4444;" id="btnExecuteCancel">Batalkan Pesanan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION STANDAR PENGGANTI ALERT -->
+  <div id="toastNotification" class="toast-box">
+    <span class="toast-icon" id="toastIcon">✓</span>
+    <span id="toastMessage">Operasi berhasil!</span>
+  </div>
+
+  <!-- 3. SLOT BOTTOM NAVIGATION MOBILE (Diisi otomatis oleh seller-nav-component.js) -->
+  <div id="sellerBottomNavSlot"></div>
+
+  <!-- Skrip Navigasi Terpadu & Logika Pesanan -->
+  <script src="../../assets/js/seller-js/seller-nav-component.js"></script>
+  <script src="../../assets/js/seller-js/kelola-pesanan.js"></script>
+</body>
+</html>
